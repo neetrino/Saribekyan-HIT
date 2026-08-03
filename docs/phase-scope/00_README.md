@@ -51,10 +51,14 @@ phase-scope/
 - `phases/phase-1/22_Phase_1_Report_Register.md` — буквальный реестр 52 отчётных требований I, повторения и предлагаемая договорная граница.
 - `phases/phase-1/24_Phase_1_Financial_Boundary.md` — обязательное кассовое ядро I, прямые исключения и пять финансовых неоднозначностей.
 - `phases/phase-1/25_Phase_1_Data_Migration_Boundary.md` — различие между стартовым наполнением, функцией импорта и отдельно оцениваемой миграцией исторических данных.
+- `phases/phase-1/26_Phase_1_Infrastructure_NFR_Boundary.md` — обязательный технический фундамент I и открытые границы hosting, HA, backup, производительности и инфраструктурной ответственности.
+- `phases/phase-1/27_Phase_1_Acceptance_Warranty_SLA_Boundary.md` — конфликт цены «только разработка» с полной launch-приёмкой I, а также открытые границы UAT, обучения, гарантии и SLA.
+- `phases/phase-1/28_Phase_1_API_Signature_Code_Deliverables_Boundary.md` — обязательный API-фундамент, внутренняя подпись I, полный экспорт, документация и открытая модель прав на source code.
 - `decisions/09_Decision_Log.md` — подтверждённые внутренние решения.
 - `decisions/17_Questions_Only_After_Source_Audit.md` — только вопросы, которые источник не закрывает.
 - `decisions/client/21_Client_Clarifications_Phase_1.md` — накапливаемый список конфликтов и утверждений для подтверждения клиентом.
 - `decisions/client/23_Template_Content_Commercial_Boundary.md` — отдельная коммерческая граница конструктора и наполнения медицинских шаблонов.
+- `decisions/client/31_Client_Approval_Package_Phase_1.md` — сокращённый клиентский пакет из 24 глобальных подтверждений и запросов, собранный из доказательных C-01–C-30.
 
 ## Архив
 
