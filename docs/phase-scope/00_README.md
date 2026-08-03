@@ -49,6 +49,8 @@ phase-scope/
 - `source-audit/19_Ambiguous_First_Phase_Phrases.md` — все неоднозначные употребления «Առաջին փուլում» внутри II–III с переводом и контекстом.
 - `phases/phase-1/20_Phase_1_Baseline_Definitions.md` — определения того, что именно считается базовым объёмом I, и перечень незакрытых параметров.
 - `phases/phase-1/22_Phase_1_Report_Register.md` — буквальный реестр 52 отчётных требований I, повторения и предлагаемая договорная граница.
+- `phases/phase-1/24_Phase_1_Financial_Boundary.md` — обязательное кассовое ядро I, прямые исключения и пять финансовых неоднозначностей.
+- `phases/phase-1/25_Phase_1_Data_Migration_Boundary.md` — различие между стартовым наполнением, функцией импорта и отдельно оцениваемой миграцией исторических данных.
 - `decisions/09_Decision_Log.md` — подтверждённые внутренние решения.
 - `decisions/17_Questions_Only_After_Source_Audit.md` — только вопросы, которые источник не закрывает.
 - `decisions/client/21_Client_Clarifications_Phase_1.md` — накапливаемый список конфликтов и утверждений для подтверждения клиентом.
