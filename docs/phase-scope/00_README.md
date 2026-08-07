@@ -59,6 +59,8 @@ phase-scope/
 - `decisions/client/21_Client_Clarifications_Phase_1.md` — накапливаемый список конфликтов и утверждений для подтверждения клиентом.
 - `decisions/client/23_Template_Content_Commercial_Boundary.md` — отдельная коммерческая граница конструктора и наполнения медицинских шаблонов.
 - `decisions/client/31_Client_Approval_Package_Phase_1.md` — сокращённый клиентский пакет из 24 глобальных подтверждений и запросов, собранный из доказательных C-01–C-30.
+- `decisions/client/21_Client_Clarifications_Phase_1_HY.md` — профессиональная армянская версия подробных клиентских вопросов C-01–C-30.
+- `decisions/client/31_Client_Approval_Package_Phase_1_HY.md` — профессиональная армянская версия сокращённого пакета согласования P-01–P-24.
 
 ## Архив
 
