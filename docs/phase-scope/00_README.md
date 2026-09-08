@@ -64,6 +64,7 @@ phase-scope/
 
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.md` — нормативный текст ТЗ Фазы I версии 1.3.
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.docx` — клиентская Word-версия для подписания.
+- `../contract/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-версия для просмотра и подписания.
 
 После подписания именно ТЗ, а не рабочие файлы `21` и `31`, определяет договорный объём Фазы I.
 
