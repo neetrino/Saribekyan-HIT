@@ -4,6 +4,8 @@
 
 Exact DB engine/version-ը դեռ հաստատված չէ. այն պետք է աջակցվի ընտրված OpenMRS distribution/module stack-ի կողմից։ Reference Application-ի պատճառով MariaDB-ն սկզբնական թեկնածու է, ոչ վերջնական որոշում։
 
+Մինչ pilot compatibility PoC-ի ավարտը agent-ը DB engine չի ընտրում, schema չի գեներացնում և ամբողջ business model-ի migrations չի ստեղծում։
+
 OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenMRS/platform modules-ի supported migrations-ով։ Custom module-ը չի վերաձևավորում core tables-ը և սեփական Liquibase changeset-ներով տնօրինում է միայն module-owned tables-ը։
 
 ## Canonical model mapping
@@ -15,7 +17,7 @@ OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenM
 | Clinical facts | Obs/Concept |
 | Orders/results | Order և validated module/FHIR mapping |
 | Locations/providers/users | OpenMRS canonical models where fit is proven |
-| Finance/reporting/audit gaps | Custom module-owned schema only after fit-gap |
+| Finance/reporting/audit gaps | Custom module-owned schema only after fit-gap և approved semantics |
 | Documents/binaries | Metadata/reference in DB; binary storage strategy TBD |
 
 Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրված distribution version-ից ու custom module migrations-ից հետո։ Մինչ այդ հորինված ամբողջ OpenMRS schema diagram չի պահվում որպես ճշմարտություն։
@@ -30,6 +32,8 @@ Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրվա�
 - Clinical quantity-ն ունի unit/code system։
 - Time-ը պահվում է unambiguous instant/offset-ով, իսկ local schedule semantics-ը՝ timezone-ով։
 - Sensitive payload-ը JSON blob-ում չի թաքցվում միայն արագության համար։ JSON-ը versioned schema և query/retention հիմնավորում է պահանջում։
+
+Patient, Person, Visit, Encounter, Obs, Order և Concept parallel tables արգելված են։ Attachments-ի binary storage-ը TBD է. մինչև ADR-ը BLOB կամ local filesystem solution չի ընտրվում։ AMD amount-ը floating-point չէ, սակայն precision/rounding mode-ը blocking business decision է։
 
 ## Isolation and access
 

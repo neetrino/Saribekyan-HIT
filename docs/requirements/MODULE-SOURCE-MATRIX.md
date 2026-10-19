@@ -35,20 +35,22 @@
 | LAB/RAD/FDI/END/TRT | Orders, observations և attachments | Approval, critical result և specialty workflows | Validation required |
 | FIN-01–15 | OpenMRS billing ecosystem-ի ուսումնասիրություն | Հաշիվներ, վճարումներ, payer split, refund, cashier shift և audit | High custom risk |
 | REP-01–07 | OpenMRS data/reporting ecosystem-ի ուսումնասիրություն | ՏԱ-ի փակ report register և dashboards | High custom risk |
-| ADM-01–13 | OpenMRS users/privileges + external identity candidate | Fine-grained scope, break-glass, approval և audit | Architecture decision required |
+| ADM-01–13 | OpenMRS native authentication, users և privileges | Fine-grained scope, break-glass, approval և audit | Validation required |
 | Form builder | OpenMRS form ecosystem | Armenian templates և version governance | Validation required |
 | API հիմք | OpenMRS REST/FHIR ecosystem | Contract facade, versioning և integration policy | Architecture decision required |
 
 ## Լրացուցիչ տեխնոլոգիաների թեկնածուներ
 
+Ստորև նշված թեկնածուները dependency ավելացնելու թույլտվություն չեն։ Յուրաքանչյուրը պահանջում է հաստատված տեխնիկական որոշում, իսկ Phase I-ից դուրս թեկնածուն՝ change request։
+
 | Թեկնածու | Նախնական նպատակ | Մինչև հաստատումը ստուգվող հարցեր |
 |---|---|---|
-| Keycloak | Identity, session և MFA | OpenMRS user/privilege mapping, logout/revocation, break-glass, operations |
-| WHO ICD API | ICD terminology source | ՀՀ կիրառվող version, localization, license, offline/fallback և sync |
+| Keycloak | Future identity integration; Phase I-ից դուրս | Առանձին change request, OpenMRS mapping և operations |
+| WHO ICD API | Չհաստատված future candidate | Phase I ICD version/content-ը տրամադրում կամ հաստատում է Պատվիրատուն |
 | JasperReports | Փակ report register և export | Template lifecycle, Armenian fonts, performance և maintainability |
 | Apache POI | Structured Excel export/import | Large-file limits, validation և formula safety |
 | openhtmltopdf | PDF generation | Armenian fonts, pagination, signatures և archival output |
 | JaVers | Custom entity change history | OpenMRS audit overlap, medical immutability և storage growth |
 | Moneta/JSR 354 | Monetary calculations | AMD-only rules, rounding, persistence և reporting compatibility |
 
-Այս թեկնածուներից միայն OpenMRS հիմքն ու Java backend ուղղությունն են հաստատված։ Մնացածը `Proposed` է։
+Այս աղյուսակը candidate register է, ոչ ընտրված stack։ Keycloak-ը և WHO ICD API integration-ը Phase I-ից դուրս են, իսկ մյուս թեկնածուները մնում են չհաստատված մինչև առանձին որոշում։

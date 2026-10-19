@@ -81,13 +81,13 @@ FHIR `ServiceRequest`-ի առկայությունը չի նշանակում լի
 |---|---|---|
 | ADM-01–04 | Partial fit | OpenMRS User/Role/Privilege model-ը baseline է։ Armenian roles-ը metadata/configuration են։ |
 | ADM-05–06 | Gap/partial | Location/department/service/patient-care scope-ը միայն role անուններով չի լուծվում և պահանջում է authorization policy։ |
-| ADM-07–08 | Unknown | Native authentication-ը և external IdP/Keycloak տարբերակը պետք է համեմատել։ MFA-ն exact integration PoC է պահանջում։ |
+| ADM-07–08 | Partial | Phase I-ը native OpenMRS authentication է օգտագործում։ MFA-ն միայն ընտրված native stack-ի աջակցվող սահմանում է. external IdP/Keycloak-ը Phase I-ից դուրս է։ |
 | ADM-09–11 | Partial/gap | Encounter/Obs voiding/version history-ը հիմք է, բայց legal internal approval և controlled correction contract-ը պետք է առանձին նախագծել։ |
-| ADM-10 | Partial/gap | Platform audit/Envers capability կա, բայց read access, export, break-glass և custom entities-ի ամբողջ audit-ը բաց է։ |
+| ADM-10 | Partial/gap | Platform audit/Envers capability կա, բայց ADM-10 change audit-ը, export-ը, break-glass-ը և custom entities-ը պետք է ստուգել։ Ամեն record read-ի audit-ը Phase I default չէ։ |
 | ADM-12 | Gap | Break-glass policy, expiry, reason, alert և separate audit-ը custom են։ |
 | ADM-13 | Partial fit | Locations, concepts, forms և configuration-ի մեծ մասը configurable է, բայց բոլոր status/workflow-ները ոչ։ |
 
-Keycloak-ը հնարավոր թեկնածու է, բայց OpenMRS-ը շարունակում է պահանջել persisted users/roles։ Հետևաբար dual user lifecycle և role synchronization-ը architecture concern են։
+External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS persisted users/roles/privileges-ը Phase I authorization baseline-ն են։
 
 ## Cross-cutting capabilities
 
@@ -123,4 +123,3 @@ Keycloak-ը հնարավոր թեկնածու է, բայց OpenMRS-ը շարու
 - OpenMRS Billing: <https://openmrs.atlassian.net/wiki/spaces/projects/pages/26938835/Billing>
 - OpenMRS Reporting: <https://openmrs.atlassian.net/wiki/spaces/docs/pages/25462110/Reporting+Module>
 - FHIR implementation guide: <https://fhir.openmrs.org/>
-

@@ -53,7 +53,7 @@ flowchart LR
 | Payments | Out of scope | Idempotent payment/refund callbacks |
 | SMS/email | Out of scope | Consent, templates, delivery state, PHI minimization |
 | Qualified e-signature | Out of scope | Trust/certificate/evidence retention |
-| WHO ICD API | PoC candidate | Version, Armenian localization, licensing, cache/offline |
+| WHO ICD API | Չհաստատված future candidate | Phase I version/content-ը տալիս կամ հաստատում է Պատվիրատուն. API sync չի կառուցվում ինքնուրույն |
 
 ## Data migration and API governance
 

@@ -15,7 +15,9 @@
 
 ## Architectural style
 
-Համակարգը OpenMRS distribution է՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Concepts, forms, locations, roles և distribution metadata-ն version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
+Ստորև նկարագրվածը **նպատակային architecture պատկերն է, ոչ business implementation սկսելու թույլտվություն**։ Մինչ D-008 pilot-ի ավարտը թույլատրված է միայն մեկ compatibility PoC՝ մեկ non-business pilot OMOD-ով և մեկ minimal O3 extension-ով՝ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ի համաձայն։ REG–ADM business module-ները և ամբողջ distribution tree-ն մինչ այդ չեն ստեղծվում։
+
+Pilot-ով հաստատվելու դեպքում նպատակային համակարգը OpenMRS distribution է՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Concepts, forms, locations, roles և distribution metadata-ն version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
 
 ## System context
 
@@ -23,7 +25,7 @@
 flowchart LR
   Staff[Բժիշկներ, բուժքույրեր, ընդունարան, ֆինանսներ, ադմիններ] --> HIS[OpenMRS-based HIS]
   Patient[Պացիենտ / ներկայացուցիչ] -. Phase I-ում աշխատակցի միջոցով .-> HIS
-  HIS <--> IdP[Identity provider\nProposed / PoC]
+  HIS --> NativeAuth[Native OpenMRS authentication\nPhase I]
   HIS --> Export[Հաստատված reports / exports]
   HIS -. Future connectors .-> External[ARMED, LIS, PACS, devices, payments]
 ```
@@ -35,14 +37,14 @@ flowchart LR
 | Gateway/reverse proxy | TLS, routing, limits, security headers | Proposed; product TBD |
 | O3 app shell | Navigation, localization, extensions, shared UI | Proposed |
 | Reused O3 modules | Patient/chart/forms և fit-gap-ով հաստատված UI | PoC required |
-| Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | Proposed |
+| Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | Target only; D-008-ը հիմա թույլ է տալիս միայն minimal non-business pilot extension |
 | OpenMRS Platform | Patient, visit, encounter, obs, order, concepts | Approved foundation |
-| Community/custom OMOD-ներ | Reused capability և Java business extensions | PoC/proposed |
+| Community/custom OMOD-ներ | Reused capability և Java business extensions | Target only; D-008-ը հիմա թույլ է տալիս միայն մեկ non-business pilot OMOD |
 | Relational database | Canonical և module-owned transactional data | Engine/version TBD; MariaDB candidate |
 | Document storage | Attachments և generated documents | Design/PoC required |
 | Reporting/export | Contract reports, dashboards, controlled export | Mixed reused/custom |
-| Identity boundary | Authentication, MFA, lifecycle, role mapping | PoC required |
-| Audit capability | Read/change/export/admin/break-glass evidence | Custom cross-cutting design |
+| Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | Phase I baseline; native MFA capability TBD |
+| Audit capability | ADM-10 change, export և break-glass evidence; all-read audit-ը default չէ | Cross-cutting design |
 | Operations layer | Logs, metrics, backup/restore, health, alerts | Detailed design pending |
 
 ## Functional boundaries
@@ -62,7 +64,7 @@ Phase I-ի boundaries-ն են Registration, Ambulatory, Inpatient, Diagnostics/T
 3. Authorization-ը server-side է. UI visibility-ն authorization չէ։
 4. Access-ը կարող է սահմանափակվել role/privilege, location, department/service և care context-ով։ Սա մեկ բժշկական համալիր է, ոչ SaaS tenant model։
 5. Medical/financial correction-ը traceable է. hard delete կամ լուռ overwrite-ը default չէ։
-6. Sensitive read, export, permission change, approval և break-glass access-ը audit են արվում։
+6. ADM-10 change audit-ը, export-ը և break-glass access-ը audit են արվում։ Ամեն patient record view-ի audit-ը առանձին չհաստատված որոշում է։
 7. Integration-ը չի գրում DB-ին ուղղակի և չի շրջանցում business validation-ը։
 8. OpenMRS/module/frontend exact versions-ը pin և compatibility-test են արվում։
 9. OpenMRS core fork-ը պահանջում է առանձին ADR և upgrade-impact review։
@@ -112,4 +114,4 @@ Dev, test, UAT և production միջավայրերը տարանջատված են�
 
 ## Open questions
 
-Exact distribution/module versions, DB engine/topology, native auth vs IdP, document storage/scanning, background jobs, reporting isolation, audit retention, HA/SLA և RPO/RTO։ Յուրաքանչյուր նշանակալի պատասխան պահանջում է PoC evidence և անհրաժեշտության դեպքում ADR։
+Exact distribution/module versions, DB engine/topology, native session/MFA configuration, document storage/scanning, background jobs, reporting isolation, audit retention, HA/SLA և RPO/RTO։ External IdP-ը Phase I-ի բաց ընտրություն չէ։ Յուրաքանչյուր նշանակալի պատասխան պահանջում է PoC evidence և անհրաժեշտության դեպքում ADR։

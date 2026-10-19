@@ -37,7 +37,7 @@
 |---|---|---|
 | Runtime | OpenMRS Java backend/module runtime | Approved direction |
 | Custom server capabilities | Java OMOD modules | Proposed |
-| Business boundaries | Domain-oriented custom modules՝ registration extensions, inpatient, finance, reporting, administration | Proposed |
+| Business boundaries | REG registration, AMB ambulatory, INP inpatient, DIA diagnostics/treatment, FIN finance, REP reporting, ADM administration | Approved Phase I ownership map |
 | Database access | OpenMRS service/API layer, custom module DAOs միայն module-owned data-ի համար | Proposed |
 | Schema migrations | OpenMRS/Liquibase module migrations | Proposed |
 | Background work | Exact mechanism TBD | Deferred |
@@ -67,7 +67,7 @@ Custom frontend-ը չի ստեղծում երկրորդ անկախ SPA, եթե �
 | Clinical forms | O3 Form Builder + React Form Engine candidate | Proposed |
 | Form schemas | Version control + controlled publish process | Proposed |
 | Terminology | OpenMRS concepts; ICD source/version TBD | Approved direction / open detail |
-| External ICD API | WHO ICD API candidate | PoC required |
+| External ICD API | Phase I-ից դուրս. WHO ICD API-ն միայն future candidate է | Change request required |
 | Attachments | OpenMRS-compatible storage abstraction/design TBD | PoC required |
 
 Form schema validation-ը բավարար չէ․ յուրաքանչյուր clinical form պետք է փորձարկվի ընտրված runtime renderer-ով և version-ով։
@@ -90,13 +90,13 @@ PostgreSQL-ը կամ այլ database-ը չի ընտրվում միայն ընդ�
 | Area | Decision | Status |
 |---|---|---|
 | Authorization source | OpenMRS persisted users, roles և privileges | Proposed baseline |
-| Authentication | Native OpenMRS կամ external IdP pattern | PoC required |
-| Keycloak | Թեկնածու, ոչ հաստատված | PoC required |
-| MFA | Բարձր արտոնություններով օգտատերերի համար հնարավորություն | Contract baseline |
+| Authentication | Native OpenMRS authentication Phase I-ում | Approved Phase I boundary |
+| External IdP / Keycloak | Phase I-ից դուրս | Change request required |
+| MFA | Միայն ընտրված native OpenMRS լուծման ներկառուցված հնարավորության դեպքում, առանց վճարովի արտաքին integration-ի | Conditional contract requirement |
 | Scope controls | Location/department/service/patient-care context | Custom design required |
 | Break-glass | Reason + time limit + separate audit | Custom design required |
 
-Keycloak ընտրելու դեպքում պետք է ապացուցել user lifecycle-ը, OpenMRS role synchronization-ը, logout/revocation-ը, service accounts-ը և IdP խափանման վարքը։ Authentication-ը Keycloak տեղափոխելը չի վերացնում OpenMRS authorization model-ը։
+External IdP/Keycloak-ը Phase I dependency չէ։ Եթե ապագա փուլում ավելացվի, առանձին պետք է ապացուցվեն user lifecycle-ը, OpenMRS role synchronization-ը, logout/revocation-ը, service accounts-ը և outage behavior-ը։
 
 ## 8. API and integrations
 
@@ -121,6 +121,8 @@ FHIR resource-ի գոյությունը չի նշանակում, որ տվյալ
 | Apache POI | Excel import/export թեկնածու | Proposed |
 | openhtmltopdf | Հայերեն փաստաթղթերի PDF թեկնածու | Proposed |
 
+Այս թեկնածուներից ոչ մեկը dependency ավելացնելու թույլտվություն չէ։ Ընտրությունը պահանջում է PoC/գրավոր տեխնիկական որոշում։
+
 ՏԱ-ի փակ report register-ը պետք է ունենա report-by-report proof։ Միայն Reporting Module-ի առկայությունը REP-07-ի ընդունման ապացույց չէ։
 
 ## 10. Finance
@@ -132,6 +134,8 @@ OpenMRS 3 Billing module-ը ընդունվում է որպես գնահատմա�
 | OpenMRS Billing frontend/backend modules | PoC required |
 | Custom Java finance OMOD | Expected, սահմանը՝ fit-gap-ից հետո |
 | Moneta/JSR 354 | Proposed |
+
+AMD-ի precision և rounding rule-ը business blocker է. Moneta-ի առկայությունը այդ կանոնը չի որոշում։
 
 ## 11. Audit, security and privacy
 
@@ -158,12 +162,14 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 | Traceability | ՏԱ ID → design → code → test → UAT evidence |
 | Documentation | Architecture, DB, API, deployment, operations և user guides |
 
-## 13. Decisions required before implementation
+## 13. Decisions required before business implementation
+
+Այս ցանկը D-008 compatibility pilot-ը չի արգելում։ Pilot-ը հատուկ թույլատրված է, որպեսզի 1–4 կետերի exact candidate versions-ը և compatibility evidence-ը ստացվեն։ Pilot-ի սահմանները, disposable namespace-ը և exact-commit selection-ը սահմանված են [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում։ Ստորև բերված որոշումները պարտադիր են REG–ADM business implementation-ից առաջ։
 
 1. Reference Application-ից մեկնարկելու exact release-ը։
 2. Platform/JVM/MariaDB compatibility matrix-ը։
 3. Պարտադիր backend և O3 modules-ի exact versions-ը։
-4. Native OpenMRS authentication vs Keycloak/other IdP։
+4. Ստուգել ընտրված native OpenMRS release-ի session controls-ը և արդյոք այն ներկառուցված MFA ունի։ Եթե չունի, դա արձանագրվում է որպես unavailable՝ առանց սեփական TOTP/SMS կամ external IdP կառուցելու։
 5. Finance persistence և billing extension boundary-ն։
 6. Reporting/document generation stack-ը։
 7. Attachment/object storage-ը։
@@ -178,4 +184,3 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 - OpenMRS Core releases: <https://github.com/openmrs/openmrs-core/releases>
 - OpenMRS FHIR implementation guide: <https://fhir.openmrs.org/>
 - OpenMRS licensing: <https://openmrs.org/license/>
-

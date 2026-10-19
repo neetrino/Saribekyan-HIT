@@ -1,6 +1,6 @@
 # ADR-0002: Extend OpenMRS through modules and O3 extensions
 
-- Status: Proposed
+- Status: Proposed — pilot PoC only
 - Date: 2026-10-19
 
 ## Context
@@ -14,6 +14,8 @@
 - Metadata, concepts, forms, locations, roles և configuration-ը պահել version-controlled distribution content-ում։
 - Չփոփոխել OpenMRS core-ը, եթե նույն արդյունքը հնարավոր է public extension point-ով։
 - Core patch-ը թույլատրել միայն առանձին ADR-ով, upstream status-ով և upgrade plan-ով։
+
+Այս ADR-ը ամբողջ repository/module tree-ը կառուցելու թույլտվություն չէ։ Մինչ acceptance-ը թույլատրված հաջորդ քայլը միայն մեկ pilot OMOD + O3 extension compatibility PoC-ն է՝ [implementation gate](../00-IMPLEMENTATION-GATE.md)-ի սահմաններով։
 
 ## Module boundary rule
 
@@ -29,4 +31,3 @@
 ## Validation required
 
 Այս ADR-ը `Accepted` կդառնա միայն այն բանից հետո, երբ մեկ pilot module-ով ապացուցվեն OMOD build/install/migration/API և O3 extension ամբողջական շղթան։
-

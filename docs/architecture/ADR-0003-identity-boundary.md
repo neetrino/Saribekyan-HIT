@@ -1,6 +1,6 @@
 # ADR-0003: Identity and OpenMRS authorization boundary
 
-- Status: Open
+- Status: Accepted for Phase I
 - Date: 2026-10-19
 
 ## Context
@@ -13,7 +13,7 @@
 
 Ավելի քիչ բաղադրիչներ և պարզ user lifecycle, բայց MFA, centralized identity և advanced session controls-ը կարող են լրացուցիչ աշխատանք պահանջել։
 
-### B. External IdP/Keycloak
+### B. External IdP/Keycloak (future scope)
 
 Ավելի ուժեղ identity/MFA հնարավորություններ, բայց առաջացնում է OpenMRS և IdP user/role synchronization, logout/revocation և availability boundary։
 
@@ -28,7 +28,8 @@
 - audit actor identity,
 - operational complexity և supportability։
 
-## Current decision
+## Decision
 
-Keycloak-ը մնում է `Proposed / PoC required`։ Մինչ PoC-ի և threat model-ի ավարտը այն չի համարվում հաստատված stack component։
+Phase I-ում օգտագործվում է native OpenMRS authentication-ը և OpenMRS persisted users/roles/privileges-ը։ ՏԱ-ի սահմանով արտաքին identity provider integration-ը Phase I-ում ներառված չէ։ Keycloak/SSO dependency, connector կամ dual-user synchronization չի կառուցվում առանց պայմանագրային change request-ի։
 
+MFA-ն իրականացվում է միայն ընտրված native լուծման փաստացի աջակցվող հնարավորության սահմաններում և չի արդարացնում արտաքին վճարովի integration-ի ինքնուրույն ավելացումը։

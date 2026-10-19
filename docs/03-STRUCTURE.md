@@ -2,7 +2,7 @@
 
 ## Status
 
-Սա նպատակային structure է։ Այն կիրառվում է repository initialization-ի ժամանակ և թարմացվում է ըստ իրական as-built վիճակի։ Exact artifact/package names-ը կարող են փոխվել pilot OMOD/O3 PoC-ից հետո։
+Սա ապագա նպատակային structure-ի reference է, ոչ repository initialization հրահանգ։ **Մինչ pilot OMOD/O3 compatibility PoC-ի ավարտը ստորև բերված tree-ն կամ business module directories-ը չստեղծել։** Exact artifact/package names-ը որոշվում են pilot-ից հետո։
 
 ```text
 saribekyan-his/
@@ -12,12 +12,12 @@ saribekyan-his/
 ├── backend/
 │   ├── modules/
 │   │   ├── registration/          # միայն OpenMRS-ից բացակայող extensions
+│   │   ├── ambulatory/
 │   │   ├── inpatient/
 │   │   ├── diagnostics/
 │   │   ├── finance/
 │   │   ├── reporting/
-│   │   ├── administration/
-│   │   └── audit/
+│   │   └── administration/        # ներառում է cross-cutting audit governance-ը
 │   └── distribution/              # pinned OMOD artifacts և OpenMRS runtime assembly
 ├── frontend/
 │   ├── modules/                   # custom O3 frontend modules
@@ -46,7 +46,11 @@ saribekyan-his/
 
 Դատարկ directories-ը Git-ում պահվում են միայն README-ով, երբ դրանց purpose-ը հաստատված է։ Անհաստատ technology-ի placeholder code չի ավելացվում։
 
-## Backend module skeleton
+> D-008-ը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC։ Այն թույլ չի տալիս որևէ business module կամ ամբողջ tree գեներացնել։ Business module-ները ստեղծվում են միայն pilot stack-ը pin անելուց և [implementation gate](./00-IMPLEMENTATION-GATE.md)-ը անցնելուց հետո։
+
+## Post-pilot business backend skeleton
+
+Այս բաժինը pilot-ի համար չէ և չի կարող օգտագործվել մինչև ADR-0002-ի ընդունումն ու production package/stack որոշումները։ Pilot-ի միակ layout-ը [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում է։ Ստորև բերվածը conceptual target է, ոչ OpenMRS archetype-ի պատճեն։
 
 ```text
 backend/modules/<module>/
@@ -60,15 +64,14 @@ backend/modules/<module>/
 │   │   ├── domain/                           # custom rules, եթե OpenMRS model-ում չկան
 │   │   ├── infrastructure/                   # DAO, adapters, OpenMRS integration
 │   │   └── web/                              # REST resources/controllers
-│   ├── src/main/resources/
-│   │   └── liquibase.xml
+│   ├── src/main/resources/                    # միայն իրական module resources
 │   └── src/test/
 └── integration-tests/
 ```
 
-OpenMRS module archetype-ի իրական layout-ը pilot-ից հետո կարող է ճշգրտվել։ Կարևոր սահմանը `api`/public contract-ն է. այլ module-ը չի import անում `application`, `infrastructure` կամ `web` implementation-ը։
+OpenMRS module archetype-ի իրական layout-ը որոշվում է pilot evidence-ով։ Liquibase file ավելացվում է միայն իրական module-owned schema ունենալու դեպքում, ոչ որպես դատարկ placeholder։ Կարևոր սահմանը `api`/public contract-ն է. այլ module-ը չի import անում `application`, `infrastructure` կամ `web` implementation-ը։
 
-## Frontend module skeleton
+## Post-pilot business frontend skeleton
 
 ```text
 frontend/modules/<module>/
@@ -119,7 +122,7 @@ Circular module dependencies-ը արգելված են։ Shared code-ը ստեղ�
 ## Naming
 
 - Repository paths՝ lowercase kebab-case։
-- Java packages՝ կազմակերպության հաստատված reverse-domain prefix + module անուն։
+- Java packages՝ կազմակերպության հաստատված reverse-domain prefix + module անուն։ Prefix-ը դեռ որոշված չէ և agent-ը չի կարող այն հորինել։
 - API resources՝ plural nouns, stable version prefix միայն custom facade-ում։
 - DB objects՝ OpenMRS/module conventions-ին համապատասխան և module prefix-ով, երբ collision-ի վտանգ կա։
 - Requirement IDs-ը (`REG-01`, `FIN-03`) պահվում են test/UAT metadata-ում, ոչ class name-ի պարտադիր մաս։

@@ -12,7 +12,9 @@
 
 OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-ը բավարար է։ Ներքին OpenMRS REST endpoint-ը արտաքին public API չի համարվում ինքնաբերաբար։
 
-## Common HTTP contract
+## Custom facade HTTP contract
+
+Այս և հաջորդ բաժինների envelope/pagination կանոնները վերաբերում են միայն custom versioned facade-ին։ OpenMRS REST/FHIR-ի առկա contract-ը չի վերափաթեթավորվում միայն ձևաչափը միասնական դարձնելու համար։ Native pagination-ը, error semantics-ը և void/retire վարքը պահպանվում են և documented adapter է ստանում միայն կոնկրետ հաստատված use case-ի դեպքում։
 
 - JSON UTF-8, ISO-8601 timestamps with offset/UTC և documented code systems։
 - Request-ը ունի կամ ստանում է correlation ID, որը վերադարձվում է response header-ում։ Client-supplied ID-ն validation է անցնում կամ փոխարինվում է։
@@ -38,7 +40,7 @@ OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-
 
 ## Collection queries
 
-- Cursor pagination-ը նախընտրելի է փոփոխվող մեծ ցուցակների համար, իսկ offset-ը թույլատրելի է փոքր reference lists-ում։
+- Custom facade-ում cursor pagination-ը նախընտրելի է փոփոխվող մեծ ցուցակների համար, իսկ offset-ը թույլատրելի է փոքր reference lists-ում։ OpenMRS native endpoint-ի `startIndex`/`limit` contract-ը չի փոխվում։
 - `limit`-ն ունի default և maximum։
 - Sort fields-ը allowlist են և ունեն stable tie-breaker։
 - Filter/search syntax-ը endpoint contract-ում է, raw query կամ arbitrary property path չի ընդունվում։

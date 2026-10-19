@@ -16,18 +16,21 @@
 
 `Phase_1_Technical_Specification_HY.md`-ը Փուլ I-ի պայմանագրային scope-ի աղբյուրն է։ Սկզբնական `...ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md` փաստաթուղթը նկարագրում է ամբողջ երկարաժամկետ տեսլականը և չի կարող ինքնուրույն ընդլայնել Փուլ I-ի ֆիքսված ծավալը։
 
+Կոդից առաջ կիրառվող stop/go կանոնները կենտրոնացված են [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ում և repository-level `AGENTS.md`-ում։
+
 ## Նախագծի հաստատված հիմքը
 
 - Նախագծի չափը՝ **Size C**։
 - Հիմնական բժշկական հարթակը՝ **OpenMRS**։
 - Custom backend development-ի հիմնական լեզուն՝ **Java**։
-- Փուլ I-ի փակ գործառութային ծավալը՝ տեխնիկական առաջադրանքի բաժիններ 5–15։
+- Փուլ I-ի փակ գործառութային ծավալը և բացառումները՝ տեխնիկական առաջադրանքի բաժիններ 5–16։
 - OpenMRS-ի կոնկրետ distribution-ը, module-ների տարբերակները և լրացուցիչ տեխնոլոգիաները հաստատվում են fit-gap ուսումնասիրությունից հետո։
 
 ## Կառուցվածք
 
 ```text
 docs/
+├── 00-IMPLEMENTATION-GATE.md         # պարտադիր stop/go կանոններ կոդից առաջ
 ├── README.md                         # փաստաթղթերի քարտեզ և governance
 ├── BRIEF.md                          # արտադրանքի և Փուլ I-ի համառոտ նկարագիր
 ├── TECH_CARD.md                      # հաստատված և բաց տեխնիկական որոշումներ
@@ -40,6 +43,7 @@ docs/
 ├── 07-INTEGRATIONS.md                # API/integration boundaries և future connectors
 ├── architecture/                     # Architecture Decision Records և ինդեքս
 ├── modules/                          # module design template և հետագա records
+├── pilot/                            # D-008 compatibility PoC-ի միակ թույլատրելի spec-ը
 ├── contract/phase-1/                 # ստորագրման համար նախատեսված նյութեր
 ├── phase-scope/                      # source audit և պայմանագրային սահմանների ապացույցներ
 └── requirements/
@@ -59,7 +63,7 @@ docs/
 | 1. Scope baseline | Brief, glossary, source matrix, traceability հիմք | Ավարտված |
 | 2. Technology decisions | TECH_CARD, OpenMRS fit-gap, տեխնոլոգիական ADR-ներ | Ավարտված՝ բաց PoC որոշումներով |
 | 3. Architecture | System context, components, security և integrations | Ավարտված՝ բաց PoC/ADR որոշումներով |
-| 4. Detailed design | Repository structure, API, database և module contracts | Ավարտված՝ implementation/PoC-ից առաջ հաստատման ենթակա |
+| 4. Detailed design | Repository structure, API, database և module contracts | Business implementation-ից առաջ հաստատման ենթակա. D-008 compatibility pilot-ը թույլատրված է հիմա |
 | 5. Delivery controls | Testing, UAT, operations, progress և release controls | Սպասվող |
 | 6. Consistency audit | Փաստաթղթերի և ՏԱ-ի վերջնական traceability review | Սպասվող |
 
@@ -68,5 +72,6 @@ docs/
 - Պայմանագրային scope-ը չի փոխվում architecture կամ implementation փաստաթղթով։
 - Նոր մոդուլը, արտաքին ինտեգրումը կամ workflow-ի ընդլայնումը պահանջում է change request։
 - Խոշոր տեխնիկական որոշումը գրանցվում է ADR-ով։
-- `Proposed` որոշումը implementation-ի թույլտվություն չէ մինչև հաստատվելը։
+- `Proposed` որոշումը implementation-ի թույլտվություն չէ մինչև հաստատվելը։ Միակ բացառությունը D-008-ն է, որը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC, ոչ business module և ոչ ամբողջ repository skeleton։
 - As-built փաստաթղթերը թարմացվում են implementation-ի հետ միասին։
+- Coding task-ը չի սկսվում մինչև [implementation gate](./00-IMPLEMENTATION-GATE.md)-ով scope/source և բաց blockers-ը ստուգելը։

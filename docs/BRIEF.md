@@ -52,7 +52,7 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 - OpenMRS core/module հնարավորությունները պետք է նախընտրել custom կրկնակի implementation-ից, եթե դրանք բավարարում են պահանջը, անվտանգությունը և ընդունման չափանիշները։
 - Custom լուծումը պետք է պահպանի OpenMRS upgrade path-ը և չփոփոխի core-ը չվերահսկվող fork-ով։
 
-OpenMRS distribution-ի, frontend architecture-ի, database-ի, identity provider-ի և reporting/document generation գործիքների կոնկրետ որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում fit-gap ստուգումից հետո։
+OpenMRS distribution-ի, frontend architecture-ի, database-ի և reporting/document generation գործիքների կոնկրետ որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում fit-gap ստուգումից հետո։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։
 
 ## Փուլ I-ից դուրս
 
@@ -69,4 +69,3 @@ OpenMRS distribution-ի, frontend architecture-ի, database-ի, identity provide
 ## Հաջողության չափանիշ
 
 Փուլ I-ը հաջող է, երբ ՏԱ-ի պարտադիր workflow-ները աշխատում են փոխկապակցված, դերերն ու հասանելիությունները կարգավորված են, կրիտիկական թերությունները փակված են, backup/restore փորձարկումն իրականացված է, փաստաթղթերը և ուսուցողական նյութերը փոխանցված են, և ավարտված է համաձայնեցված production pilot/UAT գործընթացը։
-

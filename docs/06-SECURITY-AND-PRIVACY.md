@@ -6,11 +6,11 @@
 
 ## Trust and identity
 
-Browser, proxy, O3/OpenMRS runtime, identity provider, database, file storage և external integration-ը առանձին trust boundaries են։ Client input-ը, files-ը, forwarded headers-ը և external payload-ը trusted չեն առանց verification-ի։
+Browser, proxy, O3/OpenMRS runtime, database, file storage և external integration-ը առանձին trust boundaries են։ Ապագա external identity provider-ը, եթե երբևէ հաստատվի առանձին փուլով, նույնպես առանձին boundary կլինի։ Client input-ը, files-ը, forwarded headers-ը և external payload-ը trusted չեն առանց verification-ի։
 
 - Յուրաքանչյուր աշխատակից ունի անհատական account. shared clinical accounts չեն թույլատրվում։
-- Native OpenMRS կամ external IdP տարբերակը PoC-ից հետո է հաստատվում։ IdP-ն չի վերացնում OpenMRS user/role/privilege lifecycle-ը։
-- Privileged access-ի համար MFA-ն baseline պահանջ է։
+- Phase I authentication-ը native OpenMRS է։ External IdP/Keycloak integration-ը Phase I-ից դուրս է։
+- MFA-ն Phase I-ում պահանջվում է միայն այն դեպքում, երբ ընտրված native OpenMRS լուծումն այն արդեն ապահովում է առանց վճարովի արտաքին integration-ի։ Սեփական TOTP/SMS layer չի կառուցվում, SMS provider չի ավելացվում։
 - Joiner/mover/leaver, session timeout/revocation և service identities-ը պետք է լինեն բացահայտ և թեստավորված։
 
 ## Authorization
@@ -23,15 +23,14 @@ Break-glass access-ը պահանջում է պատճառ, սահմանափակ t
 
 | Event | Minimum evidence |
 |---|---|
-| Login/logout/failure/MFA | actor, time, result, safe request context |
-| Patient record read | actor, patient, purpose/context, time |
+| Login/logout/failure և native MFA, եթե առկա է | actor, time, result, safe request context |
 | Create/update/void/correct/approve | actor, resource, action, controlled diff/reference, time |
 | Role/config change | actor, target, old/new value, time |
 | Report/export/print | actor, report, filters/scope, result, time |
 | Break-glass | actor, scope, reason, start/end, review |
 | Integration action | system identity, contract/version, correlation ID, result |
 
-Audit-ում password/token/session secret կամ անհարկի ամբողջ clinical payload չի պահվում։ Այն պաշտպանվում է սովորական update/delete-ից և ունի access, retention ու review policy։ OpenMRS-ի առկա history/audit հնարավորությունները առանձին PoC են պահանջում sensitive reads, exports, break-glass և custom domains-ի համար։
+Audit-ում password/token/session secret կամ անհարկի ամբողջ clinical payload չի պահվում։ Այն պաշտպանվում է սովորական update/delete-ից և ունի access, retention ու review policy։ Phase I minimum-ը ADM-10 action/user/time/object/available old-new value-ն է՝ գումարած export և break-glass։ Ամեն դիտման audit-ը performance/privacy/retention որոշումից առաջ չի միացվում։
 
 ## Integrity and privacy
 
@@ -56,4 +55,4 @@ Audit-ում password/token/session secret կամ անհարկի ամբողջ cl
 
 ## Acceptance evidence and open decisions
 
-Մինչ production-ը ապացուցվում են denial/scope tests, session revocation, privileged MFA, audit completeness, export controls, secrets/dependency scans, restore և break-glass review։ Բաց են identity provider-ը, permission/location matrix-ը, audit retention/store-ը, privacy retention-ը, file scanning-ը, encryption key ownership-ը, RPO/RTO-ն և incident owners-ը։
+Մինչ production-ը ապացուցվում են denial/scope tests, session revocation, audit completeness, export controls, secrets/dependency scans, restore և break-glass review։ Եթե ընտրված native stack-ը MFA ունի, ստուգվում է նաև դրա configuration-ը։ MFA capability-ի բացակայությունը սեփական կամ արտաքին MFA կառուցելու թույլտվություն չէ։ Բաց են permission/location matrix-ը, audit retention/store-ը, privacy retention-ը, file scanning-ը, encryption key ownership-ը, RPO/RTO-ն և incident owners-ը։
