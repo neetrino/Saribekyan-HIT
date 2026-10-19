@@ -1,0 +1,72 @@
+# Saribekyan HIS documentation
+
+Այս պանակը Սարիբեկյան համալսարանական բժշկական համալիրի միասնական բժշկական տեղեկատվական համակարգի նախագծային փաստաթղթերի հիմնական մուտքի կետն է։
+
+## Փաստաթղթերի առաջնահերթություն
+
+Հակասության դեպքում կիրառվում է հետևյալ հերթականությունը.
+
+1. ստորագրված պայմանագիր և դրա ստորագրված փոփոխություններ,
+2. ստորագրված Փուլ I-ի տեխնիկական առաջադրանք,
+3. Պատվիրատուի հաստատված գրավոր պարզաբանումներ,
+4. նախագծային ADR-ներ և հաստատված `TECH_CARD.md`,
+5. ընթացիկ implementation/as-built փաստաթղթեր,
+6. սկզբնական ամբողջական vision փաստաթուղթ,
+7. աշխատանքային վերլուծություններ և տեխնիկական առաջարկներ։
+
+`Phase_1_Technical_Specification_HY.md`-ը Փուլ I-ի պայմանագրային scope-ի աղբյուրն է։ Սկզբնական `...ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md` փաստաթուղթը նկարագրում է ամբողջ երկարաժամկետ տեսլականը և չի կարող ինքնուրույն ընդլայնել Փուլ I-ի ֆիքսված ծավալը։
+
+## Նախագծի հաստատված հիմքը
+
+- Նախագծի չափը՝ **Size C**։
+- Հիմնական բժշկական հարթակը՝ **OpenMRS**։
+- Custom backend development-ի հիմնական լեզուն՝ **Java**։
+- Փուլ I-ի փակ գործառութային ծավալը՝ տեխնիկական առաջադրանքի բաժիններ 5–15։
+- OpenMRS-ի կոնկրետ distribution-ը, module-ների տարբերակները և լրացուցիչ տեխնոլոգիաները հաստատվում են fit-gap ուսումնասիրությունից հետո։
+
+## Կառուցվածք
+
+```text
+docs/
+├── README.md                         # փաստաթղթերի քարտեզ և governance
+├── BRIEF.md                          # արտադրանքի և Փուլ I-ի համառոտ նկարագիր
+├── TECH_CARD.md                      # հաստատված և բաց տեխնիկական որոշումներ
+├── DECISIONS.md                      # որոշումների ինդեքս
+├── 01-ARCHITECTURE.md                # system context, components և architectural rules
+├── 03-STRUCTURE.md                   # repository և module file boundaries
+├── 04-API.md                         # Java/REST/FHIR/custom API conventions
+├── 05-DATABASE.md                    # persistence ownership և migration rules
+├── 06-SECURITY-AND-PRIVACY.md        # security, privacy, authorization և audit baseline
+├── 07-INTEGRATIONS.md                # API/integration boundaries և future connectors
+├── architecture/                     # Architecture Decision Records և ինդեքս
+├── modules/                          # module design template և հետագա records
+├── contract/phase-1/                 # ստորագրման համար նախատեսված նյութեր
+├── phase-scope/                      # source audit և պայմանագրային սահմանների ապացույցներ
+└── requirements/
+    ├── README.md                     # պահանջների կառավարման կանոններ
+    ├── GLOSSARY.md                   # հիմնական տերմիններ
+    ├── OPENMRS-FIT-GAP.md            # պաշտոնական աղբյուրներով fit-gap assessment
+    ├── MODULE-SOURCE-MATRIX.md       # OpenMRS/custom լուծումների թեկնածու mapping
+    └── PHASE-1-TRACEABILITY.md       # ՏԱ պահանջների traceability հիմք
+```
+
+Հաջորդ documentation փուլերում այս design baseline-ը կլրացվի testing, UAT, operations, release և իրական module records-ով։
+
+## Փուլային documentation workflow
+
+| Փուլ | Արդյունք | Կարգավիճակ |
+|---|---|---|
+| 1. Scope baseline | Brief, glossary, source matrix, traceability հիմք | Ավարտված |
+| 2. Technology decisions | TECH_CARD, OpenMRS fit-gap, տեխնոլոգիական ADR-ներ | Ավարտված՝ բաց PoC որոշումներով |
+| 3. Architecture | System context, components, security և integrations | Ավարտված՝ բաց PoC/ADR որոշումներով |
+| 4. Detailed design | Repository structure, API, database և module contracts | Ավարտված՝ implementation/PoC-ից առաջ հաստատման ենթակա |
+| 5. Delivery controls | Testing, UAT, operations, progress և release controls | Սպասվող |
+| 6. Consistency audit | Փաստաթղթերի և ՏԱ-ի վերջնական traceability review | Սպասվող |
+
+## Փոփոխությունների կանոն
+
+- Պայմանագրային scope-ը չի փոխվում architecture կամ implementation փաստաթղթով։
+- Նոր մոդուլը, արտաքին ինտեգրումը կամ workflow-ի ընդլայնումը պահանջում է change request։
+- Խոշոր տեխնիկական որոշումը գրանցվում է ADR-ով։
+- `Proposed` որոշումը implementation-ի թույլտվություն չէ մինչև հաստատվելը։
+- As-built փաստաթղթերը թարմացվում են implementation-ի հետ միասին։
