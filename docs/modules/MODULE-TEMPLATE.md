@@ -1,5 +1,7 @@
 # Module: `<name>`
 
+> **DO NOT INSTANTIATE FROM REQUIREMENT IDS.** Սա միայն արդեն առանձին հաստատված physical artifact-ի documentation template է։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ը կամ LAB/RAD/FDI/END/TRT prefix-ը module/folder/OMOD ստեղծելու պատճառ չէ։ Template-ը պատճենվում է միայն approved artifact-boundary decision-ից և task `GO`-ից հետո։
+
 ## Status and ownership
 
 - Lifecycle: `PROPOSED_DESIGN` / `APPROVED_DESIGN` / `AS_BUILT`

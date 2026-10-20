@@ -85,14 +85,16 @@ Invariant 9-ի `core patch`-ը նշանակում է OpenMRS core source code-ի
 
 ```mermaid
 flowchart TB
-  Browser --> Gateway[Gateway / reverse proxy]
-  Gateway --> Frontend[O3 frontend]
-  Gateway --> Backend[OpenMRS + Java OMODs]
-  Backend --> DB[(Primary relational DB)]
-  Backend --> Files[(Document storage)]
-  Gateway --> Obs[Logs / metrics / alerts]
+  Browser --> Edge[PROPOSED edge/TLS boundary - product TBD]
+  Edge --> Frontend[PROPOSED O3 frontend]
+  Edge --> Backend[PROPOSED OpenMRS extension deployment]
+  Backend --> DB[(Canonical relational persistence - engine TBD)]
+  Backend -. attachment requirement only .-> Files[(NOT SELECTED - attachment storage blocker)]
+  Edge -. operations design TBD .-> Obs[PROPOSED observability capability]
   Backend --> Obs
 ```
+
+Diagram-ի յուրաքանչյուր node capability/context է, ոչ deployable service, repository artifact կամ dependency prescription։ Մասնավորապես Edge/Gateway, document storage և observability product/service չեն ստեղծվում այս գծապատկերից. attachment storage-ը բաց blocker է։
 
 Dev/test/UAT/production-ը lifecycle և access-isolation context-ներ են, ոչ այս փաստաթղթով պարտադրված չորս առանձին վճարովի deployment։ Պայմանագրային minimum-ը ժամանակավոր test միջավայրն ու մեկ production deployment-ն է՝ signed contract-ի համաձայն։ Առանձին provisioned environment-ների քանակը, topology-ն, payer-ը և promotion model-ը բաց infrastructure որոշումներ են։ Phase I-ը պահանջում է production deployment, backup և փաստագրված restore verification, բայց ինքնաբերաբար չի խոստանում active-active, multi-region կամ zero-downtime SLA։
 

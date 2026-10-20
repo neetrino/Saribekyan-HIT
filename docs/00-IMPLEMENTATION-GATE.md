@@ -13,6 +13,8 @@ Feature կամ business rule կարելի է իրականացնել միայն �
 3. [signature manifest](./contract/phase-1/SIGNATURE-STATUS.yaml)-ում `SIGNED_VERIFIED` վիճակ և ստորագրված artifact-ի hash,
 4. [task go record](./governance/TASK-GO-TEMPLATE.md)-ի լրացված պատճեն՝ անկախ reviewer-ի `GO` որոշմամբ։
 
+Այս փաստաթղթերում `Approved` կամ `Accepted` status-ը նշանակում է միայն համապատասխան decision/ADR-ի հաստատված լինելը։ Այն երբեք չի նշանակում task-level `GO`։ Նմանապես historical clarification-ում «փակված է» բառը չի նշանակում client approval կամ blocker closure, եթե manifest-ը և ստորագրված evidence-ը դա չեն հաստատում։
+
 Ստորագրումն ինքնուրույն բավարար չէ, եթե տվյալ task-ի համար այս gate-ում նշված կամ այլ բացահայտ չսահմանված blocker-ը բաց է։ ՏԱ-ն սահմանում է պահանջվող արդյունքը, իսկ unresolved policy/value-ի դեպքում agent-ը կանգ է առնում։
 
 Եթե traceability-ն չկա, հակասական է կամ պահանջում է բժշկական/ֆինանսական semantics հորինել, գործակալը **կանգ է առնում և պահանջում է որոշում**։ Vision-ը, `Proposed` ADR-ը, fit-gap-ը, archive-ը և library candidate-ը scope կամ implementation authorization չեն։
@@ -26,7 +28,7 @@ Search result-ից կամ direct link-ից բացված ֆայլը կիրառե�
 - Clinical source of truth-ը OpenMRS Patient, Person, Visit, Encounter, Obs, Order և Concept մոդելներն են։ Առանձին Spring/JPA patient/visit/order model չի ստեղծվում։
 - Phase I authentication-ը native OpenMRS է։ External IdP, Keycloak և SSO connector չեն իրականացվում առանց գրավոր scope change-ի։
 - D-008-ը բացահայտ թույլատրում է **միայն մեկ pilot OMOD + O3 extension compatibility PoC**։ Սա բացառություն է Proposed-ի ընդհանուր արգելքից և չի թույլատրում ոչ մի business module կամ ամբողջ repository skeleton գեներացնել։
-- `pilot` բառով task-ը ինքնաբերաբար `NO_GO` է, եթե task class-ը բառացի չի նշում `D008_COMPATIBILITY_POC` կամ `PRODUCTION_PILOT_RELEASE`։ Առաջինը disposable տեխնիկական probe է, երկրորդը՝ ստորագրված contract-ից հետո production delivery stage. դրանք չեն կարող նույն task-ը լինել։
+- `pilot` բառով task-ը ինքնաբերաբար `NO_GO` է, եթե task class-ը բառացի չի նշում `D008_COMPATIBILITY_POC` կամ `PRODUCTION_PILOT_RELEASE`։ «D-008 compatibility PoC» և «production pilot-release» արտահայտությունները դրանց display label-ներն են։ Առաջինը disposable տեխնիկական probe է, երկրորդը՝ ստորագրված contract-ից հետո production delivery stage. դրանք չեն կարող նույն task-ը լինել, և առաջինի artifact/code-ը երկրորդում չի շարունակվում առանց առանձին production go-ի։
 - Pilot run-ի ավարտը ինքնուրույն pin կամ repository skeleton ստեղծելու թույլտվություն չէ։ Distribution/OpenMRS release-ը, JVM-ը, DB engine-ը և community/O3 module versions-ը pin չեն արվում, իսկ production/business skeleton-ը չի գեներացվում, մինչև pilot evidence-ը չի վերանայվել, առանձին review/go որոշում չի գրանցվել և ADR-0002-ը չի ընդունվել կամ մերժվել։
 - Phase I-ում OpenMRS core repository/codebase-ի fork-ը և **OpenMRS core source code-ի** patch-ը արգելված են։ Այս արգելքը չի վերաբերում D-008 pilot-ի՝ [Compatibility PoC](./pilot/COMPATIBILITY-POC.md)-ով բացահայտ թույլատրված `spa-assemble-config.patch` և `omod-inclusion.patch` distro/assembly configuration patch-երին, որոնք կիրառվում են միայն ignored `pilot/openmrs-compatibility/work/reference-application/` պատճենի վրա և չեն փոփոխում OpenMRS core source code-ը։ Repo root-ի `work/` կամ այլ կարճ path չի ստեղծվում։ Բացակայող core extension point-ի դեպքում կանգ առնել. առանձին ADR-ը կամ review-ը ներկայիս scope-ում բացառություն չէ։ Direct SQL դեպի OpenMRS core կամ այլ module-ի tables նույնպես արգելված է։
 

@@ -15,7 +15,7 @@ Phase I-ի նպատակային սահմանում կա integration-ready archit
 | OpenMRS Java service API | Server-side module collaboration |
 | OpenMRS REST | O3/internal web use cases, երբ semantic fit կա |
 | FHIR R4/FHIR2 | Հաստատված interoperability resources/use cases |
-| Custom versioned facade | Custom workflows, որոնք REST/FHIR-ը ճիշտ չեն ներկայացնում |
+| Custom endpoint/facade | Միայն առանձին ստորագրված use case-ի և accepted design-ի դեպքում. shared layer չէ |
 | Controlled files | Contract reports, finance exports և approved initial import |
 
 FHIR endpoint-ի առկայությունը դեռ չի ապացուցում workflow interoperability. mapping, terminology, lifecycle և profile-ը հաստատվում են use case առ use case։
@@ -33,13 +33,14 @@ FHIR endpoint-ի առկայությունը դեռ չի ապացուցում wor
 
 ```mermaid
 flowchart LR
-  External[External system] --> Gateway[Gateway]
-  Gateway --> Adapter[Versioned adapter\nvalidation + mapping]
-  Adapter --> Services[OpenMRS/custom Java services]
-  Services --> DB[(Canonical data)]
-  Adapter --> Audit[Audit + correlation]
-  Services -. when asynchronous .-> Retry[Retry / reconciliation] --> External
+  Need[Signed connector use case] --> Decision{Accepted per-use-case design?}
+  Decision -->|No| Stop[NO_GO]
+  Decision -->|Yes| Native{Native OpenMRS interface fits?}
+  Native -->|Yes| Reuse[Use and document native contract]
+  Native -->|No| Custom[Build only the approved custom contract]
 ```
+
+Սա decision flow է, ոչ component/deployment diagram։ Այն չի սահմանում Gateway, adapter, queue, retry service կամ shared integration layer։ Retry/idempotency/reconciliation-ը որոշվում են առանձին approved connector-ի համար և ընդհանուր infrastructure չեն դառնում։
 
 ## Required integration record
 
@@ -63,6 +64,6 @@ flowchart LR
 
 Approved initial import-ը պահանջում է source inventory, mapping, dry run, rejects, reconciliation totals, approval և rerun/rollback procedure։ Այն չի շրջանցում canonical IDs կամ provenance-ը։
 
-API-ն versioned և machine-readable է որտեղ կիրառելի է, external surface-ը չի բացում բոլոր internal endpoints-ը, error-ը ունի stable code/correlation ID, իսկ pagination/filtering/sorting-ը shared convention է։ Secrets-ը query string-ում կամ log-ում չեն հայտնվում։
+Միայն հաստատված custom external interface-ն է versioned և machine-readable՝ իր առանձին contract-ով։ Native OpenMRS Java/REST/FHIR interface-ները պահպանում են իրենց սեփական contract-ը։ Repository-wide error envelope, correlation header կամ pagination/filtering/sorting convention չկա և չի ստեղծվում «integration-ready» լինելու պատճառով։ Դրանք սահմանվում են միայն կոնկրետ approved custom interface-ի համար։ Secrets-ը query string-ում կամ log-ում չեն հայտնվում։
 
 Connector ակտիվացնելուց առաջ պարտադիր են approved use case, data-owner/privacy review, test environment, mapping/idempotency/failure tests, monitoring, operational owner, rollback switch և թարմացված documentation։ Background delivery mechanism-ը, gateway-ը, FHIR profiles-ը, retention-ը և connector SLA-ները դեռ բաց որոշումներ են։

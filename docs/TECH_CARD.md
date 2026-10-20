@@ -183,14 +183,16 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 
 ## 12. Delivery and quality
 
-| Area | Required baseline |
-|---|---|
-| Version pinning | Platform, OMOD և O3 package exact versions |
-| CI | Build, unit, integration, security/dependency և distribution smoke tests |
-| Clinical workflows | Automated integration + role-based UAT |
-| Upgrade safety | Clean distribution rebuild և migration rehearsal |
-| Traceability | ՏԱ ID → design → code → test → UAT evidence |
-| Documentation | Architecture, DB, API, deployment, operations և user guides |
+Այս աղյուսակը production delivery-ի acceptance checklist է, ոչ անմիջապես կատարվող setup task։ Յուրաքանչյուր տող կիրառվում է միայն համապատասխան artifact/task-ի `GO`-ից հետո։ Այն չի թույլատրում version pin, CI pipeline, module tree կամ business skeleton ստեղծել նախապես։
+
+| Area | Required production outcome | Current authority/status |
+|---|---|---|
+| Version pinning | Platform, OMOD և O3 package exact versions | BLOCKED մինչև D-008 evidence review/go և stack decision |
+| CI | Build, unit, integration, security/dependency և distribution smoke tests | POST-GO; իրական approved artifact-ների համար միայն |
+| Clinical workflows | Automated integration + role-based UAT | POST-SIGNATURE/PER-REQUIREMENT GO |
+| Upgrade safety | Clean distribution rebuild և migration rehearsal | POST-GO; ընտրված distribution-ի համար |
+| Traceability | ՏԱ ID → design → code → test → UAT evidence | GOVERNANCE REQUIREMENT; code authorization չէ |
+| Documentation | Architecture, DB, API, deployment, operations և user guides | AS-BUILT DELIVERABLE; դատարկ skeleton չի պահանջում |
 
 ## 13. Decisions required before business implementation
 

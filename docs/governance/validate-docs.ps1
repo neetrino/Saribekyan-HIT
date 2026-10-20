@@ -77,6 +77,16 @@ Get-ChildItem -LiteralPath $RepositoryRoot -Recurse -Filter '*.md' -File | ForEa
     }
 }
 
+# UTF-8 BOM can prevent exact heading/status parsing; governed text files must be BOM-free.
+Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs') -Recurse -File | Where-Object {
+    $_.Extension -in @('.md', '.yaml', '.ps1')
+} | ForEach-Object {
+    $bytes = [IO.File]::ReadAllBytes($_.FullName)
+    if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+        Add-Failure "UTF-8 BOM is not allowed in governed text artifact: $($_.FullName)"
+    }
+}
+
 # The signature manifest must remain explicitly unsigned until verified evidence is recorded.
 $signatureManifest = Join-Path $RepositoryRoot 'docs/contract/phase-1/SIGNATURE-STATUS.yaml'
 if (-not (Test-Path -LiteralPath $signatureManifest)) {
@@ -125,6 +135,28 @@ foreach ($requiredId in @('REG-01', 'AMB-01', 'INP-01', 'DIA-01', 'LAB-01', 'RAD
     if ($traceText -notmatch [regex]::Escape("| $requiredId |")) {
         Add-Failure "Missing requirement-level trace row: $requiredId"
     }
+}
+
+# Guard the workflow register against collapsing distinct actions/lifecycles into enums.
+$workflowRegister = Join-Path $RepositoryRoot 'docs/requirements/WORKFLOW-TRANSITIONS.md'
+$workflowText = Get-Content -Raw -Encoding utf8 -LiteralPath $workflowRegister
+if ($workflowText -match '\| Diagnostic order lifecycle \| DIA-01[–-]04 \|') {
+    Add-Failure 'DIA-04 must not be classified as part of the diagnostic order lifecycle.'
+}
+if ($workflowText -match '\| Financial operation \| FIN-03[–-]13 \|') {
+    Add-Failure 'Distinct financial operations must not be collapsed into one lifecycle row.'
+}
+if ($workflowText -notmatch '\| Laboratory specimen lifecycle \| LAB-01 \|') {
+    Add-Failure 'LAB-01 specimen lifecycle must have its own blocker row.'
+}
+if ($workflowText -match '\| Queue/appointment \| REG-04[–-]06 \|') {
+    Add-Failure 'REG schedule, appointment, and queue concerns must not be collapsed into one lifecycle row.'
+}
+if ($workflowText -match '\| Radiology result lifecycle \| RAD-01[–-]03 \|') {
+    Add-Failure 'RAD order/execution, result, attachment, and applicability concerns must not be collapsed into one result lifecycle row.'
+}
+if ($workflowText -notmatch '\| Clinician queue lifecycle \| REG-06 \|') {
+    Add-Failure 'REG-06 clinician queue lifecycle must have its own blocker row.'
 }
 
 if ($failures.Count -gt 0) {

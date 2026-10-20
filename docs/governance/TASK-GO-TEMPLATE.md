@@ -3,7 +3,7 @@
 > Պատճենել task-ի հաստատված տեղում։ `TBD`, դատարկ կամ հակասող պարտադիր դաշտը նշանակում է `NO_GO`։ Coding agent-ը չի հաստատում սեփական record-ը։
 
 - Record ID: `TBD`
-- Task class: `BUSINESS_IMPLEMENTATION` / `D008_COMPATIBILITY_POC` / `PRODUCTION_PILOT_RELEASE` / `DOCUMENTATION_ONLY` (`pilot` alone is invalid)
+- Task class: `BUSINESS_IMPLEMENTATION` / `D008_COMPATIBILITY_POC` / `PRODUCTION_PILOT_RELEASE` / `DOCUMENTATION_ONLY` (`pilot` alone is invalid; human labels “D-008 compatibility PoC” and “production pilot-release” map to the two exact enum values and are not alternative values)
 - Decision: `NO_GO` / `GO`
 - Decision date: `TBD`
 - Reviewer/approver: `TBD`

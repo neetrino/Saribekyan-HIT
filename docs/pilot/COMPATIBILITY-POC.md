@@ -17,7 +17,7 @@
 
 ## Candidate baseline selection
 
-Pilot-ը սկսվում է պաշտոնական `openmrs/openmrs-distro-referenceapplication` repository-ի `main` branch-ի **մեկ exact commit SHA-ից**, որը գրանցվում է այս փաստաթղթի «Run record» բաժնում մինչև որևէ code generation։ Օգտագործվում են հենց այդ commit-ի source-ը, distribution manifests-ը, base-image declarations-ը և module versions-ը։ Pilot OMOD պարունակող backend-ը և pilot extension պարունակող frontend-ը build/assemble են արվում այդ commit-ի սեփական distribution build paths-ով։ Upstream-ի հրապարակված պատրաստի backend image-ը OMOD installation proof չէ, իսկ հրապարակված պատրաստի frontend image-ը extension load proof չէ։
+Pilot-ը սկսվում է պաշտոնական `openmrs/openmrs-distro-referenceapplication` repository-ի reviewer-ի կողմից նախապես հաստատված **մեկ exact commit SHA-ից**, որը գրանցվում է այս փաստաթղթի «Run record» բաժնում մինչև որևէ checkout կամ code generation։ Branch անունը ընտրության կանոն չէ. agent-ը չի վերցնում checkout-ի պահին `main`/`HEAD`-ը և հետո չի գրանցում ստացված SHA-ն։ Օգտագործվում են հենց նախապես հաստատված commit-ի source-ը, distribution manifests-ը, base-image declarations-ը և module versions-ը։ Pilot OMOD պարունակող backend-ը և pilot extension պարունակող frontend-ը build/assemble են արվում այդ commit-ի սեփական distribution build paths-ով։ Upstream-ի հրապարակված պատրաստի backend image-ը OMOD installation proof չէ, իսկ հրապարակված պատրաստի frontend image-ը extension load proof չէ։
 
 SHA-ի ընտրությունը coding agent-ի ազատ ընտրություն չէ։ Մինչ checkout/code generation-ը run record-ում պարտադիր լրացվում և անկախ reviewer-ի կողմից հաստատվում են՝ selection date/time, candidate SHA, official repository URL, commit-ի release/tag հարաբերությունը (եթե կա), upstream CI/build վիճակը, manifest completeness-ը, known support/security նկատառումները, ընտրության rationale-ը և approver-ը։ Default rule-ը «ամենավերջին main commit»-ը չէ։ Չհաստատված SHA-ն `NO_GO` է։ Reviewer-ը կարող է ընտրել միայն այս spec-ով թույլատրված repository-ի commit, ոչ այլ distribution կամ ձեռքով փոխված stack։
 
@@ -48,6 +48,8 @@ pilot/openmrs-compatibility/
 ```
 
 Pilot-ը **չի օգտագործում** `03-STRUCTURE.md`-ի business module skeleton-ը։ Backend layout-ը վերցվում է ընտրված baseline-ին համատեղելի պաշտոնական OpenMRS module SDK/archetype-ից։ Դատարկ custom `application/domain/infrastructure/web` layers չեն ավելացվում։
+
+Այս layout-ում `work/`-ի միակ թույլատրելի repository-relative տեղը `pilot/openmrs-compatibility/work/`-ն է։ Repository root-ում կամ որևէ այլ կարճ path-ով `work/` ստեղծելը validation failure է։
 
 Pristine `pilot/openmrs-compatibility/upstream/reference-application/` checkout-ը չի խմբագրվում։ Build-ից առաջ այն պատճենվում է ignored `pilot/openmrs-compatibility/work/reference-application/` directory, և այնտեղ կիրառվում են reviewable patches-ը։ O3 extension-ի patch-ը target է անում ընտրված commit-ում փաստացի առկա `frontend/spa-assemble-config.json` ֆայլը. առանձին հորինված overlay config չի ստեղծվում։ Եթե ընտրված commit-ում այդ path-ը փոխված է, agent-ը կանգ է առնում և run record-ում արձանագրում է incompatibility-ն՝ այլ filename հորինելու փոխարեն։
 

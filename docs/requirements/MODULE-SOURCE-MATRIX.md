@@ -37,7 +37,7 @@
 | REP-01–07 | OpenMRS data/reporting ecosystem-ի ուսումնասիրություն | ՏԱ-ի փակ report register և dashboards | High custom risk |
 | ADM-01–13 | OpenMRS native authentication, users և privileges | Fine-grained scope, break-glass, approval և audit | Validation required |
 | Form builder | OpenMRS form ecosystem | Armenian templates և version governance | Validation required |
-| API հիմք | OpenMRS REST/FHIR ecosystem | Contract facade, versioning և integration policy | Architecture decision required |
+| Օգտագործված interface-ների նկարագրություն | OpenMRS Java/REST/FHIR՝ միայն իրական use case-ներով | Custom endpoint/facade միայն առանձին traceable պահանջով | Default-ը inventory/documentation է; ընդհանուր facade/versioning layer չի թույլատրվում |
 
 ## Լրացուցիչ տեխնոլոգիաների թեկնածուներ
 
