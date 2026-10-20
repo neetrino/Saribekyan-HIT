@@ -11,7 +11,7 @@
 
 OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք։ Custom backend development-ի հիմնական լեզուն Java-ն է և իրականացվում է OpenMRS-ի extension/module մեխանիզմներով։
 
-Այս որոշումը չի հաստատում որևէ կոնկրետ OpenMRS release կամ community module version։ Դրանք ընտրվում և pin են արվում compatibility/fit-gap PoC-ից հետո։
+Այս որոշումը չի հաստատում որևէ կոնկրետ OpenMRS release կամ community module version։ Դրանք ընտրվում և pin են արվում միայն հաջող D-008 compatibility PoC-ի immutable evidence review/go որոշումից հետո։ Fit-gap assessment-ը բավարար չէ։
 
 ## Consequences
 
@@ -25,4 +25,3 @@ OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հի�
 ## Rejected alternative
 
 Ամբողջ HIS-ը զրոյից անկախ Java application-ով կառուցելը չի ընտրվել՝ clinical platform scope-ի կրկնակի իրականացման և չորսամսյա pilot deadline-ի բարձր ռիսկի պատճառով։
-

@@ -4,11 +4,20 @@
 
 | Status | Meaning |
 |---|---|
-| Approved | Պատվիրատուի/նախագծի կողմից հաստատված հիմք |
+| Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
+| Approved | Նախագծի հաստատված որոշում՝ իր նկարագրված սահմաններում |
+| Accepted | ADR-ի ընդունված architecture decision. չի հաստատում իր scope-ից դուրս business պահանջ |
+| Approved Phase I boundary / Approved scope / Approved constraint | Փուլ I-ի պարտադիր սահման կամ արգելք, ոչ ամբողջ տեխնոլոգիական ռազմավարության ընդունում |
+| Approved direction | Հաստատված ուղղություն, որի exact product/version/layout-ը կարող է դեռ բաց լինել |
 | Proposed | Ուժեղ թեկնածու, որը պահանջում է տեխնիկական հաստատում |
+| Proposed baseline | Նախնական design assumption, ոչ implementation authorization |
 | PoC required | Որոշումից առաջ անհրաժեշտ է փորձնական իրականացում |
+| Custom design required / Required design | Պահանջի համար design-ը անհրաժեշտ է, բայց դեռ ընդունված կամ կառուցելու թույլատրված չէ |
+| Contract baseline / Conditional contract requirement | Draft/ստորագրված ՏԱ-ից եկող պայման՝ կիրառելի միայն contract status-ի և gate-ի համաձայն |
 | Deferred | Այս documentation փուլում չի որոշվում |
 | Out of Phase I | Փուլ I-ի պայմանագրային ծավալից դուրս է |
+
+Այլ փաստաթղթերի «ավարտված», «created», «expected» կամ «target only» բառերը նկարագրում են documentation artifact-ի վիճակը, ոչ որոշման approval-ը և ոչ coding authorization-ը։ Coding authorization-ը որոշվում է միայն [implementation gate](./00-IMPLEMENTATION-GATE.md)-ով։
 
 ## 1. Foundation
 
@@ -17,19 +26,19 @@
 | Project size | Size C | Approved | Բազմամոդուլ բժշկական համակարգ, երկարաժամկետ զարգացում և բարձր անվտանգության պահանջներ |
 | Clinical platform | OpenMRS | Approved | Պացիենտ, visit, encounter, obs, order և clinical terminology հիմք |
 | Backend language | Java | Approved | Custom backend development-ը կատարվում է Java-ով |
-| Delivery scope | Phase I contract specification v1.3 | Approved | Scope-ը չի ընդլայնվում architecture/implementation փաստաթղթով |
+| Delivery scope | Phase I contract specification v1.3՝ ստորագրման համար | Draft contract baseline | Մինչ ստորագրման ապացույցը business coding authorization չէ. D-008 PoC-ն միակ բացառությունն է |
 | Architecture approach | OpenMRS distribution + modules | Proposed | Core fork-ից խուսափելու և upgrade path-ը պահպանելու սկզբունք |
 
 ## 2. OpenMRS distribution
 
 | Decision | Value | Status | Acceptance condition |
 |---|---|---|---|
-| Starting distribution | OpenMRS 3 Reference Application derivative | Proposed | Fit-gap PoC-ն հաստատում է պարտադիր backend/frontend modules-ի համատեղելիությունը |
+| Starting distribution | OpenMRS 3 Reference Application derivative | Proposed | Exact candidate-ը հաստատվում է միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո; fit-gap assessment-ը բավարար չէ |
 | OpenMRS Platform version | Exact version TBD | PoC required | Պետք է pin անել մեկ release line, ոչ `latest`/`next` |
 | Backend modules | Exact versions TBD | PoC required | Compatibility matrix + automated smoke tests |
 | Frontend modules | Exact versions TBD | PoC required | `spa-assemble-config.json`-ում exact versions |
 | Metadata/configuration | Version-controlled distribution content | Proposed | Concepts, forms, locations, roles և configuration-ը reproducible են |
-| Core modification | Չփոփոխել OpenMRS core-ը | Proposed | Բացառություն՝ միայն առանձին ADR և upgrade-impact review |
+| Core modification | Phase I-ում OpenMRS core fork/patch արգելված է | Approved Phase I boundary | ADR կամ review-ը ներկայիս scope-ում բացառություն չէ։ D-008-ի `spa-assemble-config.patch` և `omod-inclusion.patch` միայն ignored `pilot/openmrs-compatibility/work/reference-application/` distro copy-ի configuration/assembly patch-եր են, ոչ core source patch, և թույլատրված են միայն PoC spec-ի սահմաններով |
 
 ## 3. Backend
 
@@ -44,7 +53,7 @@
 | Dependency/build tool | Maven-compatible OpenMRS module builds | Proposed |
 | JVM version | Distribution compatibility review-ից հետո | PoC required |
 
-OpenMRS Platform 2.8.0-ը հայտարարում է Java 21 support, բայց Java/JVM տարբերակը չի pin արվում, մինչև ընտրված distribution-ի բոլոր պարտադիր modules-ը չեն անցել compatibility test։
+Repository-ում հիշատակված որևէ կոնկրետ Platform/JVM զույգ ինքնաբերաբար baseline չէ։ Exact Platform և Java/JVM տարբերակները վերցվում են D-008 pilot-ի ընտրված exact commit-ից և հաստատվում են compatibility evidence-ով. մինչ այդ agent-ը version չի pin անում։
 
 ## 4. Frontend
 
@@ -89,7 +98,7 @@ PostgreSQL-ը կամ այլ database-ը չի ընտրվում միայն ընդ�
 
 | Area | Decision | Status |
 |---|---|---|
-| Authorization source | OpenMRS persisted users, roles և privileges | Proposed baseline |
+| Authorization source | OpenMRS persisted users, roles և privileges | Approved Phase I boundary |
 | Authentication | Native OpenMRS authentication Phase I-ում | Approved Phase I boundary |
 | External IdP / Keycloak | Phase I-ից դուրս | Change request required |
 | MFA | Միայն ընտրված native OpenMRS լուծման ներկառուցված հնարավորության դեպքում, առանց վճարովի արտաքին integration-ի | Conditional contract requirement |
@@ -167,7 +176,7 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 Այս ցանկը D-008 compatibility pilot-ը չի արգելում։ Pilot-ը հատուկ թույլատրված է, որպեսզի 1–4 կետերի exact candidate versions-ը և compatibility evidence-ը ստացվեն։ Pilot-ի սահմանները, disposable namespace-ը և exact-commit selection-ը սահմանված են [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում։ Ստորև բերված որոշումները պարտադիր են REG–ADM business implementation-ից առաջ։
 
 1. Reference Application-ից մեկնարկելու exact release-ը։
-2. Platform/JVM/MariaDB compatibility matrix-ը։
+2. Platform/JVM/DB engine և DB version compatibility matrix-ը։ Matrix-ը չի կանխորոշում MariaDB-ն կամ այլ շարժիչ. engine/version-ը հաստատվում են միայն հաջող D-008 evidence-ի review/go որոշմամբ։
 3. Պարտադիր backend և O3 modules-ի exact versions-ը։
 4. Ստուգել ընտրված native OpenMRS release-ի session controls-ը և արդյոք այն ներկառուցված MFA ունի։ Եթե չունի, դա արձանագրվում է որպես unavailable՝ առանց սեփական TOTP/SMS կամ external IdP կառուցելու։
 5. Finance persistence և billing extension boundary-ն։

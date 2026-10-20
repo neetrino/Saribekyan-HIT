@@ -27,9 +27,9 @@
 |---|---|---|---|
 | ՏԱ §6 | Փակ հաշվետվությունների գրանցամատյան | Reporting module + acceptance tests | Pending |
 | ՏԱ §7 | Form builder, reference data և initial import | Forms/reference-data design | Pending |
-| ՏԱ §8 | API հիմք, integration exclusions և internal approval | `../04-API.md`, `../07-INTEGRATIONS.md` | Design baseline created |
+| ՏԱ §8 | API հիմք, integration exclusions և internal approval | `../04-API.md`, `../07-INTEGRATIONS.md` | Draft design mapping; not coding authorization |
 | ՏԱ §9 | Տվյալների և source code-ի իրավունքներ | Delivery/licensing ADR | Pending |
-| ՏԱ §10 | Architecture, performance, 24/7 readiness, security, backup | `../01-ARCHITECTURE.md`, `../05-DATABASE.md`, `../06-SECURITY-AND-PRIVACY.md` | Design baseline created; measurable NFR values open |
+| ՏԱ §10 | Architecture, performance, 24/7 readiness, security, backup | `../01-ARCHITECTURE.md`, `../05-DATABASE.md`, `../06-SECURITY-AND-PRIVACY.md` | Draft design mapping; not coding authorization; measurable NFR values open |
 | ՏԱ §11–12 | Deployment և deliverables | Operations/delivery docs | Pending |
 | ՏԱ §13–15 | Pilot, acceptance, warranty և կողմերի մուտքեր | Test/UAT/progress docs | Pending |
 | ՏԱ §16–18 | Exclusions և հատուկ սահմաններ | Scope guardrails | Baseline recorded |

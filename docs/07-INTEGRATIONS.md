@@ -1,8 +1,10 @@
 # Integrations Architecture
 
+> **Կարգավիճակ:** target integration design և future connector checklist է, ոչ coding authorization։ Phase I-ում կառուցվում են միայն ստորագրված ՏԱ-ի traceable interface/report/export ID-ները։ «API/integration foundation» արտահայտությունը չի թույլատրում ընդհանուր `/api/v1` facade, connector, queue կամ adapter ստեղծել առանց հաստատված use case-ի։ D-008 compatibility PoC-ի probe-ը կարգավորվում է միայն PoC spec-ով և այս architecture-ի implementation-ը չէ։
+
 ## Phase I boundary
 
-Phase I-ը ներառում է API/integration foundation և պայմանագրով նշված reports/file exports։ ARMED, LIS, PACS/DICOM, devices, accounting, POS/payment, SMS/email և qualified e-signature connector-ները դուրս են Phase I-ից առանց հաստատված change request-ի։
+Phase I-ի նպատակային սահմանում կա integration-ready architecture և ստորագրված պայմանագրով ID-ավորված reports/file exports։ Սա ինքնուրույն deliverable կամ coding task չէ։ ARMED, LIS, PACS/DICOM, devices, accounting, POS/payment, SMS/email և qualified e-signature connector-ները դուրս են Phase I-ից առանց հաստատված change request-ի։
 
 ## Interface layers
 

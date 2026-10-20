@@ -1,5 +1,7 @@
 # API Design
 
+> **Status:** target design guidance, ոչ ներկայիս coding authorization։ Մինչ ստորագրված ՏԱ-ն և համապատասխան requirement/go որոշումը թույլատրված է միայն D-008 probe-ը, որի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև custom facade-ի կանոնները կիրառվում են միայն այն endpoint-ի վրա, որի use case-ը և facade-ի անհրաժեշտությունը առանձին հաստատված են։
+
 ## API surfaces
 
 | Surface | Consumer | Rule |
@@ -36,7 +38,7 @@ OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-
 }
 ```
 
-`fields`-ը optional է։ Response-ը չի ներառում stack trace, SQL, secret կամ unnecessary clinical value։ Suggested status mapping՝ `400` validation, `401` unauthenticated, `403` forbidden, `404` hidden/not found, `409` state conflict/duplicate, `422` semantic clinical rejection, `429` limited, `503` unavailable dependency։ Exact OpenMRS error adaptation-ը pilot-ի մաս է։
+`fields`-ը optional է։ Response-ը չի ներառում stack trace, SQL, secret կամ unnecessary clinical value։ Suggested status mapping՝ `400` validation, `401` unauthenticated, `403` forbidden, `404` hidden/not found, `409` state conflict/duplicate, `422` semantic clinical rejection, `429` limited, `503` unavailable dependency։ OpenMRS native errors-ի adaptation-ը D-008 pilot-ի մաս չէ և կատարվում է միայն հետագա հաստատված custom facade use case-ի դեպքում։
 
 ## Collection queries
 
@@ -48,7 +50,7 @@ OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-
 
 ## Concurrency and state transitions
 
-Clinical/financial resource update-ը պետք է ունենա version/ETag կամ համարժեք optimistic locking, երբ lost update-ը վտանգավոր է։ State transition endpoint-ը ընդունում է նպատակային գործողությունը և պատճառը, ոչ arbitrary status overwrite։ Duplicate-sensitive create/import/integration operations-ը ունեն idempotency key և request fingerprint, երբ retry է սպասվում։
+Հաստատված custom facade use case-ում clinical/financial resource update-ը պետք է ունենա version/ETag կամ համարժեք optimistic locking, երբ lost update-ը վտանգավոր է։ State transition endpoint-ը ընդունում է միայն գրավոր հաստատված նպատակային գործողությունն ու պատճառը, ոչ arbitrary status overwrite։ Duplicate-sensitive create/import/integration operation-ի transport idempotency-ն նախագծվում է հաստատված retry semantics-ից հետո։ Սա չի սահմանում FIN-03 business uniqueness key-ը և agent-ին չի թույլատրում այն հորինել։
 
 ## Security and audit
 
@@ -68,4 +70,4 @@ Clinical/financial resource update-ը պետք է ունենա version/ETag կա
 
 ## Phase I boundary
 
-Phase I-ում կառուցվում է համաձայնեցված integration interface-ի API հիմքն ու documentation-ը։ ARMED/LIS/PACS/device/payment connector-ի endpoint-ը չի ավելացվում որպես scope, եթե չկա հաստատված change request։
+Ստորագրված scope-ից և endpoint-level go որոշումից հետո կարող է կառուցվել համաձայնեցված integration interface-ի անհրաժեշտ API հիմքն ու documentation-ը։ Այս փաստաթուղթը ինքնուրույն `/api/v1` facade կամ endpoint կառուցելու թույլտվություն չէ։ ARMED/LIS/PACS/device/payment connector-ի endpoint-ը չի ավելացվում որպես scope, եթե չկա հաստատված change request։

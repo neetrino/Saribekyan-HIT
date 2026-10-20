@@ -15,9 +15,9 @@
 
 ## Architectural style
 
-Ստորև նկարագրվածը **նպատակային architecture պատկերն է, ոչ business implementation սկսելու թույլտվություն**։ Մինչ D-008 pilot-ի ավարտը թույլատրված է միայն մեկ compatibility PoC՝ մեկ non-business pilot OMOD-ով և մեկ minimal O3 extension-ով՝ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ի համաձայն։ REG–ADM business module-ները և ամբողջ distribution tree-ն մինչ այդ չեն ստեղծվում։
+Ստորև նկարագրվածը **նպատակային architecture պատկերն է, ոչ business implementation սկսելու թույլտվություն**։ D-008-ը թույլատրում է միայն մեկ compatibility PoC՝ մեկ non-business pilot OMOD-ով և մեկ minimal O3 extension-ով՝ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ի համաձայն։ Pilot-ի տեխնիկական ավարտը go որոշում չէ։ REG–ADM business module-ները և production distribution tree-ն չեն ստեղծվում, մինչև evidence review/go որոշումը գրանցված չէ և ADR-0002-ը ընդունված կամ մերժված չէ։
 
-Pilot-ով հաստատվելու դեպքում նպատակային համակարգը OpenMRS distribution է՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Concepts, forms, locations, roles և distribution metadata-ն version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
+Եթե pilot evidence-ի review/go որոշումը դրական է և ADR-0002-ն ընդունում է extension strategy-ն, նպատակային համակարգը կարող է հաստատվել որպես OpenMRS distribution՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Մինչ այդ OMOD/O3 business architecture-ը մնում է `Proposed`։ Concepts, forms, locations, roles և distribution metadata-ն նպատակային տարբերակում version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
 
 ## System context
 
@@ -67,8 +67,10 @@ Phase I-ի boundaries-ն են Registration, Ambulatory, Inpatient, Diagnostics/T
 6. ADM-10 change audit-ը, export-ը և break-glass access-ը audit են արվում։ Ամեն patient record view-ի audit-ը առանձին չհաստատված որոշում է։
 7. Integration-ը չի գրում DB-ին ուղղակի և չի շրջանցում business validation-ը։
 8. OpenMRS/module/frontend exact versions-ը pin և compatibility-test են արվում։
-9. OpenMRS core fork-ը պահանջում է առանձին ADR և upgrade-impact review։
+9. Phase I-ում OpenMRS core fork կամ patch արգելված է։ Առանձին ADR-ը և upgrade-impact review-ը ներկայիս scope-ի ներսում բացառություն չեն ստեղծում։ Ապագա core փոփոխությունը կարող է քննարկվել միայն նոր գրավոր scope/change request-ի հաստատումից հետո՝ առանձին ADR-ով և upgrade-impact review-ով։ Մինչ այդ agent-ը կանգ է առնում և core-ը չի փոխում։
 10. External failure-ը չի թողնում local transaction-ը կիսատ կամ անորոշ։
+
+Invariant 9-ի `core patch`-ը նշանակում է OpenMRS core source code-ի փոփոխություն։ Այն չի արգելում D-008 spec-ով թույլատրված, ignored `pilot/openmrs-compatibility/work/reference-application/` պատճենի distro/assembly configuration patch-երը (`spa-assemble-config.patch`, `omod-inclusion.patch`)։
 
 ## Core flows
 

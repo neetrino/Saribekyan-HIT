@@ -6,7 +6,7 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 
 ## Փաստաթղթի սահմանը
 
-Այս brief-ը չի փոխարինում ստորագրված տեխնիկական առաջադրանքին։ Այն ներկայացնում է նախագծի ընդհանուր նպատակը և Փուլ I-ի կառուցման ելակետը։ Scope-ի վերաբերյալ հակասության դեպքում գերակայում է `contract/phase-1/Phase_1_Technical_Specification_HY.md`-ը։
+Այս brief-ը չի փոխարինում ստորագրված տեխնիկական առաջադրանքին։ `contract/phase-1/Phase_1_Technical_Specification_HY.md` v1.3-ը ներկայում ստորագրման համար draft baseline է։ Մինչ ստորագրումը այն օգտագործվում է design/traceability-ի համար, ոչ business coding authorization-ի։ Միակ coding բացառությունը D-008 compatibility PoC-ն է։ Ստորագրումից հետո scope-ի հակասության դեպքում գերակայում է ստորագրված ՏԱ-ն։
 
 ## Օգտատերեր
 
@@ -50,9 +50,9 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 - Բժշկական domain platform-ի հիմքը **OpenMRS** է։
 - Custom backend development-ը կատարվելու է **Java**-ով։
 - OpenMRS core/module հնարավորությունները պետք է նախընտրել custom կրկնակի implementation-ից, եթե դրանք բավարարում են պահանջը, անվտանգությունը և ընդունման չափանիշները։
-- Custom լուծումը պետք է պահպանի OpenMRS upgrade path-ը և չփոփոխի core-ը չվերահսկվող fork-ով։
+- Custom լուծումը պետք է պահպանի OpenMRS upgrade path-ը։ Phase I-ում OpenMRS core fork/patch չկա. բացակայող extension point-ի դեպքում աշխատանքը կանգ է առնում։
 
-OpenMRS distribution-ի, frontend architecture-ի, database-ի և reporting/document generation գործիքների կոնկրետ որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում fit-gap ստուգումից հետո։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։
+OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact version որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո։ Fit-gap assessment-ը ինքնուրույն pin կամ implementation authorization չի տալիս։ Reporting/document generation-ի այլ տեխնիկական ընտրությունները հետևում են իրենց Approved requirement/ADR-ին։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։
 
 ## Փուլ I-ից դուրս
 
@@ -60,7 +60,7 @@ OpenMRS distribution-ի, frontend architecture-ի, database-ի և reporting/docu
 
 ## Հիմնական սահմանափակումներ
 
-- Pilot release-ի նպատակային ժամկետը մեկնարկից չորս ամիս է։
+- **Production pilot-release**-ի պայմանագրային նպատակային ժամկետը մեկնարկից չորս ամիս է։ Սա D-008 non-business compatibility PoC-ն չէ և մինչև ստորագրումը դրա implementation-ը թույլատրված չէ։
 - Նախնական կազմակերպական չափը մոտ 150–200 աշխատակից է, ոչ պարտադիր միաժամանակյա session։
 - Համալիրը նոր է, և պարտադիր legacy migration նախատեսված չէ։
 - Production cloud-ի պարբերական ծախսերը, maintenance-ը և SLA-ն առանձին պայմաններ են։
@@ -68,4 +68,4 @@ OpenMRS distribution-ի, frontend architecture-ի, database-ի և reporting/docu
 
 ## Հաջողության չափանիշ
 
-Փուլ I-ը հաջող է, երբ ՏԱ-ի պարտադիր workflow-ները աշխատում են փոխկապակցված, դերերն ու հասանելիությունները կարգավորված են, կրիտիկական թերությունները փակված են, backup/restore փորձարկումն իրականացված է, փաստաթղթերը և ուսուցողական նյութերը փոխանցված են, և ավարտված է համաձայնեցված production pilot/UAT գործընթացը։
+Ստորագրումից և business implementation authorization-ից հետո Փուլ I-ը հաջող է, երբ ՏԱ-ի պարտադիր workflow-ները աշխատում են փոխկապակցված, դերերն ու հասանելիությունները կարգավորված են, կրիտիկական թերությունները փակված են, backup/restore փորձարկումն իրականացված է, փաստաթղթերը և ուսուցողական նյութերը փոխանցված են, և ավարտված է համաձայնեցված production pilot-release/UAT գործընթացը։ Սա D-008 compatibility PoC-ի acceptance criterion չէ։

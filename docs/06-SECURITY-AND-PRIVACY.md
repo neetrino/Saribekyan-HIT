@@ -1,8 +1,10 @@
 # Security and Privacy
 
+> **Կարգավիճակ:** target security/privacy design և review checklist է, ոչ business coding authorization։ Կիրառելի implementation-ը սկսվում է միայն ստորագրված ՏԱ-ի traceable requirement-ից և implementation gate-ից հետո։ Այս ֆայլը չի թույլատրում հորինել session/password timeout, joiner/mover/leaver workflow, break-glass duration/scope, retention, encryption կամ այլ բաց security/privacy արժեք։ D-008 compatibility PoC-ի security սահմանը կարգավորվում է միայն PoC spec-ով։
+
 ## Scope
 
-Սա Phase I-ի security/privacy architecture baseline-ն է, ոչ իրավաբանական համապատասխանության հավաստագիր։ Retention-ը, իրավական հիմքերը և regulatory controls-ը հաստատում են պատվիրատուի համապատասխան պատասխանատուները։ Պաշտպանվող տվյալներն են patient/clinical/financial data-ն, credentials/sessions/secrets-ը, audit-ը, reports/exports-ը և backups-ը։
+Սա Phase I-ի նպատակային security/privacy architecture baseline-ն է, ոչ as-built նկարագիր, implementation հրահանգ կամ իրավաբանական համապատասխանության հավաստագիր։ Retention-ը, իրավական հիմքերը և regulatory controls-ը հաստատում են պատվիրատուի համապատասխան պատասխանատուները։ Պաշտպանվող տվյալներն են patient/clinical/financial data-ն, credentials/sessions/secrets-ը, audit-ը, reports/exports-ը և backups-ը։
 
 ## Trust and identity
 
@@ -11,13 +13,13 @@ Browser, proxy, O3/OpenMRS runtime, database, file storage և external integrati
 - Յուրաքանչյուր աշխատակից ունի անհատական account. shared clinical accounts չեն թույլատրվում։
 - Phase I authentication-ը native OpenMRS է։ External IdP/Keycloak integration-ը Phase I-ից դուրս է։
 - MFA-ն Phase I-ում պահանջվում է միայն այն դեպքում, երբ ընտրված native OpenMRS լուծումն այն արդեն ապահովում է առանց վճարովի արտաքին integration-ի։ Սեփական TOTP/SMS layer չի կառուցվում, SMS provider չի ավելացվում։
-- Joiner/mover/leaver, session timeout/revocation և service identities-ը պետք է լինեն բացահայտ և թեստավորված։
+- Հաստատված պահանջ լինելու դեպքում joiner/mover/leaver, session timeout/revocation և service identities-ը պետք է ունենան բացահայտ, թեստավորվող policy։ Այս ֆայլը դրանց թվային արժեքը կամ workflow semantics-ը չի սահմանում։
 
 ## Authorization
 
 Որոշումը ներառում է principal-ը, role/privilege-ը, action/resource-ը, location/department/service scope-ը, care relationship-ը և record state-ը։ Default-ը deny է, կանոնը կիրառվում է backend-ում։ Admin լինելը ինքնաբերաբար clinical superuser լինել չէ։
 
-Break-glass access-ը պահանջում է պատճառ, սահմանափակ time/scope, առանձին audit event և հետագա review/alert։
+Break-glass-ը target control է՝ պատճառի, սահմանափակ time/scope-ի, առանձին audit event-ի և հետագա review/alert-ի գաղափարով։ Exact duration-ը, scope-ը, eligibility-ն և review/alert workflow-ը blockers են մինչև ստորագրված պահանջ կամ Approved որոշում։
 
 ## Audit baseline
 

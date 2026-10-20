@@ -1,5 +1,7 @@
 # Database and Persistence Design
 
+> **Status:** target persistence guidance, ոչ schema/migration coding authorization։ Մինչ ստորագրված ՏԱ-ն և D-008 pilot-ի ավարտը business schema կամ migration չի ստեղծվում։
+
 ## Status and ownership
 
 Exact DB engine/version-ը դեռ հաստատված չէ. այն պետք է աջակցվի ընտրված OpenMRS distribution/module stack-ի կողմից։ Reference Application-ի պատճառով MariaDB-ն սկզբնական թեկնածու է, ոչ վերջնական որոշում։
@@ -28,7 +30,7 @@ Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրվա�
 - Clinical patient reference-ը օգտագործում է canonical OpenMRS ID-ն և application/service validation-ը։
 - Foreign key/unique/check constraints-ը կիրառվում են այնտեղ, որտեղ migration compatibility-ն թույլ է տալիս։
 - Status/code-ը uncontrolled free text չէ։
-- Money-ը float/double չէ. amount + currency և սահմանված rounding policy։
+- Money representation-ը պետք է խուսափի binary floating-point-ից, բայց exact DB/Java type-ը, precision-ը և rounding mode-ը չեն ընտրվում մինչև stack compatibility-ն ու AMD business rule-ը գրավոր հաստատվեն։ `HALF_UP` կամ այլ mode ենթադրել չի թույլատրվում։
 - Clinical quantity-ն ունի unit/code system։
 - Time-ը պահվում է unambiguous instant/offset-ով, իսկ local schedule semantics-ը՝ timezone-ով։
 - Sensitive payload-ը JSON blob-ում չի թաքցվում միայն արագության համար։ JSON-ը versioned schema և query/retention հիմնավորում է պահանջում։

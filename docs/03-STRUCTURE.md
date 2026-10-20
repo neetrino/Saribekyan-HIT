@@ -5,44 +5,16 @@
 Սա ապագա նպատակային structure-ի reference է, ոչ repository initialization հրահանգ։ **Մինչ pilot OMOD/O3 compatibility PoC-ի ավարտը ստորև բերված tree-ն կամ business module directories-ը չստեղծել։** Exact artifact/package names-ը որոշվում են pilot-ից հետո։
 
 ```text
-saribekyan-his/
-├── README.md
-├── pom.xml                         # backend reactor, եթե հաստատվի multi-module Maven build
-├── package.json                   # frontend tooling/workspaces, եթե պահանջվում է
-├── backend/
-│   ├── modules/
-│   │   ├── registration/          # միայն OpenMRS-ից բացակայող extensions
-│   │   ├── ambulatory/
-│   │   ├── inpatient/
-│   │   ├── diagnostics/
-│   │   ├── finance/
-│   │   ├── reporting/
-│   │   └── administration/        # ներառում է cross-cutting audit governance-ը
-│   └── distribution/              # pinned OMOD artifacts և OpenMRS runtime assembly
-├── frontend/
-│   ├── modules/                   # custom O3 frontend modules
-│   └── distribution/              # import map / spa assemble configuration
-├── configuration/
-│   ├── concepts/
-│   ├── forms/
-│   ├── locations/
-│   ├── roles-and-privileges/
-│   └── reports/
-├── integration/
-│   ├── contracts/                 # OpenAPI/FHIR/file schemas
-│   └── mappings/                  # approved terminology/external mappings
-├── infrastructure/
-│   ├── local/
-│   ├── deployment/
-│   ├── monitoring/
-│   └── backup-restore/
-├── tests/
-│   ├── distribution-smoke/
-│   ├── integration/
-│   └── uat/
-├── docs/
-└── scripts/                        # reproducible build/deploy/validation helpers
+<future-repository-root>/           # DO NOT CREATE before pilot + go decision
+├── <approved distribution assembly>
+├── <approved business module artifacts>
+├── <approved O3 extension artifacts>
+├── <versioned configuration/metadata>
+├── <approved integration contracts>
+└── <tests and operations assets>
 ```
+
+Սա ownership/boundary map է, ոչ directory-generation template։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ները չեն նշանակում մեկական OMOD կամ folder։ Physical artifact count-ը, repository root անունը և build layout-ը որոշվում են pilot evidence-ից ու առանձին go որոշումից հետո։
 
 Դատարկ directories-ը Git-ում պահվում են միայն README-ով, երբ դրանց purpose-ը հաստատված է։ Անհաստատ technology-ի placeholder code չի ավելացվում։
 
@@ -112,14 +84,18 @@ other modules -> public API only
 
 Circular module dependencies-ը արգելված են։ Shared code-ը ստեղծվում է միայն իրական երկու կամ ավելի consumer-ից հետո և չի դառնում անկապ business logic-ի պարկ։
 
-## Build and versioning
+## Post-pilot production build and versioning
+
+Այս բաժինը D-008 compatibility pilot-ի վրա չի կիրառվում։ Pilot-ի local unpublished OMOD/O3 artifact-ի inclusion-ը և build-context սահմանները կարգավորվում են միայն [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ով։
 
 - OpenMRS Platform, OMOD և O3 dependencies-ը exact pin են արվում distribution manifest-ում։
-- Backend build-ը Maven-compatible է, frontend-ը՝ ընտրված O3 toolchain-ին համապատասխան։ Exact Node/package-manager/JDK versions-ը pin կլինեն PoC-ից հետո։
-- Clean checkout-ից պետք է հնարավոր լինի build անել distribution-ը առանց local unpublished artifact-ի։
+- Backend build-ը Maven-compatible է, frontend-ը՝ ընտրված O3 toolchain-ին համապատասխան։ Exact Node/package-manager/JDK versions-ը pin կլինեն միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո։
+- Production business distribution-ը clean checkout-ից պետք է build լինի միայն repository-ում version-controlled կամ immutable registry-ով pinned artifact-ներով, առանց developer machine-ից վերցվող unpublished artifact-ի։
 - Module schema version-ը և application compatibility-ն ստուգվում են CI distribution smoke test-ով։
 
-## Naming
+## Post-pilot production naming
+
+Այս բաժնի reverse-domain կանոնը production business modules-ի համար է։ D-008 pilot-ը պարտադիր օգտագործում է compatibility spec-ի disposable `org.openmrs.module.saribekyanpilot` package-ը և չի սպասում production prefix-ի հաստատմանը։
 
 - Repository paths՝ lowercase kebab-case։
 - Java packages՝ կազմակերպության հաստատված reverse-domain prefix + module անուն։ Prefix-ը դեռ որոշված չէ և agent-ը չի կարող այն հորինել։

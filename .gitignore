@@ -1,1 +1,5 @@
 .DS_Store
+
+# Disposable OpenMRS compatibility-pilot checkouts/build worktrees.
+/pilot/openmrs-compatibility/upstream/
+/pilot/openmrs-compatibility/work/
