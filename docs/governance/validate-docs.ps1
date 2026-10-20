@@ -322,6 +322,77 @@ if ($taskTemplateText -notmatch 'pre-code `GO`' -or $taskTemplateText -notmatch 
     Add-Failure 'TASK-GO-TEMPLATE must separate D-008 kickoff authorization from completion evidence.'
 }
 
+# Retained sources stay in the repository. Authority is corrected in place; deletion is not the control.
+$visionCandidates = @(Get-ChildItem -LiteralPath $RepositoryRoot -File -Filter '*.docx.md')
+if ($visionCandidates.Count -ne 1) {
+    Add-Failure 'Expected exactly one retained root vision file.'
+    $visionPath = $null
+} else {
+    $visionPath = $visionCandidates[0].FullName
+}
+if ($visionPath) {
+    $visionText = Get-Content -Raw -Encoding utf8 -LiteralPath $visionPath
+    $visionLineCount = (Get-Content -Encoding utf8 -LiteralPath $visionPath).Count
+    if ($visionText -notmatch 'RETAINED_HISTORICAL_VISION_BODY_NOT_PHASE_I_SCOPE' -or $visionLineCount -lt 1000) {
+        Add-Failure 'The root vision body must stay retained and must not be reduced to a redirect stub.'
+    }
+    $visionAuditText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/phase-scope/source-audit/SOURCE-AUDIT-MANIFEST.yaml')
+    $visionAuditHash = [regex]::Match($visionAuditText, 'current_sha256:\s*([A-Fa-f0-9]{64})')
+    $visionActualHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $visionPath).Hash
+    if (-not $visionAuditHash.Success -or $visionAuditHash.Groups[1].Value.ToUpperInvariant() -ne $visionActualHash) {
+        Add-Failure 'SOURCE-AUDIT-MANIFEST current_sha256 must match the retained vision file.'
+    }
+}
+
+foreach ($retainedContractFile in @(
+    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.md',
+    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.docx',
+    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.pdf',
+    'docs/contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md'
+)) {
+    if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot $retainedContractFile))) {
+        Add-Failure "Retained contract artifact is missing: $retainedContractFile"
+    }
+}
+if ($signatureText -notmatch 'STALE_REGENERATE_REQUIRED' -or $signatureText -notmatch 'Deleting them is not a parity correction') {
+    Add-Failure 'Stale DOCX/PDF must remain declared and must not be treated as deleted.'
+}
+
+$contractText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/contract/phase-1/Phase_1_Technical_Specification_HY.md')
+foreach ($lifecycleId in @('AMB-13', 'DIA-03', 'LAB-03', 'RAD-01', 'FDI-01')) {
+    if ($contractText -notmatch ('(?m)^\| ' + [regex]::Escape($lifecycleId) + ' \|[^\r\n]*NO_ENUM_FROM_THIS_LIST')) {
+        Add-Failure "Contract lifecycle row must reject enum inference: $lifecycleId"
+    }
+}
+
+$closedDecisionLabel = -join (@(0x0531, 0x0574, 0x0580, 0x0561, 0x0563, 0x0580, 0x0578, 0x0582, 0x0574) | ForEach-Object { [char]$_ })
+if ($clarification32Text -notmatch 'NO_DRAFT_RESOLUTION_AS_DECISION_SOURCE' -or
+    $clarification32Text.Contains('**' + $closedDecisionLabel) -or
+    $clarification32Text -notmatch '### C-01' -or
+    $clarification32Text -notmatch '### C-31' -or
+    (Get-Content -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/phase-scope/decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md')).Count -lt 100) {
+    Add-Failure 'Clarification 32 must remain a retained draft and must not read as a closed decision register.'
+}
+
+$moduleMatrixText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/requirements/MODULE-SOURCE-MATRIX.md')
+if ($moduleMatrixText -notmatch 'NO_ARTIFACT_FROM_MAPPING' -or
+    $moduleMatrixText -match 'Custom Java OMOD|Custom O3 UI|Proposed custom|High custom risk|Proposed mapping') {
+    Add-Failure 'Module source matrix must remain a gap inventory and must not prescribe an artifact or layer.'
+}
+
+$phaseScopeIndexText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/phase-scope/00_README.md')
+if ($phaseScopeIndexText -notmatch 'HISTORICAL_NAVIGATION_ONLY' -or
+    $phaseScopeIndexText -notmatch 'NO_NATURAL_DETAIL_AUTHORIZATION' -or
+    $phaseScopeIndexText -notmatch 'historical paths;') {
+    Add-Failure 'The phase-scope index must stay navigation-only and must not authorize natural-detail inference.'
+}
+$archiveIndexText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/phase-scope/archive/initial-drafts/README.md')
+if ($archiveIndexText -notmatch 'NO_CURRENT_PRIORITY_SOURCES' -or
+    $archiveIndexText -notmatch 'NON_AUTHORIZING' -or
+    $archiveIndexText -notmatch 'NO_CLOSED_CLARIFICATION_CLAIM') {
+    Add-Failure 'The archived-drafts index must not promote any archived artifact or draft 32 as a current source.'
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

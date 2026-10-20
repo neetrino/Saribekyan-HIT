@@ -51,13 +51,13 @@ documents:
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.docx
     authority: CLIENT_RENDERING
-    lifecycle: DRAFT_CONTRACT
-    agent_usage: DO_NOT_INFER_PARITY_WITHOUT_SIGNATURE_MANIFEST
+    lifecycle: RETAINED_STALE_RENDERING
+    agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.pdf
     authority: CLIENT_RENDERING
-    lifecycle: DRAFT_CONTRACT
-    agent_usage: DO_NOT_INFER_PARITY_WITHOUT_SIGNATURE_MANIFEST
+    lifecycle: RETAINED_STALE_RENDERING
+    agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
 
   - path: ../contract/phase-1/SIGNATURE-STATUS.yaml
     authority: SIGNATURE_AND_ARTIFACT_STATUS
@@ -132,8 +132,8 @@ documents:
 
   - path: ../phase-scope/decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md
     authority: NON_AUTHORIZING_UNTIL_CLIENT_EVIDENCE
-    lifecycle: DRAFT_CONSOLIDATION
-    agent_usage: EXPLANATORY_ONLY_USE_SIGNED_TA_FOR_SCOPE
+    lifecycle: RETAINED_DRAFT_TEXT
+    agent_usage: RETAINED_DRAFT_NOT_DECISION_OR_SCOPE
 
   - path: ../phase-scope/decisions/client/23_Template_Content_Commercial_Boundary.md
     authority: NON_AUTHORIZING

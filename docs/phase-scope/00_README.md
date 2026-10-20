@@ -6,7 +6,9 @@ Machine-readable authority каждого документа определяе�
 
 ## Цель
 
-Зафиксировать договорной объём Фазы I так, чтобы:
+Этот раздел описывает историческую цель каталога. Он не фиксирует текущий объём Фазы I и не разрешает выводить phase, стоимость или критерий приёмки из файлов этого каталога (`HISTORICAL_NAVIGATION_ONLY`).
+
+Исторически каталог задумывался так, чтобы:
 
 - каждая функция имела однозначную фазу;
 - расширения Фаз II и III не попадали в стоимость Фазы I по умолчанию;
@@ -28,11 +30,11 @@ phase-scope/
 ├── 00_README.md
 ├── source-audit/          метод, конфликты и проверка прежних вопросов
 ├── phases/
-│   ├── phase-1/           доказательная граница Фазы I
-│   ├── phase-2/           доказательная граница Фазы II
-│   └── phase-3/           доказательная граница Фазы III
-├── cross-cutting/         архитектура, API, данные, безопасность и внедрение
-├── decisions/             журнал решений, закрытие вопросов и клиентские входные пакеты
+│   ├── phase-1/           historical paths; withdrawn stubs
+│   ├── phase-2/           historical paths; withdrawn stubs
+│   └── phase-3/           historical paths; withdrawn stubs
+├── cross-cutting/         historical paths; withdrawn stubs
+├── decisions/             historical paths; retained drafts 32 and 33 are not decisions
 └── archive/initial-drafts ранние черновики, не используемые как scope
 ```
 
@@ -63,7 +65,7 @@ phase-scope/
 - `decisions/client/31_Client_Approval_Package_Phase_1.md` — withdrawn non-authorizing redirect stub; прежний пакет согласования удалён.
 - `decisions/client/21_Client_Clarifications_Phase_1_HY.md` — withdrawn non-authorizing redirect stub; прежние вопросы удалены.
 - `decisions/client/31_Client_Approval_Package_Phase_1_HY.md` — withdrawn non-authorizing redirect stub; прежний пакет согласования удалён.
-- `decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md` — draft resolution proposal; не client approval evidence и не coding authorization.
+- `decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md` — retained draft text (`NO_DRAFT_RESOLUTION_AS_DECISION_SOURCE`); не client approval, не decision source и не coding authorization. Тело сохраняется и не удаляется.
 - `decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md` — черновик письма клиенту о двух входных пакетах. Не import schema и не coding authorization.
 
 ## Подписываемый комплект
@@ -72,7 +74,7 @@ phase-scope/
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.docx` — клиентская Word-копия.
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-копия.
 
-Статус подписи и parity DOCX/PDF читаются только из `../contract/phase-1/SIGNATURE-STATUS.yaml`. Пока там `UNSIGNED_DRAFT` или у rendering-ов `STALE_REGENERATE_REQUIRED`, DOCX и PDF не являются исполняемым или подписываемым источником. Расхождение PDF/DOCX с Markdown не реализуется. После `SIGNED_VERIFIED` объём задаёт подписанный artifact из этого manifest, а не рабочие файлы `21` и `31`.
+Статус подписи и parity DOCX/PDF читаются только из `../contract/phase-1/SIGNATURE-STATUS.yaml`. DOCX, PDF и юридическая заметка сохраняются. Их удаление не является исправлением расхождения. Пока там `UNSIGNED_DRAFT` или у rendering-ов `STALE_REGENERATE_REQUIRED`, DOCX и PDF не являются исполняемым или подписываемым источником. Расхождение PDF/DOCX с Markdown не реализуется. После `SIGNED_VERIFIED` объём задаёт подписанный artifact из этого manifest, а не рабочие файлы `21` и `31`.
 
 ## Архив
 
@@ -88,22 +90,17 @@ phase-scope/
 
 Следующие пункты являются историческим коммерческим пояснением, а не правом агента самостоятельно дополнять требования. §20.2 draft ТЗ разрешает выбирать технический способ только для полностью определённого результата и не отменяет stop rule из `../00-IMPLEMENTATION-GATE.md`.
 
-Историческая рабочая модель была сформулирована так:
-
-- историческое выражение «разумный запас» означает только техническую детализацию полностью определённого и ID-ированного результата; оно не разрешает добавлять поле, правило, число, policy, transition, отчёт или workflow, которых нет в подписанном baseline/Approved решении;
-- мелкие уточнения и естественная детализация включённой функции не должны автоматически становиться change request;
-- новый модуль, новый внешний контур, новая интеграция или функциональность следующей фазы не считаются «уточнением» Фазы I;
-- граница гибкости проходит внутри включённого use case, а не между разными фазами проекта.
+Историческая формула о «разумном запасе», «мелком уточнении» или «естественной детализации» не является правилом реализации (`NO_NATURAL_DETAIL_AUTHORIZATION`). Она не разрешает агенту добавлять или выбирать поле, правило, число, policy, transition, роль, privilege, формулу, rounding, retention, concurrency, отчёт, workflow либо иной business semantic. При отсутствии явного governing source действует stop rule; классификацию как change request определяет уполномоченный владелец, а не coding agent.
 
 ## Статус этапов документации
 
 ### Этап документации 1 — границы и договорное ТЗ
 
-Содержание draft-пакета подготовлено: source-аудит, доказательные матрицы, журнал решений, закрытие вопросов, армянское ТЗ версии 1.3 и сообщение клиенту о двух входных пакетах. Это не старт разработки. До подписания остаются административные поля договора/ТЗ и сами подписи. Бизнес-implementation закрыт до `SIGNED_VERIFIED`, закрытия применимых blockers и task go. Единственная текущая coding-работа — D-008 compatibility PoC.
+Canonical Markdown ТЗ версии 1.3 остаётся неподписанным draft baseline. Исторические source-аудит, evidence-матрицы и decision log не являются готовым пакетом: их подробные тела withdrawn. Это не разрешение удалять root vision, `32_`, canonical Markdown, DOCX, PDF или юридическую заметку. `32_` и `33_` являются retained non-authorizing drafts, а не закрытием вопросов или принятым письмом. Бизнес-implementation закрыт до `SIGNED_VERIFIED`, закрытия применимых blockers и task go. Единственная текущая coding-работа — D-008 compatibility PoC.
 
 ### Этап документации 2 — окончательная внутренняя карта фаз
 
-Выполняется после подписания ТЗ. Рабочие evidence-файлы преобразуются в единую чистую карту модулей и функциональности: точный объём Фазы I и направления будущих Фаз II–III без повторного открытия подписанных границ.
+После подписания при отдельном решении может быть создана новая карта модулей и функциональности из подписанного источника. Withdrawn файлы этого каталога входом для неё не являются. Root vision и `32_` сохраняются как исторический текст и тоже не являются входом для этой карты.
 
 ### Этап документации 3 — детальная декомпозиция разработки
 
@@ -111,9 +108,9 @@ phase-scope/
 
 ## Входные данные клиента после старта
 
-Клиент предоставляет только два обязательных пакета:
+В сохранённом тексте `32_` и в `33_` названы два предложенных пакета. Это draft grouping, а не исчерпывающий обязательный список, import schema или approval evidence (`CLIENT_INPUT_LIST_NOT_SCHEMA`):
 
 1. организационные и первоначальные данные — структура, сотрудники, роли, расписания, услуги, цены и медицинские справочники;
 2. документы и медицинские шаблоны — закрытый перечень, имеющиеся стандарты/образцы и ответственные за медицинское и юридическое утверждение.
 
-Эти клиентские пакеты сами по себе не блокируют подписание. После подписания могут начинаться только не зависящие от них задачи, которые отдельно прошли implementation gate. Пакеты не отменяют blockers по package/stack, security, finance, workflow, storage, retention и другим открытым решениям. Зависящие от данных настройка, первоначальная загрузка и UAT не начинаются до получения пакетов.
+Эти клиентские пакеты сами по себе не блокируют подписание и не разрешают построить таблицы или правила по перечисленным существительным. После подписания могут начинаться только не зависящие от них задачи, которые отдельно прошли implementation gate. Пакеты не отменяют blockers по package/stack, security, finance, workflow, storage, retention и другим открытым решениям. Зависящие от данных настройка, первоначальная загрузка и UAT не начинаются до получения пакетов.

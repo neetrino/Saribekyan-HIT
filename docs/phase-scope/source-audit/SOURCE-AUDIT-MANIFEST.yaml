@@ -1,7 +1,7 @@
 schema_version: 1
 source:
   path: ../../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
-  current_sha256: 4A6717A79E7505BEB891139BDA978EC18E89CEB7464EC6BEEB3CBA0F6A9D540F
+  current_sha256: 4061E12F03017E98953A0E3529A941EED086D38DCC28193661105F08965CEB33
   lifecycle: HISTORICAL_VISION
   implementation_authority: NONE
 
@@ -14,3 +14,5 @@ rules:
   - Current line numbers are navigation hints only and are not stable provenance.
   - A future re-audit must first freeze a snapshot hash and use section identifiers or quoted anchors.
   - This manifest does not authorize opening the vision as Phase I scope or backlog.
+  - current_sha256 is the hash of the retained repository file. A mismatch is not a reason to restore another snapshot or to delete the body.
+  - The retained body is historical vision evidence (`RETAINED_HISTORICAL_VISION_BODY_NOT_PHASE_I_SCOPE`). Deleting it is not an authority correction.

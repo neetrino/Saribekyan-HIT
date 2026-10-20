@@ -7,7 +7,7 @@ signing_readiness: NOT_READY_STALE_RENDERINGS
 
 canonical_content:
   path: Phase_1_Technical_Specification_HY.md
-  sha256: 74102C282A4185B5F277DCBA370D9D7464251C004618B136E9005FE7BF9409BB
+  sha256: 9FE316BAC5F571EB28668239C95C5E51638CCA338AC5E57116824847E73B9593
   role: EDITABLE_CONTENT_BASELINE
 
 renderings:
@@ -39,3 +39,4 @@ rules:
   - Editing this file does not itself create signature evidence.
   - Coding agents must not set SIGNED_VERIFIED or business_implementation_authorized=true.
   - A signed contract is necessary but does not close task-level blockers or replace TASK-GO-RECORD.
+  - DOCX and PDF files stay in the repository while parity is STALE_REGENERATE_REQUIRED. Deleting them is not a parity correction, and their text is not an implementation source.
