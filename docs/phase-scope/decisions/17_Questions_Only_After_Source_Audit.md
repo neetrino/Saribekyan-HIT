@@ -1,8 +1,8 @@
 # Итоговый статус вопросов после аудита источника
 
-Источник: [технические требования HIS](</Users/user/{} Development/1. Production/Saribekyan-HIT/ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md:1>).
+Источник: технические требования HIS. Исполняемой ссылки нет; корневой vision для scope не открывается.
 
-Подробное разрешение исходных вопросов: [32_Client_Clarifications_Resolution_Phase_1_HY.md](</Users/user/{} Development/1. Production/Saribekyan-HIT/docs/phase-scope/decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md:1>).
+Подробное разрешение исходных вопросов: [32_Client_Clarifications_Resolution_Phase_1_HY.md](./client/32_Client_Clarifications_Resolution_Phase_1_HY.md).
 
 ## Итог
 

@@ -2,11 +2,18 @@
 
 ## Status and ownership
 
+- Lifecycle: `PROPOSED_DESIGN` / `APPROVED_DESIGN` / `AS_BUILT`
 - Type: `reuse` / `configure` / `extend` / `custom`
 - Owner:
 - Requirement IDs:
 - OpenMRS/module version:
 - Decision/ADR:
+- Signed artifact hash (`SIGNATURE-STATUS.yaml`):
+- Task go record ID/path:
+- Independent approver/date/evidence:
+- Open blockers (`NONE` required before implementation):
+
+Եթե signed artifact hash-ը, requirement-level traceability-ն, applicable blocker closure-ը կամ approved task go record-ը բացակայում են, այս module record-ը միայն proposed design է և code/schema/dependency ստեղծելու թույլտվություն չէ։
 
 ## Purpose and non-goals
 
@@ -28,6 +35,8 @@ Implementation package կամ table direct access-ը public contract չէ։
 - Invariants and validation:
 - Location/department/care-context scope:
 - Failure/idempotency behavior:
+- Approved workflow-transition record:
+- Approved concurrency/uniqueness/rounding decisions, եթե կիրառելի են:
 
 ## Data ownership
 
@@ -43,6 +52,8 @@ Implementation package կամ table direct access-ը public contract չէ։
 - Sensitive reads:
 - Change/approval/export events:
 - Break-glass behavior:
+- Approved permission-matrix rows:
+- Retention/review owner:
 
 ## UI
 

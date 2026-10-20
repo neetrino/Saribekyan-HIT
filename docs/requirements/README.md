@@ -21,6 +21,8 @@
 
 ## Status-ներ
 
+Այս status-ները requirement lifecycle metadata են և չեն փոխարինում `TECH_CARD.md`-ի decision legend-ին կամ `00-IMPLEMENTATION-GATE.md`-ի go/no-go կանոնին։ `Validated fit`, `Approved design` կամ `Implemented` կարգավիճակներից ոչ մեկը ինքնուրույն coding/release authorization չէ։ Հակասության դեպքում governing gate-ը և համապատասխան ADR-ի իրական status-ն են գերակա։
+
 | Status | Նշանակություն |
 |---|---|
 | Contract baseline | Պահանջը ներառված է ստորագրման համար նախատեսված ՏԱ-ում |
@@ -33,9 +35,13 @@
 
 ## Ֆայլեր
 
-- `PHASE-1-TRACEABILITY.md` — Փուլ I-ի requirement register-ի սկզբնական քարտեզը։
-- `OPENMRS-FIT-GAP.md` — պաշտոնական աղբյուրների հիման վրա reuse/configure/custom gap assessment-ը։
-- `MODULE-SOURCE-MATRIX.md` — OpenMRS, custom Java և արտաքին բաղադրիչների թեկնածու բաշխումը։
+- `PHASE-1-TRACEABILITY.md` — requirement-level source/design/blocker/go register,
+- `WORKFLOW-TRANSITIONS.md` — չփակված transition semantics-ի blocker register,
+- `PERMISSION-MATRIX.md` — authorization policy blocker register,
+- `REPORT-DEFINITIONS.md` — report metric/acceptance definition blocker register,
+- `OPENMRS-FIT-GAP.md` — version-specific evidence պահանջող assessment,
+- `MODULE-SOURCE-MATRIX.md` — mapping candidates, ոչ artifact որոշում։
+
 - `GLOSSARY.md` — նախագծում օգտագործվող հիմնական տերմինները։
 
 ## Չլուծված տեխնիկական պնդումների կանոն

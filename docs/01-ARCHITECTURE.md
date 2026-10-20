@@ -4,6 +4,8 @@
 
 Այս փաստաթուղթը սահմանում է Phase I-ի նպատակային ճարտարապետությունը, ոչ թե դեռ չգրված համակարգի as-built վիճակը։ Հաստատված հիմքերն են՝ **Size C**, **OpenMRS clinical foundation**, **Java backend extensions** և պայմանագրային Phase I scope-ը։ `Proposed` ու `PoC required` ընտրությունները վերջնական չեն մինչև համապատասխան ապացույցն ու ADR-ը։
 
+Չնշված աղյուսակային status-ը կամ հրամայական architecture լեզուն coding authorization չէ։ Canonical foundation/no-fork/no-direct-SQL սահմանները governing են, իսկ component/topology/product/pattern ընտրությունները `PROPOSED_DESIGN` են մինչև manifest-ում գրանցված Accepted decision և task go record։
+
 ## Architectural drivers
 
 - մեկ canonical patient identity և longitudinal medical record,
@@ -37,14 +39,14 @@ flowchart LR
 | Gateway/reverse proxy | TLS, routing, limits, security headers | Proposed; product TBD |
 | O3 app shell | Navigation, localization, extensions, shared UI | Proposed |
 | Reused O3 modules | Patient/chart/forms և fit-gap-ով հաստատված UI | PoC required |
-| Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | Target only; D-008-ը հիմա թույլ է տալիս միայն minimal non-business pilot extension |
+| Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն minimal non-business pilot extension |
 | OpenMRS Platform | Patient, visit, encounter, obs, order, concepts | Approved foundation |
-| Community/custom OMOD-ներ | Reused capability և Java business extensions | Target only; D-008-ը հիմա թույլ է տալիս միայն մեկ non-business pilot OMOD |
-| Relational database | Canonical և module-owned transactional data | Engine/version TBD; MariaDB candidate |
+| Community/custom OMOD-ներ | Reused capability և Java business extensions | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն մեկ non-business pilot OMOD |
+| Relational database | Canonical և module-owned transactional data | Engine/version TBD; վերցվում է D-008 exact commit-ի supported manifest-ից և հաստատվում review/go-ով |
 | Document storage | Attachments և generated documents | Design/PoC required |
-| Reporting/export | Contract reports, dashboards, controlled export | Mixed reused/custom |
+| Reporting/export | Contract reports, dashboards, controlled export | PROPOSED_DESIGN; reuse/custom fit decision required |
 | Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | Phase I baseline; native MFA capability TBD |
-| Audit capability | ADM-10 change, export և break-glass evidence; all-read audit-ը default չէ | Cross-cutting design |
+| Audit capability | ADM-10 change, export և break-glass evidence; all-read audit-ը default չէ | PROPOSED_DESIGN; cross-cutting ownership |
 | Operations layer | Logs, metrics, backup/restore, health, alerts | Detailed design pending |
 
 ## Functional boundaries
@@ -66,7 +68,7 @@ Phase I-ի boundaries-ն են Registration, Ambulatory, Inpatient, Diagnostics/T
 5. Medical/financial correction-ը traceable է. hard delete կամ լուռ overwrite-ը default չէ։
 6. ADM-10 change audit-ը, export-ը և break-glass access-ը audit են արվում։ Ամեն patient record view-ի audit-ը առանձին չհաստատված որոշում է։
 7. Integration-ը չի գրում DB-ին ուղղակի և չի շրջանցում business validation-ը։
-8. OpenMRS/module/frontend exact versions-ը pin և compatibility-test են արվում։
+8. OpenMRS/module/frontend exact versions-ը pin և compatibility-test են արվում միայն հաջող D-008 evidence review/go որոշումից հետո։ Մինչ այդ agent-ը version չի pin անում։
 9. Phase I-ում OpenMRS core fork կամ patch արգելված է։ Առանձին ADR-ը և upgrade-impact review-ը ներկայիս scope-ի ներսում բացառություն չեն ստեղծում։ Ապագա core փոփոխությունը կարող է քննարկվել միայն նոր գրավոր scope/change request-ի հաստատումից հետո՝ առանձին ADR-ով և upgrade-impact review-ով։ Մինչ այդ agent-ը կանգ է առնում և core-ը չի փոխում։
 10. External failure-ը չի թողնում local transaction-ը կիսատ կամ անորոշ։
 
@@ -92,7 +94,7 @@ flowchart TB
   Backend --> Obs
 ```
 
-Dev, test, UAT և production միջավայրերը տարանջատված են։ Phase I-ը պահանջում է production deployment, backup և փաստագրված restore verification, բայց ինքնաբերաբար չի խոստանում active-active, multi-region կամ zero-downtime SLA։ Hosting, topology, availability target և capacity-ն բաց որոշումներ են։
+Dev/test/UAT/production-ը lifecycle և access-isolation context-ներ են, ոչ այս փաստաթղթով պարտադրված չորս առանձին վճարովի deployment։ Պայմանագրային minimum-ը ժամանակավոր test միջավայրն ու մեկ production deployment-ն է՝ signed contract-ի համաձայն։ Առանձին provisioned environment-ների քանակը, topology-ն, payer-ը և promotion model-ը բաց infrastructure որոշումներ են։ Phase I-ը պահանջում է production deployment, backup և փաստագրված restore verification, բայց ինքնաբերաբար չի խոստանում active-active, multi-region կամ zero-downtime SLA։
 
 ## Current scaling baseline
 

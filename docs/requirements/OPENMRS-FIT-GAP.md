@@ -1,5 +1,7 @@
 # OpenMRS fit-gap analysis — Phase I
 
+> **Lifecycle: ASSESSMENT / non-authorizing։** `Strong fit`-ը product-level hypothesis է, ոչ ընտրված stack-ում validated capability։ Յուրաքանչյուր implementation mapping պետք է գրանցի exact distribution SHA/release, module/package version, evidence URL կամ local snapshot, evidence date, license/maintenance review և executable PoC/test result։ Այդ դաշտերից որևէ մեկի բացակայության դեպքում assessment-ը մնում է `UNVALIDATED`։
+
 ## Assessment rule
 
 | Result | Meaning |
@@ -62,7 +64,7 @@ FHIR `ServiceRequest`-ի առկայությունը չի նշանակում լի
 |---|---|---|
 | FIN-01–03 | Partial fit | OpenMRS 3 Billing modules-ը billable services, bills և payments հիմք ունեն։ Duplicate charge prevention-ը պետք է ապացուցել։ |
 | FIN-04–10 | Partial/gap | Payment methods և patient categories հիմք են, բայց prepayment, payer split, insurance/manual contract share, debt և refund reversal-ը պահանջ առ պահանջ PoC/custom են։ |
-| FIN-11 | Gap | Cashier shift/opening/closing/reconciliation workflow-ը custom Java module է սպասվում։ |
+| FIN-11 | Gap | Cashier shift/opening/closing/reconciliation capability-ի բացը պահանջում է հետագա design decision։ Սա custom Java OMOD ստեղծելու որոշում կամ coding authorization չէ։ |
 | FIN-12–14 | Gap/partial | Financial documents և exact exports-ը custom report/document work են։ |
 | FIN-15 | Gap/partial | OpenMRS privileges-ը հիմք են, բայց financial authorization և immutable audit-ը custom design են։ |
 
@@ -93,12 +95,12 @@ External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS 
 
 | Requirement | Assessment | Decision needed |
 |---|---|---|
-| Form builder | Strong fit | React Form Engine workflow, schema versioning և Armenian rendering PoC |
+| Form builder | Candidate fit | O3 Form Builder/React Form Engine reuse-ը պետք է requirement-by-requirement ապացուցի field types, requiredness, version history, specialty binding և Armenian rendering-ը։ Առանձին custom designer չի կառուցվում և candidate dependency չի ընտրվում մինչև Approved fit decision-ը։ |
 | REST API | Strong fit as platform API | Որ endpoint-ներն են արտաքին contract, որոնք՝ internal only |
 | FHIR R4 | Partial fit | Required resource/profile-by-profile validation |
 | PDF/print | Gap | Rendering library, Armenian fonts, versioning և archival rules |
 | Excel import/export | Gap/partial | Template contracts, validation և security |
-| Audit Trail | Partial fit | Unified clinical/custom/read-access audit architecture |
+| Audit Trail | Partial fit | ADM-10 change, export և break-glass audit-ի ճարտարապետություն։ Every-view/read-access audit-ը Phase I default չէ և այս տողով չի թույլատրվում։ |
 | External integrations | Architecture-ready only | Phase I connectors-ը բացառված են, եթե change request չկա |
 
 ## Fit-gap validation candidates — not an authorized backlog
@@ -108,12 +110,12 @@ External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS 
 1. Pin candidate Reference Application release և ամբողջ compatibility matrix-ը։
 2. Armenian patient registration/search/merge։
 3. Appointment → visit → queue ամբողջական workflow։
-4. O3 Form Builder/React Form Engine՝ Armenian clinical form, draft, publish և correction։
+4. Form-constructor validation՝ O3 Form Builder/React Form Engine candidate-ի միջոցով, առանց այն dependency կամ երկրորդ custom designer հաստատելու։
 5. Admission → bed assignment → transfer → discharge concurrency/history։
 6. Lab order → result → critical flag → approval/correction։
 7. Billing՝ invoice, partial payment, prepayment, split payer, refund և cashier shift։
 8. Role/location/patient-context access և break-glass։
-9. Audit՝ create/update/void/read/export/break-glass։
+9. Audit validation՝ create/update/void/export/break-glass։ `read`/every-view audit-ը առանձին բաց requirement է և այս candidate list-ով չի թույլատրվում։
 10. Armenian PDF և Excel report generation։
 
 ## Primary evidence

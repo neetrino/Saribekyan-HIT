@@ -2,7 +2,7 @@
 
 ## Status
 
-Սա ապագա նպատակային structure-ի reference է, ոչ repository initialization հրահանգ։ **Մինչ pilot OMOD/O3 compatibility PoC-ի ավարտը ստորև բերված tree-ն կամ business module directories-ը չստեղծել։** Exact artifact/package names-ը որոշվում են pilot-ից հետո։
+Սա ապագա ownership/structure reference է, ոչ repository initialization հրահանգ։ **Pilot run-ի ավարտը բավարար չէ։ Մինչ evidence review/go-ն, ADR-0002-ի որոշումը և production artifact-boundary որոշումը business module directories չստեղծել։** Exact artifact/package names-ը որոշվում են դրանից հետո։
 
 ```text
 <future-repository-root>/           # DO NOT CREATE before pilot + go decision
@@ -18,51 +18,11 @@
 
 Դատարկ directories-ը Git-ում պահվում են միայն README-ով, երբ դրանց purpose-ը հաստատված է։ Անհաստատ technology-ի placeholder code չի ավելացվում։
 
-> D-008-ը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC։ Այն թույլ չի տալիս որևէ business module կամ ամբողջ tree գեներացնել։ Business module-ները ստեղծվում են միայն pilot stack-ը pin անելուց և [implementation gate](./00-IMPLEMENTATION-GATE.md)-ը անցնելուց հետո։
+> D-008-ը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC։ Այն թույլ չի տալիս որևէ business module կամ ամբողջ tree գեներացնել։ Business artifacts-ը ստեղծվում են միայն evidence review/go-ից, ADR-0002-ի որոշումից, stack pin-ից, ստորագրված scope-ից և [implementation gate](./00-IMPLEMENTATION-GATE.md)-ը task-ի համար անցնելուց հետո։
 
-## Post-pilot business backend skeleton
+## Post-go artifact layout
 
-Այս բաժինը pilot-ի համար չէ և չի կարող օգտագործվել մինչև ADR-0002-ի ընդունումն ու production package/stack որոշումները։ Pilot-ի միակ layout-ը [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում է։ Ստորև բերվածը conceptual target է, ոչ OpenMRS archetype-ի պատճեն։
-
-```text
-backend/modules/<module>/
-├── pom.xml
-├── README.md
-├── api/
-│   └── src/main/java/.../<module>/api/       # public interfaces և stable DTOs
-├── omod/
-│   ├── src/main/java/.../<module>/
-│   │   ├── application/                      # use cases / transaction orchestration
-│   │   ├── domain/                           # custom rules, եթե OpenMRS model-ում չկան
-│   │   ├── infrastructure/                   # DAO, adapters, OpenMRS integration
-│   │   └── web/                              # REST resources/controllers
-│   ├── src/main/resources/                    # միայն իրական module resources
-│   └── src/test/
-└── integration-tests/
-```
-
-OpenMRS module archetype-ի իրական layout-ը որոշվում է pilot evidence-ով։ Liquibase file ավելացվում է միայն իրական module-owned schema ունենալու դեպքում, ոչ որպես դատարկ placeholder։ Կարևոր սահմանը `api`/public contract-ն է. այլ module-ը չի import անում `application`, `infrastructure` կամ `web` implementation-ը։
-
-## Post-pilot business frontend skeleton
-
-```text
-frontend/modules/<module>/
-├── package.json
-├── README.md
-├── src/
-│   ├── index.ts                    # O3 lifecycle/extension exports
-│   ├── routes/
-│   ├── extensions/
-│   ├── workspaces/
-│   ├── components/
-│   ├── api/                        # typed clients; no business authorization
-│   ├── translations/
-│   │   └── hy.json
-│   └── __tests__/
-└── e2e/
-```
-
-Custom UI-ն օգտագործում է O3 extension/workspace/navigation mechanisms և shared design system-ը։ Երկրորդ անկախ SPA ստեղծելու համար առանձին ADR է անհրաժեշտ։
+Այս փաստաթուղթը backend/frontend directory skeleton չի սահմանում։ Հաստատված go-ից հետո backend layout-ը վերցվում է ընտրված և pin արված OpenMRS tooling/archetype-ի փաստացի output-ից, իսկ frontend layout-ը՝ ընտրված O3 toolchain-ի փաստացի template/extension contract-ից։ Agent-ը սեփական ենթադրյալ layered directory tree չի ստեղծում միայն այս փաստաթղթից։ Liquibase file ավելացվում է միայն իրական module-owned schema-ի հաստատված պահանջով, ոչ placeholder-ով։ Public contract/implementation սահմանը և O3 extension mechanism-ը պահպանվում են՝ անկախ վերջնական physical layout-ից։
 
 ## Ownership rules
 
@@ -71,7 +31,7 @@ Custom UI-ն օգտագործում է O3 extension/workspace/navigation mechani
 - Cross-module call-ը գնում է public Java/API contract-ով, ոչ implementation import-ով կամ direct SQL-ով։
 - Configuration artifact-ը code review, version և promotion history ունի։
 - Generated build output, secrets և runtime patient data repository-ում չեն պահվում։
-- Յուրաքանչյուր module README-ն լրացվում է [module template](./modules/MODULE-TEMPLATE.md)-ով։
+- Յուրաքանչյուր առանձին հաստատված business artifact-ի README-ն լրացվում է [module template](./modules/MODULE-TEMPLATE.md)-ով։ Ownership boundary-ն ինքնաբերաբար artifact չէ։
 
 ## Dependency direction
 

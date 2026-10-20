@@ -2,6 +2,8 @@
 
 ## Status legend
 
+Այս legend-ը համադրվում է `governance/README.md`-ի canonical lifecycle-ին։ Ազատ status բառը coding authorization չէ։ `Approved`/`Accepted` row-ը պարտադիր պետք է ունենա decision ID, approver/date/evidence. այդ metadata-ի բացակայության դեպքում agent-ը այն կիրառում է միայն guardrail/context-ի համար և business code չի սկսում։
+
 | Status | Meaning |
 |---|---|
 | Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
@@ -86,7 +88,7 @@ Form schema validation-ը բավարար չէ․ յուրաքանչյուր clin
 | Area | Decision | Status |
 |---|---|---|
 | Primary database | Distribution-supported relational database | Approved constraint |
-| Initial candidate | MariaDB՝ Reference Application baseline-ի պատճառով | Proposed |
+| DB engine candidate | TBD՝ D-008 exact distribution commit-ի supported manifest-ից | PoC required |
 | Custom tables | Միայն այն domain-ների համար, որոնք OpenMRS canonical model-ը չի ծածկում | Proposed |
 | Files/documents | Storage strategy TBD | Deferred |
 | Backup/restore | Automated baseline + documented restore test | Contract baseline |
@@ -126,9 +128,8 @@ FHIR resource-ի գոյությունը չի նշանակում, որ տվյալ
 |---|---|---|
 | OpenMRS Reporting Module | Dataset/report հիմք | PoC required |
 | Custom dashboards | REP-01–06 գործառնական ցուցանիշներ | Proposed |
-| JasperReports | PDF/structured report rendering թեկնածու | Proposed |
-| Apache POI | Excel import/export թեկնածու | Proposed |
-| openhtmltopdf | Հայերեն փաստաթղթերի PDF թեկնածու | Proposed |
+| Report/PDF renderer | NONE SELECTED; options moved to `technology-options/TECHNOLOGY-CANDIDATES.md` | Deferred |
+| Spreadsheet library | NONE SELECTED; options moved to `technology-options/TECHNOLOGY-CANDIDATES.md` | Deferred |
 
 Այս թեկնածուներից ոչ մեկը dependency ավելացնելու թույլտվություն չէ։ Ընտրությունը պահանջում է PoC/գրավոր տեխնիկական որոշում։
 
@@ -141,8 +142,8 @@ OpenMRS 3 Billing module-ը ընդունվում է որպես գնահատմա�
 | Candidate | Status |
 |---|---|
 | OpenMRS Billing frontend/backend modules | PoC required |
-| Custom Java finance OMOD | Expected, սահմանը՝ fit-gap-ից հետո |
-| Moneta/JSR 354 | Proposed |
+| Custom Java finance OMOD | Proposed միայն այն դեպքում, երբ Approved FIN fit decision-ը ապացուցի module boundary-ի անհրաժեշտությունը |
+| Money library | NONE SELECTED; options moved to `technology-options/TECHNOLOGY-CANDIDATES.md` | Deferred |
 
 AMD-ի precision և rounding rule-ը business blocker է. Moneta-ի առկայությունը այդ կանոնը չի որոշում։
 
@@ -152,8 +153,8 @@ AMD-ի precision և rounding rule-ը business blocker է. Moneta-ի առկայո
 |---|---|---|
 | Clinical change history | OpenMRS platform audit/version capabilities + gap analysis | PoC required |
 | Custom entity audit | Custom immutable audit design | Required design |
-| JaVers | Թեկնածու, ոչ canonical որոշում | Proposed |
-| Read/access audit | Առանձին requirement և design | Required design |
+| Audit/diff library | NONE SELECTED; options moved to `technology-options/TECHNOLOGY-CANDIDATES.md` | Deferred |
+| Read/access audit | Phase I default չէ; պահանջում է առանձին Approved requirement, privacy/performance/retention design | Proposed / blocked |
 | Encryption in transit | TLS production-ում | Contract baseline |
 | Secrets | Environment/secret manager, ոչ repository | Approved principle |
 | Patient safety | Clinical validation և fail-safe behavior | Approved principle |

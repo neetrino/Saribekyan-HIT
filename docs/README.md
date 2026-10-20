@@ -2,9 +2,13 @@
 
 Այս պանակը Սարիբեկյան համալսարանական բժշկական համալիրի միասնական բժշկական տեղեկատվական համակարգի նախագծային փաստաթղթերի հիմնական մուտքի կետն է։
 
+Agent-ը պարտադիր ստուգում է [documentation manifest](./governance/DOCUMENT-MANIFEST.yaml)-ը։ Search result-ը, ֆայլի անունը, `closed`/`baseline` բառը կամ հրամայական ձևակերպումը ինքնուրույն authority չեն սահմանում։ Ստորագրության միակ machine-readable վիճակը [SIGNATURE-STATUS.yaml](./contract/phase-1/SIGNATURE-STATUS.yaml)-ում է։
+
 ## Փաստաթղթերի առաջնահերթություն
 
 Հակասության դեպքում կիրառվում է հետևյալ հերթականությունը.
+
+> Այս ցանկը սահմանում է բովանդակային/պայմանագրային աղբյուրների առաջնահերթությունը, ոչ coding go/no-go-ն։ [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը և repository-level `AGENTS.md`-ը պարտադիր applicability/stop checks են **ցանկացած** աղբյուրից առաջ և հետո։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն agent-ին չի թույլատրում լրացնել այնտեղ չսահմանված թիվ, policy, transition, uniqueness, rounding, retention, concurrency կամ այլ semantics։ Այդ դեպքում աշխատանքը կանգ է առնում մինչև գրավոր որոշումը և task-level go-ն։
 
 1. ստորագրված պայմանագիր և դրա ստորագրված փոփոխություններ,
 2. ստորագրված Փուլ I-ի տեխնիկական առաջադրանք,
@@ -13,6 +17,8 @@
 5. ընթացիկ implementation/as-built փաստաթղթեր,
 6. սկզբնական ամբողջական vision փաստաթուղթ,
 7. աշխատանքային վերլուծություններ և տեխնիկական առաջարկներ։
+
+Այս հերթականությունը որոշում է **ինչ արդյունք է պահանջվում**, բայց coding go/no-go չի տալիս։ `AGENTS.md`-ը և [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը պարտադիր execution control են յուրաքանչյուր code/schema/dependency task-ի համար՝ անկախ աղբյուրի բարձր դիրքից։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն չեն թույլատրում agent-ին հորինել բաց implementation value/policy կամ շրջանցել տվյալ task-ի չփակված blocker-ը։ Gate-ը scope չի փոխում, այլ կանգնեցնում է իրականացումը մինչև անհրաժեշտ որոշումը։ ՏԱ-ի «յոթ գործառութային մոդուլ» արտահայտությունը բաժին 5-ի յոթ գործառութային խումբն է, ոչ թե յոթ OMOD կամ directory։
 
 `Phase_1_Technical_Specification_HY.md` v1.3-ը Փուլ I-ի **ստորագրման համար պատրաստված draft contractual baseline-ն է**։ Այն գործող ստորագրված scope չի համարվում, մինչև ստորագրման ապացույցը repository-ում չգրանցվի։ Մինչ այդ business implementation-ը փակ է, իսկ D-008 compatibility PoC-ն միակ coding բացառությունն է։ Սկզբնական `...ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md` փաստաթուղթը նկարագրում է ամբողջ երկարաժամկետ տեսլականը և չի կարող ինքնուրույն ընդլայնել Փուլ I-ի ծավալը կամ coding authorization տալ։
 
@@ -23,7 +29,7 @@
 - Նախագծի չափը՝ **Size C**։
 - Հիմնական բժշկական հարթակը՝ **OpenMRS**։
 - Custom backend development-ի հիմնական լեզուն՝ **Java**։
-- Ստորագրման ենթակա Փուլ I-ի փակ գործառութային baseline-ը և բացառումները՝ draft տեխնիկական առաջադրանքի բաժիններ 5–16։ Դրանք business coding authorization կդառնան միայն ստորագրումից հետո։
+- Ստորագրման ենթակա Փուլ I-ի փակ գործառութային baseline-ը և բացառումները՝ draft տեխնիկական առաջադրանքի բաժիններ 5–16։ Ստորագրումը անհրաժեշտ է, բայց ինքնուրույն բավարար coding authorization չէ. յուրաքանչյուր task նաև անցնում է implementation gate-ը և պահանջում է իր բաց blockers-ի լուծումը։
 - OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact տարբերակները կարող են pin արվել միայն հաջող D-008 compatibility PoC-ի immutable evidence-ից և գրանցված review/go որոշումից հետո։ Fit-gap փաստաթուղթը միայն assessment է և ինքնուրույն pin կամ implementation authorization չի տալիս։
 
 ## Կառուցվածք
@@ -35,6 +41,7 @@ docs/
 ├── BRIEF.md                          # արտադրանքի և Փուլ I-ի համառոտ նկարագիր
 ├── TECH_CARD.md                      # հաստատված և բաց տեխնիկական որոշումներ
 ├── DECISIONS.md                      # որոշումների ինդեքս
+├── governance/                       # authority/status/signature/task-go կանոններ
 ├── 01-ARCHITECTURE.md                # system context, components և architectural rules
 ├── 03-STRUCTURE.md                   # repository և module file boundaries
 ├── 04-API.md                         # Java/REST/FHIR/custom API conventions
@@ -75,3 +82,4 @@ docs/
 - `Proposed` որոշումը implementation-ի թույլտվություն չէ մինչև հաստատվելը։ Միակ բացառությունը D-008-ն է, որը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC, ոչ business module և ոչ ամբողջ repository skeleton։
 - As-built փաստաթղթերը թարմացվում են implementation-ի հետ միասին։
 - Coding task-ը չի սկսվում մինչև [implementation gate](./00-IMPLEMENTATION-GATE.md)-ով scope/source և բաց blockers-ը ստուգելը։
+- Contract/ADR/TECH_CARD status-ը coding agent-ը ինքնուրույն չի բարձրացնում։ Approval authority-ն և task-go record-ը սահմանված են [governance README](./governance/README.md)-ում։

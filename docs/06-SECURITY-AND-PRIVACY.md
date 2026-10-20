@@ -2,6 +2,8 @@
 
 > **Կարգավիճակ:** target security/privacy design և review checklist է, ոչ business coding authorization։ Կիրառելի implementation-ը սկսվում է միայն ստորագրված ՏԱ-ի traceable requirement-ից և implementation gate-ից հետո։ Այս ֆայլը չի թույլատրում հորինել session/password timeout, joiner/mover/leaver workflow, break-glass duration/scope, retention, encryption կամ այլ բաց security/privacy արժեք։ D-008 compatibility PoC-ի security սահմանը կարգավորվում է միայն PoC spec-ով։
 
+> **Rule classification:** native OpenMRS authentication/no-external-IdP սահմանը և server-side authorization սկզբունքը governing constraints են։ At-rest encryption, malware scanning, rate limits, centralized alerts, incident runbook և այլ checklist կետերը `PROPOSED_DESIGN` են մինչև source requirement, owner, measurable acceptance և task go record-ը հաստատվեն։
+
 ## Scope
 
 Սա Phase I-ի նպատակային security/privacy architecture baseline-ն է, ոչ as-built նկարագիր, implementation հրահանգ կամ իրավաբանական համապատասխանության հավաստագիր։ Retention-ը, իրավական հիմքերը և regulatory controls-ը հաստատում են պատվիրատուի համապատասխան պատասխանատուները։ Պաշտպանվող տվյալներն են patient/clinical/financial data-ն, credentials/sessions/secrets-ը, audit-ը, reports/exports-ը և backups-ը։

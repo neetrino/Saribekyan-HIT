@@ -1,0 +1,115 @@
+schema_version: 1
+default_policy:
+  unlisted_document:
+    authority: NON_AUTHORIZING
+    lifecycle: UNCLASSIFIED
+    agent_usage: STOP_BEFORE_IMPLEMENTATION
+  search_result_rule: CHECK_THIS_MANIFEST_BEFORE_USE
+
+documents:
+  - path: ../00-IMPLEMENTATION-GATE.md
+    authority: EXECUTION_CONTROL
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_PRE_CODE
+
+  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.md
+    authority: CONTRACT_CONTENT_BASELINE
+    lifecycle: DRAFT_CONTRACT
+    agent_usage: DESIGN_AND_TRACEABILITY_ONLY_UNTIL_SIGNATURE_MANIFEST_IS_SIGNED
+    signed_artifact_manifest: ../contract/phase-1/SIGNATURE-STATUS.yaml
+
+  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.docx
+    authority: CLIENT_RENDERING
+    lifecycle: DRAFT_CONTRACT
+    agent_usage: DO_NOT_INFER_PARITY_WITHOUT_SIGNATURE_MANIFEST
+
+  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.pdf
+    authority: CLIENT_RENDERING
+    lifecycle: DRAFT_CONTRACT
+    agent_usage: DO_NOT_INFER_PARITY_WITHOUT_SIGNATURE_MANIFEST
+
+  - path: ../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: VISION_ONLY_NEVER_SCOPE_OR_BACKLOG
+    source_audit_manifest: ../phase-scope/source-audit/SOURCE-AUDIT-MANIFEST.yaml
+
+  - path_prefix: ../phase-scope/archive/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: NEVER_IMPLEMENT
+
+  - path_prefix: ../phase-scope/source-audit/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: PROVENANCE_ONLY
+
+  - path_prefix: ../phase-scope/phases/phase-2/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: FUTURE_INVENTORY_ONLY
+
+  - path_prefix: ../phase-scope/phases/phase-3/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: FUTURE_INVENTORY_ONLY
+
+  - path_prefix: ../phase-scope/decisions/client/21_
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SUPERSEDED_QUESTION_SET
+
+  - path_prefix: ../phase-scope/decisions/client/31_
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SUPERSEDED_APPROVAL_PACKAGE
+
+  - path: ../phase-scope/decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md
+    authority: NON_AUTHORIZING_UNTIL_CLIENT_EVIDENCE
+    lifecycle: DRAFT_CONSOLIDATION
+    agent_usage: EXPLANATORY_ONLY_USE_SIGNED_TA_FOR_SCOPE
+
+  - path_prefix: ../requirements/
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: REQUIREMENT_MAPPING_ONLY
+
+  - path: ../TECH_CARD.md
+    authority: TECHNICAL_DECISION_INDEX
+    lifecycle: MIXED_PER_ROW
+    agent_usage: USE_ONLY_ROWS_WITH_CANONICAL_STATUS_AND_DECISION_EVIDENCE
+
+  - path_prefix: ../architecture/
+    authority: TECHNICAL_DECISION_RECORD
+    lifecycle: MIXED_PER_DOCUMENT
+    agent_usage: NEVER_CREATES_BUSINESS_SCOPE
+
+  - path: ../01-ARCHITECTURE.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: TARGET_DESIGN_ONLY
+  - path: ../03-STRUCTURE.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: TARGET_DESIGN_ONLY
+  - path: ../04-API.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: APPLY_ONLY_AFTER_ENDPOINT_GO
+  - path: ../05-DATABASE.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: APPLY_ONLY_AFTER_SCHEMA_GO
+  - path: ../06-SECURITY-AND-PRIVACY.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: REVIEW_CHECKLIST_ONLY_UNLESS_REQUIREMENT_APPROVED
+  - path: ../07-INTEGRATIONS.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: APPLY_ONLY_AFTER_CONNECTOR_GO
+
+  - path: ../pilot/COMPATIBILITY-POC.md
+    authority: D008_EXCEPTION_SPEC
+    lifecycle: ACTIVE_LIMITED_AUTHORIZATION
+    agent_usage: ONLY_D008_COMPATIBILITY_POC

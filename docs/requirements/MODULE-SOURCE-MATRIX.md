@@ -22,7 +22,7 @@
 | REG-01–03 | OpenMRS patient registry և patient merge | Armenian identifiers, duplicate policy և UI | Validation required |
 | REG-04–06 | Appointments/queue capabilities | Տեղային schedule/queue կանոններ և UI | Validation required |
 | REG-07 | Visit/encounter history | Միասնական բժշկական timeline presentation | Validation required |
-| REG-08–09 | Encounter/referral model և document data | Referral OMOD, PDF/print templates | Proposed mapping |
+| REG-08–09 | Encounter/referral model և document data | Referral capability gap + PDF/print templates; առանձին Referral OMOD որոշված չէ | Proposed mapping |
 | AMB-01–04 | Visit, encounter, forms և observations | Հայերեն forms և workflow orchestration | Validation required |
 | AMB-05 | OpenMRS concept model | ICD source, version, localization և sync | Validation required |
 | AMB-06–09 | Order model և drug orders | Consultation/non-drug order types և execution workflow | Validation required |

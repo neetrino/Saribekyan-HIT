@@ -2,6 +2,10 @@
 
 > **Status:** target design guidance, ոչ ներկայիս coding authorization։ Մինչ ստորագրված ՏԱ-ն և համապատասխան requirement/go որոշումը թույլատրված է միայն D-008 probe-ը, որի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև custom facade-ի կանոնները կիրառվում են միայն այն endpoint-ի վրա, որի use case-ը և facade-ի անհրաժեշտությունը առանձին հաստատված են։
 
+> **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի approved design/go record-ը դրանց չի հղվում։ Դրանք signed contract requirement կամ ընդհանուր API ստեղծելու հրահանգ չեն։
+
+Ստորև բերված `/api/v1`, error envelope, `422` և cursor pagination օրինակները պատճենելու default contract չեն։ D-008-ի native OpenMRS probe contract-ը դրանց նկատմամբ գերակա է, իսկ «API foundation» ընդհանուր ձևակերպումը այս facade-ը կառուցելու թույլտվություն չի տալիս։
+
 ## API surfaces
 
 | Surface | Consumer | Rule |

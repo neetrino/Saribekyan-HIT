@@ -17,9 +17,11 @@
 
 Pilot-ը սկսվում է պաշտոնական `openmrs/openmrs-distro-referenceapplication` repository-ի `main` branch-ի **մեկ exact commit SHA-ից**, որը գրանցվում է այս փաստաթղթի «Run record» բաժնում մինչև որևէ code generation։ Օգտագործվում են հենց այդ commit-ի source-ը, distribution manifests-ը, base-image declarations-ը և module versions-ը։ Pilot OMOD պարունակող backend-ը և pilot extension պարունակող frontend-ը build/assemble են արվում այդ commit-ի սեփական distribution build paths-ով։ Upstream-ի հրապարակված պատրաստի backend image-ը OMOD installation proof չէ, իսկ հրապարակված պատրաստի frontend image-ը extension load proof չէ։
 
+SHA-ի ընտրությունը coding agent-ի ազատ ընտրություն չէ։ Մինչ checkout/code generation-ը run record-ում պարտադիր լրացվում և անկախ reviewer-ի կողմից հաստատվում են՝ selection date/time, candidate SHA, official repository URL, commit-ի release/tag հարաբերությունը (եթե կա), upstream CI/build վիճակը, manifest completeness-ը, known support/security նկատառումները, ընտրության rationale-ը և approver-ը։ Default rule-ը «ամենավերջին main commit»-ը չէ։ Չհաստատված SHA-ն `NO_GO` է։ Reviewer-ը կարող է ընտրել միայն այս spec-ով թույլատրված repository-ի commit, ոչ այլ distribution կամ ձեռքով փոխված stack։
+
 - `main`, `latest`, `next` կամ floating image tag-ը evidence-ում բավարար pin չէ։
 - Exact source SHA-ն ինքնուրույն reproducible dependency pin չէ։ Եթե ընտրված commit-ի manifest/build-ը օգտագործում է `next`, `latest`, range կամ floating base image, pilot-ը չի փոխարինում դրանք ձեռքով։ Փոխարենը run-ի պահին գրանցվում են փաստացի resolved package/module versions-ը և container image digest-ները։ Եթե build-ից հնարավոր չէ ստանալ immutable resolution evidence, clean rerun-ը չի համարվում ապացուցված և pilot-ը գրանցվում է որպես compatibility failure։
-- OpenMRS Platform `2.8.0` և Java `21` հիշատակումները ինքնաբերաբար pilot baseline չեն։
+- Repository-ի այլ historical/candidate version հիշատակումներից ոչ մեկը pilot baseline չէ։ Candidate versions-ը վերցվում են միայն ընտրված exact commit-ի manifests/build evidence-ից։
 - Pilot commit-ի ընտրությունը production approval չէ։ Pilot-ի արդյունքից հետո compatibility matrix-ն է առաջարկում production candidate-ը։
 - Եթե ընտրված commit-ը reproducibly չի build/run լինում, failure-ը append-only evidence է։ Հաջորդ փորձը կարող է փոխել **միայն** նույն `openmrs/openmrs-distro-referenceapplication` repository-ի exact commit SHA-ն և պետք է նոր attempt-ով գրանցի պատճառը, նախորդ SHA-ն ու նոր SHA-ն։ Run record-ի թարմացումը Bahmni, Ozone, այլ distribution, PostgreSQL կամ commit-ի manifest-ից դուրս JVM/DB/module substitution չի թույլատրում։ Այդպիսի փոփոխությունը D-008-ից դուրս է և պահանջում է նոր ընդունված որոշում։
 
@@ -82,6 +84,9 @@ Business entities/services, production Liquibase changes, canonical OpenMRS data
 ## Run record
 
 - Reference repository commit SHA: `TBD at pilot kickoff`
+- SHA selection rationale and release/tag relation:
+- Upstream CI/build evidence:
+- SHA approved by/date/evidence:
 - Attempt number and previous SHA (if retry):
 - Retry reason (if any):
 - Selection date:

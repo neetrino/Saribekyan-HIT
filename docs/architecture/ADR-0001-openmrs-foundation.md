@@ -2,6 +2,10 @@
 
 - Status: Accepted
 - Date: 2026-10-19
+- Decision ID: D-002/D-003
+- Decision owner: Project architecture owner
+- Approval evidence: `../DECISIONS.md` repository decision index; external/client approval not implied
+- Implementation authority: None without signed requirement and task go record
 
 ## Context
 
@@ -16,7 +20,7 @@ OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հի�
 ## Consequences
 
 - Patient, Visit, Encounter, Observation, Order, Concept և OpenMRS այլ canonical models-ը նախընտրելի source of truth են։
-- Custom schema-ն չի կրկնօրինակում OpenMRS clinical entity-ն առանց հիմնավորված ADR-ի։
+- Custom schema-ն չի կրկնօրինակում OpenMRS Patient/Person/Visit/Encounter/Obs/Order/Concept clinical entities-ը։ Նոր ADR-ը այս Phase I արգելքից բացառություն ստեղծելու իրավունք չունի. բացառությունը պահանջում է նոր գրավոր scope/change request և governing gate-ի փոփոխություն։
 - Distribution composition-ը դառնում է version-controlled deliverable։
 - Team-ին անհրաժեշտ է OpenMRS Java/module և O3 ecosystem expertise։
 - Upgrade compatibility-ն դառնում է CI/release պարտադիր ստուգում։

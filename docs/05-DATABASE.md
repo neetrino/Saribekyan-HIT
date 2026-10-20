@@ -1,12 +1,14 @@
 # Database and Persistence Design
 
-> **Status:** target persistence guidance, ոչ schema/migration coding authorization։ Մինչ ստորագրված ՏԱ-ն և D-008 pilot-ի ավարտը business schema կամ migration չի ստեղծվում։
+> **Status:** target persistence guidance, ոչ schema/migration coding authorization։ Pilot-ի ավարտը ինքնուրույն թույլտվություն չէ։ Business schema կամ migration ստեղծվում է միայն ստորագրված traceable պահանջից, pilot evidence review/go-ից, stack/artifact որոշումից և տվյալ schema-ի Approved semantics-ից հետո։
+
+> **Rule classification:** canonical OpenMRS ownership/no-direct-SQL արգելքները governing constraints են։ Մնացած migration, locking, backup, JSON, indexing և reporting կանոնները `PROPOSED_DESIGN` են մինչև համապատասխան schema/task go record-ը։ Հրամայական լեզուն ինքնուրույն approval չէ։
 
 ## Status and ownership
 
-Exact DB engine/version-ը դեռ հաստատված չէ. այն պետք է աջակցվի ընտրված OpenMRS distribution/module stack-ի կողմից։ Reference Application-ի պատճառով MariaDB-ն սկզբնական թեկնածու է, ոչ վերջնական որոշում։
+Exact DB engine/version-ը դեռ հաստատված չէ և նախապես անվանված թեկնածու չկա։ Այն վերցվում է D-008-ում ընտրված exact distribution commit-ի supported manifest-ից և pin է արվում միայն հաջող evidence review/go որոշմամբ։
 
-Մինչ pilot compatibility PoC-ի ավարտը agent-ը DB engine չի ընտրում, schema չի գեներացնում և ամբողջ business model-ի migrations չի ստեղծում։
+Մինչ հաջող D-008 evidence review/go-ն և համապատասխան Approved schema semantics-ը agent-ը DB engine չի pin անում, schema չի գեներացնում և business migrations չի ստեղծում։
 
 OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenMRS/platform modules-ի supported migrations-ով։ Custom module-ը չի վերաձևավորում core tables-ը և սեփական Liquibase changeset-ներով տնօրինում է միայն module-owned tables-ը։
 

@@ -1,5 +1,7 @@
 # Project Decisions
 
+> Այս index-ը decision summary է, ոչ business scope կամ task go record։ `Approved`/`Accepted` technical decision-ը կիրառվում է միայն իր սահմաններում, ունի ADR/record evidence և չի կարող ինքնուրույն ստեղծել business requirement։ Status transition/approver կանոնները՝ `governance/README.md`։
+
 Այս ֆայլը բարձր մակարդակի որոշումների ինդեքսն է։ Մանրամասն պատճառաբանությունը պահվում է `architecture/ADR-*.md` ֆայլերում։
 
 Architecture baseline-ը՝ [01-ARCHITECTURE.md](./01-ARCHITECTURE.md), security/privacy սահմանները՝ [06-SECURITY-AND-PRIVACY.md](./06-SECURITY-AND-PRIVACY.md), integration սահմանները՝ [07-INTEGRATIONS.md](./07-INTEGRATIONS.md)։ Այս հղումները որոշումների status չեն փոխում։
@@ -7,7 +9,7 @@ Architecture baseline-ը՝ [01-ARCHITECTURE.md](./01-ARCHITECTURE.md), security/
 | ID | Decision | Status | Record |
 |---|---|---|---|
 | D-001 | Նախագիծը դասակարգվում է Size C | Approved | `BRIEF.md` |
-| D-002 | Clinical platform-ի հիմքը OpenMRS-ն է | Approved | `architecture/ADR-0001-openmrs-foundation.md` |
+| D-002 | Clinical platform-ի հիմքը OpenMRS-ն է | Accepted | `architecture/ADR-0001-openmrs-foundation.md` |
 | D-003 | Custom backend development-ի լեզուն Java-ն է | Approved | `architecture/ADR-0001-openmrs-foundation.md` |
 | D-004 | Phase I-ում OpenMRS core fork/patch արգելված է. բացակայող extension point-ի դեպքում կանգ առնել | Approved Phase I boundary | `architecture/ADR-0002-extension-strategy.md` |
 | D-005 | Custom backend-ը կառուցվում է OMOD-ներով, UI-ն՝ O3 extension model-ով | Proposed | `architecture/ADR-0002-extension-strategy.md` |
