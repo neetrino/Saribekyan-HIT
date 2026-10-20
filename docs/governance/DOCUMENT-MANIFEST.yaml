@@ -1,5 +1,6 @@
 schema_version: 1
 default_policy:
+  matching_precedence: EXACT_PATH_BEFORE_LONGEST_PATH_PREFIX
   unlisted_document:
     authority: NON_AUTHORIZING
     lifecycle: UNCLASSIFIED
@@ -11,6 +12,36 @@ documents:
     authority: EXECUTION_CONTROL
     lifecycle: ACTIVE
     agent_usage: MANDATORY_PRE_CODE
+
+  - path: README.md
+    authority: GOVERNANCE_GUIDANCE
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_AUTHORITY_RULES
+  - path: DOCUMENT-MANIFEST.yaml
+    authority: AUTHORITY_INDEX
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_AUTHORITY_LOOKUP
+  - path: TASK-GO-TEMPLATE.md
+    authority: GOVERNANCE_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: REQUIRED_FOR_BUSINESS_TASK_GO_RECORD
+  - path: validate-docs.ps1
+    authority: VALIDATION_TOOL
+    lifecycle: ACTIVE
+    agent_usage: SAFE_READ_ONLY_VALIDATION
+
+  - path: ../README.md
+    authority: DOCUMENTATION_ENTRY_POINT
+    lifecycle: ACTIVE
+    agent_usage: NAVIGATION_AND_PRECEDENCE
+  - path: ../BRIEF.md
+    authority: NON_AUTHORIZING
+    lifecycle: SUMMARY
+    agent_usage: CONTEXT_ONLY
+  - path: ../DECISIONS.md
+    authority: DECISION_INDEX_NOT_EVIDENCE
+    lifecycle: ACTIVE_INDEX
+    agent_usage: NAVIGATION_ONLY_FOLLOW_REFERENCED_RECORD
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.md
     authority: CONTRACT_CONTENT_BASELINE
@@ -28,6 +59,16 @@ documents:
     lifecycle: DRAFT_CONTRACT
     agent_usage: DO_NOT_INFER_PARITY_WITHOUT_SIGNATURE_MANIFEST
 
+  - path: ../contract/phase-1/SIGNATURE-STATUS.yaml
+    authority: SIGNATURE_AND_ARTIFACT_STATUS
+    lifecycle: ACTIVE_UNSIGNED_REGISTER
+    agent_usage: MANDATORY_SIGNATURE_CHECK
+
+  - path: ../contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md
+    authority: NON_AUTHORIZING
+    lifecycle: LEGAL_REVIEW_GUIDANCE
+    agent_usage: LEGAL_REVIEW_ONLY_NEVER_SCOPE_OR_IMPLEMENTATION
+
   - path: ../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
     authority: NON_AUTHORIZING
     lifecycle: HISTORICAL
@@ -38,6 +79,31 @@ documents:
     authority: NON_AUTHORIZING
     lifecycle: HISTORICAL
     agent_usage: NEVER_IMPLEMENT
+
+  - path: ../phase-scope/00_README.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL_INDEX
+    agent_usage: NAVIGATION_ONLY_NOT_NEXT_STEP_AUTHORIZATION
+
+  - path_prefix: ../phase-scope/phases/phase-1/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SOURCE_ANALYSIS_ONLY_NEVER_SPEC_OR_ACCEPTANCE
+
+  - path_prefix: ../phase-scope/cross-cutting/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SOURCE_ANALYSIS_ONLY
+
+  - path: ../phase-scope/decisions/09_Decision_Log.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: DECISION_HISTORY_ONLY
+
+  - path: ../phase-scope/decisions/17_Questions_Only_After_Source_Audit.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: QUESTION_HISTORY_ONLY
 
   - path_prefix: ../phase-scope/source-audit/
     authority: NON_AUTHORIZING
@@ -69,10 +135,52 @@ documents:
     lifecycle: DRAFT_CONSOLIDATION
     agent_usage: EXPLANATORY_ONLY_USE_SIGNED_TA_FOR_SCOPE
 
+  - path: ../phase-scope/decisions/client/23_Template_Content_Commercial_Boundary.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: COMMERCIAL_HISTORY_ONLY_USE_TA_SECTION_7
+
+  - path: ../phase-scope/decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: CLIENT_INPUT_CHECKLIST_NOT_SCHEMA
+
+  - path: ../phase-scope/decisions/client/README.md
+    authority: NON_AUTHORIZING_INDEX
+    lifecycle: ACTIVE_INDEX
+    agent_usage: CLIENT_ARTIFACT_NAVIGATION_ONLY
+
   - path_prefix: ../requirements/
     authority: NON_AUTHORIZING
     lifecycle: ASSESSMENT
     agent_usage: REQUIREMENT_MAPPING_ONLY
+
+  - path: ../requirements/PHASE-1-TRACEABILITY.md
+    authority: EXECUTION_GATE_REGISTER
+    lifecycle: ACTIVE_NO_GO_REGISTER
+    agent_usage: MANDATORY_REQUIREMENT_LEVEL_CHECK
+  - path: ../requirements/WORKFLOW-TRANSITIONS.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+  - path: ../requirements/PERMISSION-MATRIX.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+  - path: ../requirements/REPORT-DEFINITIONS.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+
+  - path_prefix: ../modules/
+    authority: NON_AUTHORIZING_TEMPLATE_OR_RECORD
+    lifecycle: TEMPLATE_OR_DESIGN_RECORD
+    agent_usage: REQUIRES_TASK_GO_EVIDENCE
+
+  - path_prefix: ../technology-options/
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: NEVER_INSTALL_FROM_CANDIDATE_LIST
 
   - path: ../TECH_CARD.md
     authority: TECHNICAL_DECISION_INDEX

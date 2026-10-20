@@ -2,19 +2,21 @@ schema_version: 1
 contract_package: PHASE_1_TECHNICAL_SPECIFICATION_V1_3
 authorization_state: UNSIGNED_DRAFT
 business_implementation_authorized: false
+legal_review_required: true
+signing_readiness: NOT_READY_STALE_RENDERINGS
 
 canonical_content:
   path: Phase_1_Technical_Specification_HY.md
-  sha256: DF06716E6C76E1BC61F7EA27DA3D5F0528A44C3CE30B3FF607C8FAC1EE4AFB42
+  sha256: 77023D5E4DE94BAE3A70D754B50B58A96DE7B0DD619D59FD5AA12371D1FD8F31
   role: EDITABLE_CONTENT_BASELINE
 
 renderings:
   - path: Phase_1_Technical_Specification_HY.docx
     sha256: 980E6D725B2405F59085C802668FA7633C9BB70EE7798895605CA6D563EAEA04
-    parity_with_canonical: UNVERIFIED
+    parity_with_canonical: STALE_REGENERATE_REQUIRED
   - path: Phase_1_Technical_Specification_HY.pdf
     sha256: 5B41D9F3596A34D07E6177E479E8770D1417736C1C92C7FA2748103C275A0F97
-    parity_with_canonical: UNVERIFIED
+    parity_with_canonical: STALE_REGENERATE_REQUIRED
 
 signed_artifact:
   path: null

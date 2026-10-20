@@ -13,6 +13,8 @@
 
 Սրանք disposable PoC identifiers են և business code-ում չեն պահպանվում։ Production reverse-domain prefix-ը մնում է առանձին blocker։
 
+`org.openmrs.module.saribekyanpilot`, `saribekyanpilot` կամ `saribekyan-pilot-extension` անուններից որևէ մեկի հայտնվելը production/business artifact-ում պարտադիր validation failure է։ PoC review/go-ն այս namespace-ը չի «promote» անում. business repository/module ստեղծումը մնում է արգելված մինչև առանձին production prefix և artifact-boundary որոշումները։
+
 ## Candidate baseline selection
 
 Pilot-ը սկսվում է պաշտոնական `openmrs/openmrs-distro-referenceapplication` repository-ի `main` branch-ի **մեկ exact commit SHA-ից**, որը գրանցվում է այս փաստաթղթի «Run record» բաժնում մինչև որևէ code generation։ Օգտագործվում են հենց այդ commit-ի source-ը, distribution manifests-ը, base-image declarations-ը և module versions-ը։ Pilot OMOD պարունակող backend-ը և pilot extension պարունակող frontend-ը build/assemble են արվում այդ commit-ի սեփական distribution build paths-ով։ Upstream-ի հրապարակված պատրաստի backend image-ը OMOD installation proof չէ, իսկ հրապարակված պատրաստի frontend image-ը extension load proof չէ։

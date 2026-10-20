@@ -1,6 +1,6 @@
 # Փուլ I-ի մեկնարկից հետո Պատվիրատուից պահանջվող նյութերը
 
-> **Lifecycle: OPERATIONAL_TEMPLATE / NON_AUTHORIZING։** Այս հաղորդագրությունը կիրառվում է միայն verified signature-ից հետո և business implementation, scope կամ client approval evidence չի ստեղծում։
+> **Authority: NON_AUTHORIZING. Lifecycle: HISTORICAL client message.** `OPERATIONAL_TEMPLATE` canonical lifecycle չէ։ Սա պատվիրատուին ուղղված նամակի նախագիծ է, ոչ import schema, ոչ client-approval evidence և ոչ coding authorization։ Թվարկված ICD-ն, դեղերը, չափման միավորները, հղումային միջակայքները և կրիտիկական շեմերը լրացնում է Պատվիրատուն։ Չստացված արժեքը ագենտը չի հորինում և դրանով աղյուսակ կամ կանոն չի ստեղծում։
 
 Հարգելի գործընկերներ,
 

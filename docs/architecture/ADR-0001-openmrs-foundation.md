@@ -1,10 +1,10 @@
 # ADR-0001: OpenMRS as the clinical platform foundation
 
-- Status: Accepted
+- Status: Approved direction / governing canonical-model constraint; not a business implementation go
 - Date: 2026-10-19
 - Decision ID: D-002/D-003
 - Decision owner: Project architecture owner
-- Approval evidence: `../DECISIONS.md` repository decision index; external/client approval not implied
+- Approval evidence: legacy internal decision index only; independent approver record is not attached and `DECISIONS.md` is not evidence
 - Implementation authority: None without signed requirement and task go record
 
 ## Context
@@ -13,7 +13,7 @@
 
 ## Decision
 
-OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք։ Custom backend development-ի հիմնական լեզուն Java-ն է և իրականացվում է OpenMRS-ի extension/module մեխանիզմներով։
+OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք, իսկ custom backend development-ի հիմնական լեզուն Java-ն է։ Այս ADR-ը չի ընդունում production OMOD/O3 artifact strategy-ն կամ module tree-ը. extension/package մեխանիզմի ընտրությունը մնում է ADR-0002-ի `Proposed` մաս և ներկայում թույլատրված է միայն D-008 compatibility PoC-ի սահմաններում։
 
 Այս որոշումը չի հաստատում որևէ կոնկրետ OpenMRS release կամ community module version։ Դրանք ընտրվում և pin են արվում միայն հաջող D-008 compatibility PoC-ի immutable evidence review/go որոշումից հետո։ Fit-gap assessment-ը բավարար չէ։
 

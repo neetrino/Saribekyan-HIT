@@ -45,7 +45,9 @@ Audit-ում password/token/session secret կամ անհարկի ամբողջ cl
 - Production data-ը non-production-ում միայն approved masking/anonymization-ով։
 - Patient search, logs, exports և prints-ը հետևում են data minimization-ին։
 
-## Application and operational controls
+## Candidate application and operational controls — approval required
+
+Այս ցուցակը security review prompts է, ոչ միանգամից իրականացվող Phase I checklist։ Յուրաքանչյուր կետ կիրառվում է միայն traceable requirement, threat/risk rationale, owner, configuration values, acceptance test և task go record ունենալու դեպքում։ Agent-ը այս ցանկից dependency, proxy, scanner, rate limiter, encryption կամ incident platform չի ավելացնում։
 
 - server-side schema/semantic validation և parameterized persistence,
 - CSRF protection session cookie-ի դեպքում, strict CORS/trusted proxy,

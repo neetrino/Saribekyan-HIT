@@ -36,13 +36,12 @@
 ## Dependency direction
 
 ```text
-O3 UI -> REST/FHIR/custom facade -> application service
-application service -> OpenMRS public services + own domain/API
-infrastructure -> own schema/external adapter
-other modules -> public API only
+approved UI consumer -> approved native/custom public contract
+approved backend capability -> OpenMRS public services and explicitly owned data
+other approved artifacts -> public contract only
 ```
 
-Circular module dependencies-ը արգելված են։ Shared code-ը ստեղծվում է միայն իրական երկու կամ ավելի consumer-ից հետո և չի դառնում անկապ business logic-ի պարկ։
+Այս սխեմայի բառերը package/directory/layer անուններ չեն։ `application`, `domain`, `infrastructure`, `web`, facade կամ adapter պանակներ չեն ստեղծվում այս diagram-ից։ Circular artifact dependencies-ը արգելված են։ Shared code-ը ստեղծվում է միայն իրական երկու կամ ավելի approved consumer-ից հետո և չի դառնում անկապ business logic-ի պարկ։
 
 ## Post-pilot production build and versioning
 

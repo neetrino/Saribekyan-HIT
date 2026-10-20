@@ -1,10 +1,10 @@
 # ADR-0003: Identity and OpenMRS authorization boundary
 
-- Status: Accepted for Phase I
+- Status: Approved Phase I boundary; no implementation go. This is not an Accepted ADR.
 - Date: 2026-10-19
 - Decision ID: D-007
 - Decision owner: Project architecture owner
-- Approval evidence: `../DECISIONS.md` repository decision index; business scope still requires signed TA
+- Approval evidence: governing Phase I boundary recorded by D-007; `DECISIONS.md` is an index, not independent approval evidence; business scope still requires signed TA
 - Implementation authority: None without requirement-level task go record
 
 ## Context

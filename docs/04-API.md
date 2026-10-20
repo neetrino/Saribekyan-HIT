@@ -4,7 +4,7 @@
 
 > **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի approved design/go record-ը դրանց չի հղվում։ Դրանք signed contract requirement կամ ընդհանուր API ստեղծելու հրահանգ չեն։
 
-Ստորև բերված `/api/v1`, error envelope, `422` և cursor pagination օրինակները պատճենելու default contract չեն։ D-008-ի native OpenMRS probe contract-ը դրանց նկատմամբ գերակա է, իսկ «API foundation» ընդհանուր ձևակերպումը այս facade-ը կառուցելու թույլտվություն չի տալիս։
+Այս փաստաթուղթը copy-ready `/api/v1`, error envelope, HTTP status կամ pagination contract չի սահմանում։ D-008-ի native OpenMRS probe contract-ը կարգավորվում է միայն իր spec-ով, իսկ «API foundation» ընդհանուր ձևակերպումը custom facade կառուցելու թույլտվություն չի տալիս։
 
 ## API surfaces
 
@@ -29,28 +29,13 @@ OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-
 - Success response-ը կարող է վերադարձնել resource կամ operation result, բայց մեկ endpoint-ում ձևը կայուն է։
 - `204` response-ը body չունի։
 
-## Error envelope
+## Error contract — decision required per endpoint
 
-```json
-{
-  "error": {
-    "code": "STABLE_MACHINE_CODE",
-    "message": "Safe human-readable message.",
-    "correlationId": "...",
-    "fields": [{ "path": "field.name", "code": "INVALID" }]
-  }
-}
-```
+Այս փաստաթուղթը այլևս չի տալիս copy-ready JSON envelope կամ HTTP status mapping։ Յուրաքանչյուր approved custom endpoint-ի design record-ը պետք է առանձին որոշի safe machine code-ը, human message-ը, correlation reference-ը, field errors-ը և HTTP mapping-ը՝ consumer/use case-ի հիման վրա։ Մինչ այդ agent-ը չի ստեղծում shared error DTO, `422` policy կամ OpenMRS error adapter։ Response-ը երբեք չի բացահայտում stack trace, SQL, secret կամ անհարկի clinical value։
 
-`fields`-ը optional է։ Response-ը չի ներառում stack trace, SQL, secret կամ unnecessary clinical value։ Suggested status mapping՝ `400` validation, `401` unauthenticated, `403` forbidden, `404` hidden/not found, `409` state conflict/duplicate, `422` semantic clinical rejection, `429` limited, `503` unavailable dependency։ OpenMRS native errors-ի adaptation-ը D-008 pilot-ի մաս չէ և կատարվում է միայն հետագա հաստատված custom facade use case-ի դեպքում։
+## Collection queries — no default pagination contract
 
-## Collection queries
-
-- Custom facade-ում cursor pagination-ը նախընտրելի է փոփոխվող մեծ ցուցակների համար, իսկ offset-ը թույլատրելի է փոքր reference lists-ում։ OpenMRS native endpoint-ի `startIndex`/`limit` contract-ը չի փոխվում։
-- `limit`-ն ունի default և maximum։
-- Sort fields-ը allowlist են և ունեն stable tie-breaker։
-- Filter/search syntax-ը endpoint contract-ում է, raw query կամ arbitrary property path չի ընդունվում։
-- Response-ը հստակ տարբերակում է items-ը և next cursor/total availability-ն։ Expensive total count-ը պարտադիր չէ յուրաքանչյուր request-ում։
+Cursor, offset, `startIndex`/`limit`, total count, sort և filter ձևերը endpoint-specific decisions են։ Native OpenMRS endpoint-ի contract-ը չի վերագրվում։ Custom endpoint-ը չի ստեղծվում և shared pagination abstraction չի ավելացվում, մինչև consumer/use case, expected volume, stable ordering և approved contract-ը գրանցված չեն։
 
 ## Concurrency and state transitions
 

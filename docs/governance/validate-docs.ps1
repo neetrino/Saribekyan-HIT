@@ -1,9 +1,11 @@
 param(
-    [string]$RepositoryRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
+    [string]$RepositoryRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path,
+    [switch]$RequireSigningReady
 )
 
 $ErrorActionPreference = 'Stop'
 $failures = [System.Collections.Generic.List[string]]::new()
+$readinessIssues = [System.Collections.Generic.List[string]]::new()
 
 function Add-Failure([string]$Message) {
     $failures.Add($Message)
@@ -21,6 +23,38 @@ if (-not (Test-Path -LiteralPath $documentManifest)) {
             if (-not (Test-Path -LiteralPath $resolvedManifestPath)) {
                 Add-Failure "Manifest path does not exist: $manifestPath"
             }
+        }
+    }
+}
+
+# Every documentation artifact must have an exact path or matching prefix entry.
+if (Test-Path -LiteralPath $documentManifest) {
+    $manifestBase = Split-Path $documentManifest
+    $exactPaths = [System.Collections.Generic.List[string]]::new()
+    $prefixPaths = [System.Collections.Generic.List[string]]::new()
+    Get-Content -Encoding utf8 -LiteralPath $documentManifest | ForEach-Object {
+        if ($_ -match '^\s+-\s+path:\s*(.+?)\s*$') {
+            $exactPaths.Add([IO.Path]::GetFullPath((Join-Path $manifestBase $Matches[1].Trim('"', "'"))))
+        } elseif ($_ -match '^\s+-\s+path_prefix:\s*(.+?)\s*$') {
+            $prefixPaths.Add([IO.Path]::GetFullPath((Join-Path $manifestBase $Matches[1].Trim('"', "'"))))
+        }
+    }
+
+    Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs') -Recurse -File | Where-Object {
+        $_.Extension -in @('.md', '.yaml', '.ps1', '.docx', '.pdf')
+    } | ForEach-Object {
+        $artifact = $_.FullName
+        $covered = $exactPaths.Contains($artifact)
+        if (-not $covered) {
+            foreach ($prefix in $prefixPaths) {
+                if ($artifact.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)) {
+                    $covered = $true
+                    break
+                }
+            }
+        }
+        if (-not $covered) {
+            Add-Failure "Documentation artifact is not classified in DOCUMENT-MANIFEST.yaml: $artifact"
         }
     }
 }
@@ -55,6 +89,19 @@ if (-not (Test-Path -LiteralPath $signatureManifest)) {
         Add-Failure 'SIGNED_VERIFIED is invalid while signed artifact path/hash is null.'
     }
 
+    if ($signatureText -notmatch 'authorization_state:\s*SIGNED_VERIFIED') {
+        $readinessIssues.Add('Contract authorization state is not SIGNED_VERIFIED.')
+    }
+    if ($signatureText -notmatch 'business_implementation_authorized:\s*true') {
+        $readinessIssues.Add('Business implementation is not authorized.')
+    }
+    if ($signatureText -match 'parity_with_canonical:\s*(UNVERIFIED|STALE_REGENERATE_REQUIRED)') {
+        $readinessIssues.Add('One or more DOCX/PDF renderings are unverified or stale.')
+    }
+    if ($signatureText -match 'legal_review_required:\s*true') {
+        $readinessIssues.Add('Legal review is still required.')
+    }
+
     $canonicalMatch = [regex]::Match($signatureText, 'canonical_content:\s*\r?\n\s*path:\s*([^\r\n]+)\r?\n\s*sha256:\s*([A-Fa-f0-9]{64})')
     if (-not $canonicalMatch.Success) {
         Add-Failure 'Cannot parse canonical content path/hash from signature manifest.'
@@ -85,4 +132,11 @@ if ($failures.Count -gt 0) {
     exit 1
 }
 
-Write-Output 'Documentation governance checks passed.'
+Write-Output 'Structural documentation governance checks passed.'
+if ($readinessIssues.Count -gt 0) {
+    Write-Output 'Signing/implementation readiness: NOT_READY'
+    $readinessIssues | ForEach-Object { Write-Output "- $_" }
+    if ($RequireSigningReady) { exit 2 }
+} else {
+    Write-Output 'Signing/implementation readiness: READY_FOR_REVIEW'
+}

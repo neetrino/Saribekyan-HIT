@@ -26,7 +26,9 @@ OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenM
 
 Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրված distribution version-ից ու custom module migrations-ից հետո։ Մինչ այդ հորինված ամբողջ OpenMRS schema diagram չի պահվում որպես ճշմարտություն։
 
-## Custom schema rules
+## Candidate custom-schema checklist — not a schema recipe
+
+Ստորև կետերը կիրառվում են միայն այն բանից հետո, երբ կոնկրետ module-owned schema-ն ունի approved semantics և task go record։ Դրանք table ստեղծելու պատճառ կամ default column list չեն։ Յուրաքանչյուր field/constraint պահանջում է տվյալ domain-ի source և հիմնավորում։
 
 - Table-ը ունի stable primary key, timestamps, provenance և state/version fields ըստ domain-ի։
 - Clinical patient reference-ը օգտագործում է canonical OpenMRS ID-ն և application/service validation-ը։
@@ -52,9 +54,11 @@ Patient, Person, Visit, Encounter, Obs, Order և Concept parallel tables արգ�
 - Migration-ը կրկնվում է production-like copy-ի վրա և distribution upgrade rehearsal-ում։
 - Rollback-ը միշտ SQL downgrade չէ. հաճախ application rollback + forward data repair է։
 
-## Transactions and concurrency
+## Transactions and concurrency — explicit blockers
 
-- Patient identity merge, clinical approval/correction և financial posting boundaries-ը explicit են։
+Այս բաժինը transaction boundary չի հայտարարում։ Patient merge, clinical approval/correction, financial posting, locking, uniqueness և retry semantics-ը մնում են համապատասխան requirement/workflow registers-ի blockers։ Ստորևը միայն review checklist է approved design-ի համար։
+
+- Approved design-ը պետք է explicit դարձնի միայն իրեն կիրառելի transaction boundary-ն։
 - Lost update-ի վտանգ ունեցող row-ը optimistic locking/versioning ունի։
 - Unique business invariant-ը միայն նախնական `SELECT`-ով չի պաշտպանվում. DB constraint կամ equivalent serialized strategy է պետք։
 - External call-ը DB transaction-ի ներսում երկար չի սպասում։ Async delivery/outbox mechanism-ը առանձին ADR/PoC է, երբ առաջին իրական use case-ը հաստատվի։

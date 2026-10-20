@@ -57,20 +57,20 @@ phase-scope/
 - `decisions/09_Decision_Log.md` — подтверждённые внутренние решения.
 - `decisions/17_Questions_Only_After_Source_Audit.md` — финальное состояние вопросов после source-аудита и два постстартовых входных пакета.
 - `decisions/client/21_Client_Clarifications_Phase_1.md` — исторический подробный список вопросов, закрытый итоговым ТЗ.
-- `decisions/client/23_Template_Content_Commercial_Boundary.md` — отдельная коммерческая граница конструктора и наполнения медицинских шаблонов.
+- `decisions/client/23_Template_Content_Commercial_Boundary.md` — историческая коммерческая заметка о конструкторе. Не client-approval evidence; исполнимая граница — draft ТЗ §7.
 - `decisions/client/31_Client_Approval_Package_Phase_1.md` — исторический сокращённый клиентский пакет согласования, заменённый ТЗ версии 1.3.
 - `decisions/client/21_Client_Clarifications_Phase_1_HY.md` — историческая армянская версия подробных клиентских вопросов C-01–C-30.
 - `decisions/client/31_Client_Approval_Package_Phase_1_HY.md` — историческая армянская версия сокращённого пакета P-01–P-24.
 - `decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md` — финальное закрытие C-01–C-31 и два оставшихся входных пакета клиента.
-- `decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md` — короткое армянское сообщение клиенту о материалах, необходимых после старта.
+- `decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md` — черновик письма клиенту о двух входных пакетах. Не import schema и не coding authorization.
 
 ## Подписываемый комплект
 
-- `../contract/phase-1/Phase_1_Technical_Specification_HY.md` — нормативный текст ТЗ Фазы I версии 1.3.
-- `../contract/phase-1/Phase_1_Technical_Specification_HY.docx` — клиентская Word-версия для подписания.
-- `../contract/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-версия для просмотра и подписания.
+- `../contract/phase-1/Phase_1_Technical_Specification_HY.md` — канонический текст ТЗ Фазы I версии 1.3.
+- `../contract/phase-1/Phase_1_Technical_Specification_HY.docx` — клиентская Word-копия.
+- `../contract/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-копия.
 
-После подписания именно ТЗ, а не рабочие файлы `21` и `31`, определяет договорный объём Фазы I.
+Статус подписи и parity DOCX/PDF читаются только из `../contract/phase-1/SIGNATURE-STATUS.yaml`. Пока там `UNSIGNED_DRAFT` или у rendering-ов `STALE_REGENERATE_REQUIRED`, DOCX и PDF не являются исполняемым или подписываемым источником. Расхождение PDF/DOCX с Markdown не реализуется. После `SIGNED_VERIFIED` объём задаёт подписанный artifact из этого manifest, а не рабочие файлы `21` и `31`.
 
 ## Архив
 
@@ -97,7 +97,7 @@ phase-scope/
 
 ### Этап документации 1 — границы и договорное ТЗ
 
-Завершён по содержанию. Подготовлены source-аудит, доказательные матрицы, журнал решений, закрытие вопросов, армянское ТЗ версии 1.3 и сообщение клиенту о двух входных пакетах. До подписания остаётся заполнить административные поля договора/ТЗ и получить подписи.
+Содержание draft-пакета подготовлено: source-аудит, доказательные матрицы, журнал решений, закрытие вопросов, армянское ТЗ версии 1.3 и сообщение клиенту о двух входных пакетах. Это не старт разработки. До подписания остаются административные поля договора/ТЗ и сами подписи. Бизнес-implementation закрыт до `SIGNED_VERIFIED`, закрытия применимых blockers и task go. Единственная текущая coding-работа — D-008 compatibility PoC.
 
 ### Этап документации 2 — окончательная внутренняя карта фаз
 
@@ -105,7 +105,7 @@ phase-scope/
 
 ### Этап документации 3 — детальная декомпозиция разработки
 
-После внутренней карты фаз Фаза I декомпозируется пункт за пунктом на эпики, модули, процессы, роли, требования, сценарии, критерии приёмки, зависимости и backlog разработки.
+После внутренней карты фаз может быть подготовлена **только proposed decomposition** Фазы I на эпики, процессы, роли, требования, сценарии и критерии приёмки. Подпись сама по себе не разрешает превращать decomposition в исполнимый backlog: каждый элемент остаётся `NO_GO`, пока закрыты не только source/signature, но и workflow, permission, report/metric, finance, storage, retention, stack/artifact и иные применимые blockers, а также task-level review.
 
 ## Входные данные клиента после старта
 

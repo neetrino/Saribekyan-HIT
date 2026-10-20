@@ -2,6 +2,8 @@
 
 > **Status: BLOCKER REGISTER։** Role անունը կամ UI visibility-ն authorization rule չէ։ Չլրացված permission row-ը `deny/no-go` design state է և agent-ին չի թույլատրում սեփական policy հորինել։
 
+ՏԱ `ADM-03`-ի 18 դերանունները սկզբնական կատալոգ են, ոչ իրավունքների մատրիցա։ Քանի դեռ ստորևի տողը `BLOCKED` է, ագենտը privilege չի ստեղծում, դերը գործողության չի կապում և պաշտոնի անունից policy չի դուրս բերում։ Դատարկ կամ `BLOCKED` տողը deny/no-go է։
+
 | Capability | Requirement IDs | Required dimensions | Missing decisions | Approval evidence | Status |
 |---|---|---|---|---|---|
 | Patient search/view | REG/AMB/INP, ADM-03–06 | role, location, department/service, care context | actor-resource-action matrix; existence hiding; sensitive reads | TBD | BLOCKED |

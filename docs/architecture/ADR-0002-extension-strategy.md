@@ -25,7 +25,7 @@
 - Frontend custom capabilities-ը կառուցել O3 frontend modules, routes, extensions և workspaces-ով։
 - Metadata, concepts, forms, locations, roles և configuration-ը պահել version-controlled distribution content-ում։
 
-Այս ADR-ի Proposed մասը ամբողջ repository/module tree-ը կառուցելու թույլտվություն չէ։ Մինչ acceptance-ը թույլատրված հաջորդ քայլը միայն մեկ pilot OMOD + O3 extension compatibility PoC-ն է՝ [implementation gate](../00-IMPLEMENTATION-GATE.md)-ի սահմաններով։
+Այս ADR-ի Proposed մասը ամբողջ repository/module tree-ը կառուցելու թույլտվություն չէ։ Մինչ acceptance-ը թույլատրված հաջորդ քայլը միայն մեկ pilot OMOD + O3 extension compatibility PoC-ն է՝ [implementation gate](../00-IMPLEMENTATION-GATE.md)-ի սահմաններով։ Եթե Proposed որոշումը մերժվի, մերժումը business module-ի այլ ճարտարապետություն չի թույլատրում։ Փոխարինող փաթեթավորում այս ADR-ում չկա, և ագենտը այն չի հորինում։
 
 ## Module boundary rule
 

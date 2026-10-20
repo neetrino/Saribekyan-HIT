@@ -4,11 +4,31 @@
 
 Այս legend-ը համադրվում է `governance/README.md`-ի canonical lifecycle-ին։ Ազատ status բառը coding authorization չէ։ `Approved`/`Accepted` row-ը պարտադիր պետք է ունենա decision ID, approver/date/evidence. այդ metadata-ի բացակայության դեպքում agent-ը այն կիրառում է միայն guardrail/context-ի համար և business code չի սկսում։
 
+### Legacy row status → agent action
+
+| TECH_CARD status | Canonical interpretation | Agent action |
+|---|---|---|
+| Approved | `APPROVED_CONSTRAINT_NO_GO` | Սահմանը կամ ուղղությունը պահել. business code չսկսել |
+| Accepted | `ACCEPTED_DIRECTION_NO_GO` | `Accepted` բառը task go չէ. business code չսկսել |
+| Draft contract baseline | `DRAFT_CONTRACT` | Code չսկսել |
+| Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
+| Approved gate / D-008 PoC gate only | `D008_POC_ONLY` | Միայն D-008 compatibility PoC-ն. business implementation չսկսել |
+| Approved Phase I boundary / Approved scope / Approved constraint | `GOVERNING_GUARDRAIL` | Պահպանել արգելքը/սահմանը, բայց code չսկսել |
+| Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION_NO_GO` | Design constraint է միայն signed requirement + task go-ով. բաց մասը blocker է |
+| Contract baseline / Conditional contract requirement | `DRAFT_CONTRACT` մինչև signature manifest | Code չսկսել |
+| Proposed / Proposed baseline / Required design / Custom design required | `PROPOSED_DESIGN` | Code/dependency/schema չստեղծել |
+| PoC required / Proposed + PoC required | `VALIDATION_REQUIRED` | Install կամ version pin չանել. միայն առանձին թույլատրված PoC scope |
+| Proposed / blocked | `BLOCKED` | Կանգ առնել |
+| Change request required / Out of Phase I | `OUT_OF_SCOPE` | Չիրականացնել առանց signed change request-ի |
+| Deferred / Open / TBD | `BLOCKED` | Կանգ առնել |
+
+Վերևի mapping-ում չգտնված ցանկացած status, այդ թվում `Approved direction / open detail` տիպի չթվարկված համակցությունը, `BLOCKED` է։ `Approved` և `Accepted` արդեն mapping-ում են և business code չեն թույլատրում։
+
 | Status | Meaning |
 |---|---|
 | Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
-| Approved | Նախագծի հաստատված որոշում՝ իր նկարագրված սահմաններում |
-| Accepted | ADR-ի ընդունված architecture decision. չի հաստատում իր scope-ից դուրս business պահանջ |
+| Approved | Ուղղություն կամ սահման իր նկարագրության մեջ. implementation go չէ, քանի դեռ task go record չկա |
+| Accepted | Առանց անկախ approver/date/evidence-ի task go չէ. business code չի թույլատրում |
 | Approved Phase I boundary / Approved scope / Approved constraint | Փուլ I-ի պարտադիր սահման կամ արգելք, ոչ ամբողջ տեխնոլոգիական ռազմավարության ընդունում |
 | Approved direction | Հաստատված ուղղություն, որի exact product/version/layout-ը կարող է դեռ բաց լինել |
 | Proposed | Ուժեղ թեկնածու, որը պահանջում է տեխնիկական հաստատում |
