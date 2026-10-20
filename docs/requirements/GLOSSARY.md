@@ -6,7 +6,7 @@
 | EMR | Պացիենտի էլեկտրոնային բժշկական պատմություն։ |
 | OpenMRS Platform | Java-ով կառուցված OpenMRS backend/core և module runtime։ |
 | OpenMRS O3 | OpenMRS-ի ժամանակակից modular frontend ecosystem։ |
-| OMOD | OpenMRS backend module-ի փաթեթ, որով ավելացվում են Java service, domain և API հնարավորություններ։ |
+| OMOD | OpenMRS backend module-ի deployable փաթեթ։ Այս սահմանումը package/layer skeleton չի սահմանում և չի պահանջում `domain`, `application`, `infrastructure` կամ `web` directories։ Ներքին layout-ը վերցվում է միայն approved artifact boundary-ից և ընտրված OpenMRS tooling-ի փաստացի output-ից։ |
 | O3 frontend module | OpenMRS app shell-ին route/extension/workspace տրամադրող frontend package։ |
 | Distribution | Համատեղելի OpenMRS Platform, backend modules, O3 modules և configuration տարբերակների ամրագրված հավաքածու։ |
 | Concept | OpenMRS-ի clinical terminology/data dictionary տարր։ |

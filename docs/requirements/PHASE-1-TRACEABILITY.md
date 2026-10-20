@@ -50,11 +50,11 @@
 | DIA-04 | ՏԱ §5.4 / DIA-04 | DIA | DRAFT_CONTRACT | Pending result design | Pending | approval/correction open | Pending | NO_GO |
 | LAB-01 | ՏԱ §5.4 / LAB-01 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | sample lifecycle open | Pending | NO_GO |
 | LAB-02 | ՏԱ §5.4 / LAB-02 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | units/ranges/content open | Pending | NO_GO |
-| LAB-03 | ՏԱ §5.4 / LAB-03 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | critical threshold/workflow open | Pending | NO_GO |
-| LAB-04 | ՏԱ §5.4 / LAB-04 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | approval/correction open | Pending | NO_GO |
-| RAD-01 | ՏԱ §5.4 / RAD-01 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | attachment/content open | Pending | NO_GO |
-| RAD-02 | ՏԱ §5.4 / RAD-02 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | result/approval open | Pending | NO_GO |
-| RAD-03 | ՏԱ §5.4 / RAD-03 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | attachment storage open | Pending | NO_GO |
+| LAB-03 | ՏԱ §5.4 / LAB-03 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | result draft/technical-check/professional-approval/correction transition table open | Pending | NO_GO |
+| LAB-04 | ՏԱ §5.4 / LAB-04 | DIA | DRAFT_CONTRACT | Pending lab fit proof | Pending | critical-result threshold source and clinician-notification fact semantics open | Pending | NO_GO |
+| RAD-01 | ՏԱ §5.4 / RAD-01 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | order/scheduling/execution vs result draft/approval boundary and transitions open | Pending | NO_GO |
+| RAD-02 | ՏԱ §5.4 / RAD-02 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | PDF/image format, size, storage, scanning, retention and access open | Pending | NO_GO |
+| RAD-03 | ՏԱ §5.4 / RAD-03 | DIA | DRAFT_CONTRACT | Pending radiology fit proof | Pending | client-approved applicable service list and per-service manual workflow open | Pending | NO_GO |
 | FDI-01 | ՏԱ §5.4 / FDI-01 | DIA | DRAFT_CONTRACT | Pending specialty fit proof | Pending | protocol/approval open | Pending | NO_GO |
 | END-01 | ՏԱ §5.4 / END-01 | DIA | DRAFT_CONTRACT | Pending specialty fit proof | Pending | protocol/approval open | Pending | NO_GO |
 | TRT-01 | ՏԱ §5.4 / TRT-01 | DIA | DRAFT_CONTRACT | Pending specialty fit proof | Pending | protocol/approval open | Pending | NO_GO |
@@ -62,8 +62,8 @@
 | FIN-02 | ՏԱ §5.5 / FIN-02 | FIN | DRAFT_CONTRACT | Pending billing fit proof | Pending | payer/price semantics open | Pending | NO_GO |
 | FIN-03 | ՏԱ §5.5 / FIN-03 | FIN | DRAFT_CONTRACT | Pending billing fit proof | Pending | dedup/idempotency key open | Pending | NO_GO |
 | FIN-04 | ՏԱ §5.5 / FIN-04 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | payment transitions open | Pending | NO_GO |
-| FIN-05 | ՏԱ §5.5 / FIN-05 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | split/rounding open | Pending | NO_GO |
-| FIN-06 | ՏԱ §5.5 / FIN-06 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | prepayment allocation open | Pending | NO_GO |
+| FIN-05 | ՏԱ §5.5 / FIN-05 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | prepayment receipt/link/use/allocation/balance, reversal, concurrency and rounding open | Pending | NO_GO |
+| FIN-06 | ՏԱ §5.5 / FIN-06 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | partial-payment allocation, unpaid-balance calculation and rounding open | Pending | NO_GO |
 | FIN-07 | ՏԱ §5.5 / FIN-07 | FIN | DRAFT_CONTRACT | Pending payment fit proof | Pending | discount authority/rounding open | Pending | NO_GO |
 | FIN-08 | ՏԱ §5.5 / FIN-08 | FIN | DRAFT_CONTRACT | Pending reversal design | Pending | refund/reversal transitions open | Pending | NO_GO |
 | FIN-09 | ՏԱ §5.5 / FIN-09 | FIN | DRAFT_CONTRACT | Pending debt design | Pending | debt lifecycle open | Pending | NO_GO |

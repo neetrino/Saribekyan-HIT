@@ -50,7 +50,7 @@ docs/
 ├── 07-INTEGRATIONS.md                # API/integration boundaries և future connectors
 ├── architecture/                     # Architecture Decision Records և ինդեքս
 ├── modules/                          # module design template և հետագա records
-├── pilot/                            # D-008 compatibility PoC-ի միակ թույլատրելի spec-ը
+├── pilot/                            # documentation-only. այստեղ միայն D-008 spec-ն է, ոչ PoC workspace/source/build
 ├── contract/phase-1/                 # ստորագրման համար նախատեսված նյութեր
 ├── phase-scope/                      # source audit և պայմանագրային սահմանների ապացույցներ
 └── requirements/
@@ -60,6 +60,8 @@ docs/
     ├── MODULE-SOURCE-MATRIX.md       # OpenMRS/custom լուծումների թեկնածու mapping
     └── PHASE-1-TRACEABILITY.md       # ՏԱ պահանջների traceability հիմք
 ```
+
+Այս ծառը միայն `docs/` documentation tree-ն է։ D-008-ի runtime/source workspace-ը դրա child-ը չէ. այն կարող է ստեղծվել միայն repository root-ի `pilot/openmrs-compatibility/` հասցեում։ `docs/pilot/openmrs-compatibility/`-ը արգելված duplicate workspace է։
 
 Հաջորդ documentation փուլերում այս design baseline-ը կլրացվի testing, UAT, operations, release և իրական module records-ով։
 

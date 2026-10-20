@@ -39,7 +39,7 @@ Search result-ից բացված ֆայլը չի կիրառվում, մինչև a
 
 ## Required task record
 
-Յուրաքանչյուր business implementation task repository-ում կամ task description-ում պետք է ունենա `TASK-GO-RECORD.md`-ի լրացված պատճեն։ Բաց կամ `TBD` պարտադիր դաշտը նշանակում է `NO_GO`։ D-008 compatibility PoC-ն օգտագործում է իր spec-ի run record-ը և հստակ `task_class: D008_COMPATIBILITY_POC` արժեքը։
+Յուրաքանչյուր business implementation task repository-ում կամ task description-ում պետք է ունենա `TASK-GO-RECORD.md`-ի լրացված պատճեն։ Բաց կամ `TBD` պարտադիր դաշտը նշանակում է `NO_GO`։ D-008 compatibility PoC-ն պահանջում է **երկուսն էլ**՝ լրացված task-go record՝ բառացի `task_class: D008_COMPATIBILITY_POC` և `TASK-GO-TEMPLATE.md`-ի `N/A_D008` profile-ով, ինչպես նաև compatibility spec-ի լրացված run record։ Ազատ `pilot` class-ը անվավեր է։ `PRODUCTION_PILOT_RELEASE`-ը առանձին business class է և չի օգտագործում D-008 profile-ը։
 
 ## Validation
 

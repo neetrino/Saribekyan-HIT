@@ -17,7 +17,7 @@ Machine-readable authority каждого документа определяе�
 
 Актуальные материалы разнесены по тематическим папкам. Ранние версии сохранены в `archive/initial-drafts`, но не используются для определения объёма.
 
-Source-first аудит завершён. Клиент сообщил об общем согласии на онлайн-встрече; юридической границей Фазы I станет подписанное армянское ТЗ версии 1.3. До фиксации подписи эти файлы и draft ТЗ используются только для design/traceability; business coding запрещён, кроме D-008 compatibility PoC.
+Source-first аудит завершён. Историческая заметка об онлайн-встрече не является согласием, approval evidence, scope или blocker closure и не используется агентом для продолжения работы. Юридической границей Фазы I станет подписанное армянское ТЗ версии 1.3. До фиксации подписи эти файлы и draft ТЗ используются только для design/traceability; business coding запрещён, кроме D-008 compatibility PoC.
 
 Старые абсолютные ссылки вида `/Users/user/...` являются неработающими историческими ссылками редактора и не должны использоваться как provenance. Агент не угадывает такой путь и не переходит вместо него к root vision по номеру строки; источник подтверждается repository-relative contract/evidence-файлом или считается отсутствующим.
 
@@ -38,32 +38,32 @@ phase-scope/
 
 ## Исторический навигационный указатель — не актуальные требования
 
-Перечень ниже помогает находить evidence и прежнюю декомпозицию. Он не является списком действующих требований, blockers или разрешённых задач. Слово «закрыто» внутри перечисленных файлов означает только предложенную трактовку, перенесённую в draft ТЗ; оно не означает подпись клиента, закрытие implementation blocker или `GO`.
+Перечень ниже сохраняет адреса исторических файлов и redirect stub-ов. Он не является evidence, списком действующих требований, blockers или разрешённых задач. Удалённые тела нельзя восстанавливать из git history или vision для implementation.
 
-- `source-audit/10_Source_Audit_Method.md` — метод, статусы и покрытие всех разделов источника.
-- `phases/phase-1/11_Phase_1_Evidence_Matrix.md` — функции Фазы I с точными местами в источнике.
-- `phases/phase-2/12_Phase_2_Evidence_Matrix.md` — функции Фазы II, пересечения и отсутствующие спецификации.
-- `phases/phase-3/13_Phase_3_Evidence_Matrix.md` — функции Фазы III и внутренние поздние этапы.
-- `cross-cutting/14_Cross_Cutting_Evidence.md` — архитектура, API, данные, инфраструктура, безопасность, внедрение и договорные требования.
-- `source-audit/15_Confirmed_Conflicts_and_Gaps.md` — только подтверждённые конфликты и пробелы источника.
-- `source-audit/16_Previous_Questions_Source_Resolution.md` — ответ источника на каждый из прежних 50 вопросов.
-- `phases/phase-2/18_Phase_1_vs_Phase_2_Differential.md` — точная граница базы I и известных/неописанных расширений II.
-- `source-audit/19_Ambiguous_First_Phase_Phrases.md` — все неоднозначные употребления «Առաջին փուլում» внутри II–III с переводом и контекстом.
-- `phases/phase-1/20_Phase_1_Baseline_Definitions.md` — определения базового объёма I и итоговая трактовка пробелов исходника.
-- `phases/phase-1/22_Phase_1_Report_Register.md` — буквальный реестр 52 отчётных требований I, повторения и предлагаемая договорная граница.
-- `phases/phase-1/24_Phase_1_Financial_Boundary.md` — обязательное кассовое ядро I и закрытая граница внешних финансовых интеграций.
-- `phases/phase-1/25_Phase_1_Data_Migration_Boundary.md` — различие между стартовым наполнением, функцией импорта и отдельно оцениваемой миграцией исторических данных.
-- `phases/phase-1/26_Phase_1_Infrastructure_NFR_Boundary.md` — закрытая граница cloud, production deployment, backup, HA/DR/SLA и нагрузки.
-- `phases/phase-1/27_Phase_1_Acceptance_Warranty_SLA_Boundary.md` — закрытая модель pilot-release, UAT, обучения, исправления дефектов и отдельного maintenance.
-- `phases/phase-1/28_Phase_1_API_Signature_Code_Deliverables_Boundary.md` — закрытая граница API, ARMED, внутренней подписи, документации и передачи source code.
-- `decisions/09_Decision_Log.md` — подтверждённые внутренние решения.
-- `decisions/17_Questions_Only_After_Source_Audit.md` — финальное состояние вопросов после source-аудита и два постстартовых входных пакета.
-- `decisions/client/21_Client_Clarifications_Phase_1.md` — исторический подробный список вопросов, закрытый итоговым ТЗ.
-- `decisions/client/23_Template_Content_Commercial_Boundary.md` — историческая коммерческая заметка о конструкторе. Не client-approval evidence; исполнимая граница — draft ТЗ §7.
-- `decisions/client/31_Client_Approval_Package_Phase_1.md` — исторический сокращённый клиентский пакет согласования, заменённый ТЗ версии 1.3.
-- `decisions/client/21_Client_Clarifications_Phase_1_HY.md` — историческая армянская версия подробных клиентских вопросов C-01–C-30.
-- `decisions/client/31_Client_Approval_Package_Phase_1_HY.md` — историческая армянская версия сокращённого пакета P-01–P-24.
-- `decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md` — финальное закрытие C-01–C-31 и два оставшихся входных пакета клиента.
+- `source-audit/10_Source_Audit_Method.md` — withdrawn non-authorizing redirect stub; прежний метод удалён.
+- `phases/phase-1/11_Phase_1_Evidence_Matrix.md` — withdrawn non-authorizing redirect stub; прежняя evidence-матрица удалена.
+- `phases/phase-2/12_Phase_2_Evidence_Matrix.md` — withdrawn non-authorizing redirect stub; прежняя evidence-матрица удалена.
+- `phases/phase-3/13_Phase_3_Evidence_Matrix.md` — withdrawn non-authorizing redirect stub; прежняя evidence-матрица удалена.
+- `cross-cutting/14_Cross_Cutting_Evidence.md` — withdrawn non-authorizing redirect stub; прежняя evidence-матрица удалена.
+- `source-audit/15_Confirmed_Conflicts_and_Gaps.md` — withdrawn non-authorizing redirect stub; прежний анализ удалён.
+- `source-audit/16_Previous_Questions_Source_Resolution.md` — withdrawn non-authorizing redirect stub; прежняя таблица ответов удалена.
+- `phases/phase-2/18_Phase_1_vs_Phase_2_Differential.md` — withdrawn non-authorizing redirect stub; прежняя phase-граница удалена.
+- `source-audit/19_Ambiguous_First_Phase_Phrases.md` — withdrawn non-authorizing redirect stub; прежний анализ удалён.
+- `phases/phase-1/20_Phase_1_Baseline_Definitions.md` — withdrawn non-authorizing redirect stub; прежние baseline-определения удалены.
+- `phases/phase-1/22_Phase_1_Report_Register.md` — withdrawn non-authorizing redirect stub; прежний каталог удалён.
+- `phases/phase-1/24_Phase_1_Financial_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя финансовая граница удалена.
+- `phases/phase-1/25_Phase_1_Data_Migration_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя граница миграции удалена.
+- `phases/phase-1/26_Phase_1_Infrastructure_NFR_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя инфраструктурная граница удалена.
+- `phases/phase-1/27_Phase_1_Acceptance_Warranty_SLA_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя acceptance/service граница удалена.
+- `phases/phase-1/28_Phase_1_API_Signature_Code_Deliverables_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя граница deliverables удалена.
+- `decisions/09_Decision_Log.md` — withdrawn non-authorizing redirect stub; прежний журнал удалён.
+- `decisions/17_Questions_Only_After_Source_Audit.md` — withdrawn non-authorizing redirect stub; прежний список вопросов удалён.
+- `decisions/client/21_Client_Clarifications_Phase_1.md` — withdrawn non-authorizing redirect stub; прежние вопросы удалены.
+- `decisions/client/23_Template_Content_Commercial_Boundary.md` — withdrawn non-authorizing redirect stub; прежняя коммерческая граница удалена.
+- `decisions/client/31_Client_Approval_Package_Phase_1.md` — withdrawn non-authorizing redirect stub; прежний пакет согласования удалён.
+- `decisions/client/21_Client_Clarifications_Phase_1_HY.md` — withdrawn non-authorizing redirect stub; прежние вопросы удалены.
+- `decisions/client/31_Client_Approval_Package_Phase_1_HY.md` — withdrawn non-authorizing redirect stub; прежний пакет согласования удалён.
+- `decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md` — draft resolution proposal; не client approval evidence и не coding authorization.
 - `decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md` — черновик письма клиенту о двух входных пакетах. Не import schema и не coding authorization.
 
 ## Подписываемый комплект
@@ -76,7 +76,7 @@ phase-scope/
 
 ## Архив
 
-Файлы `01`–`08` перенесены в `archive/initial-drafts`. Они сохранены как история первого подхода и не должны использоваться для договора или оценки без повторной проверки по актуальным evidence-файлам.
+Файлы `01`–`08` в `archive/initial-drafts` являются withdrawn redirect stub-ами. Их прежние тела удалены; восстанавливать их из git history или vision и использовать для scope, договора, оценки либо implementation запрещено. Текущие источники определяются только manifest-ом.
 
 ## Правило границы
 

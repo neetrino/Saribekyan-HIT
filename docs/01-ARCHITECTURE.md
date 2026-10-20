@@ -40,12 +40,12 @@ flowchart LR
 | O3 app shell | Navigation, localization, extensions, shared UI | Proposed |
 | Reused O3 modules | Patient/chart/forms և fit-gap-ով հաստատված UI | PoC required |
 | Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն minimal non-business pilot extension |
-| OpenMRS Platform | Patient, visit, encounter, obs, order, concepts | Approved foundation |
+| OpenMRS Platform | Patient, visit, encounter, obs, order, concepts | GOVERNING_CANONICAL_MODEL_NO_SKELETON; foundation ownership only, ոչ distribution/OMOD generation approval |
 | Community/custom OMOD-ներ | Reused capability և Java business extensions | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն մեկ non-business pilot OMOD |
 | Relational database | Canonical և module-owned transactional data | Engine/version TBD; վերցվում է D-008 exact commit-ի supported manifest-ից և հաստատվում review/go-ով |
 | Document storage | Attachments և generated documents | Design/PoC required |
 | Reporting/export | Contract reports, dashboards, controlled export | PROPOSED_DESIGN; reuse/custom fit decision required |
-| Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | Phase I baseline; native MFA capability TBD |
+| Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | GOVERNING_GUARDRAIL_NO_GO; native MFA capability BLOCKED/TBD |
 | Audit capability | ADM-10 change, export և break-glass evidence; all-read audit-ը default չէ | PROPOSED_DESIGN; cross-cutting ownership |
 | Operations layer | Logs, metrics, backup/restore, health, alerts | Detailed design pending |
 

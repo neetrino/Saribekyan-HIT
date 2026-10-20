@@ -9,6 +9,11 @@
 | TECH_CARD status | Canonical interpretation | Agent action |
 |---|---|---|
 | Approved | `APPROVED_CONSTRAINT_NO_GO` | Սահմանը կամ ուղղությունը պահել. business code չսկսել |
+| APPROVED_CONSTRAINT_NO_GO / GOVERNING_CANONICAL_MODEL_NO_SKELETON | նույն canonical literal-ը | Constraint/ownership guardrail է. dependency, Maven/OMOD tree, skeleton կամ business code չստեղծել |
+| GOVERNING_GUARDRAIL_NO_GO | canonical literal | Պարտադիր արգելք/սահման է, ոչ implementation permission |
+| PROPOSED_DESIGN | canonical literal | Չիրականացնել մինչև accepted decision և task GO |
+| BLOCKED | canonical literal | Կանգ առնել և պահանջել փակող evidence/decision |
+| D008_POC_ONLY | canonical literal | Միայն `D008_COMPATIBILITY_POC` profile, ոչ business code |
 | Accepted | `ACCEPTED_DIRECTION_NO_GO` | `Accepted` բառը task go չէ. business code չսկսել |
 | Draft contract baseline | `DRAFT_CONTRACT` | Code չսկսել |
 | Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
@@ -45,9 +50,9 @@
 
 | Decision | Value | Status | Notes |
 |---|---|---|---|
-| Project size | Size C | Approved | Բազմամոդուլ բժշկական համակարգ, երկարաժամկետ զարգացում և բարձր անվտանգության պահանջներ |
-| Clinical platform | OpenMRS | Approved | Պացիենտ, visit, encounter, obs, order և clinical terminology հիմք |
-| Backend language | Java | Approved | Custom backend development-ը կատարվում է Java-ով |
+| Project size | Size C | APPROVED_CONSTRAINT_NO_GO | Դասակարգում է governance/quality կարիքները. module tree կամ code չի ստեղծում |
+| Clinical platform | OpenMRS | GOVERNING_CANONICAL_MODEL_NO_SKELETON | Պացիենտ, visit, encounter, obs, order և clinical terminology ownership guardrail է. distribution/OMOD tree չի թույլատրում |
+| Backend language | Java | APPROVED_CONSTRAINT_NO_GO | Միայն արդեն թույլատրված custom backend-ի լեզվի constraint է. ինքնուրույն backend/module ստեղծելու պատճառ չէ |
 | Delivery scope | Phase I contract specification v1.3՝ ստորագրման համար | Draft contract baseline | Մինչ ստորագրման ապացույցը business coding authorization չէ. D-008 PoC-ն միակ բացառությունն է |
 | Architecture approach | OpenMRS distribution + modules | Proposed | Core fork-ից խուսափելու և upgrade path-ը պահպանելու սկզբունք |
 
@@ -66,7 +71,7 @@
 
 | Area | Decision | Status |
 |---|---|---|
-| Runtime | OpenMRS Java backend/module runtime | Approved direction |
+| Runtime | OpenMRS Java backend/module runtime | GOVERNING_CANONICAL_MODEL_NO_SKELETON |
 | Custom server capabilities | Java OMOD modules | Proposed |
 | Business boundaries | REG registration, AMB ambulatory, INP inpatient, DIA diagnostics/treatment, FIN finance, REP reporting, ADM administration | Approved Phase I ownership map |
 | Database access | OpenMRS service/API layer, custom module DAOs միայն module-owned data-ի համար | Proposed |
@@ -94,7 +99,7 @@ Custom frontend-ը չի ստեղծում երկրորդ անկախ SPA, եթե �
 
 | Area | Decision | Status |
 |---|---|---|
-| Patient/visit/encounter/obs/order | OpenMRS canonical models | Approved direction |
+| Patient/visit/encounter/obs/order | OpenMRS canonical models | GOVERNING_CANONICAL_MODEL_NO_SKELETON |
 | Clinical forms | O3 Form Builder + React Form Engine candidate | Proposed |
 | Form schemas | Version control + controlled publish process | Proposed |
 | Terminology | OpenMRS concepts; ICD source/version TBD | Approved direction / open detail |

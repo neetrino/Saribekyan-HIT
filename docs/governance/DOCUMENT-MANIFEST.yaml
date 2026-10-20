@@ -150,10 +150,25 @@ documents:
     lifecycle: ACTIVE_INDEX
     agent_usage: CLIENT_ARTIFACT_NAVIGATION_ONLY
 
-  - path_prefix: ../requirements/
+  - path: ../requirements/README.md
     authority: NON_AUTHORIZING
     lifecycle: ASSESSMENT
-    agent_usage: REQUIREMENT_MAPPING_ONLY
+    agent_usage: GOVERNANCE_GUIDANCE_NOT_IMPLEMENTATION
+
+  - path: ../requirements/GLOSSARY.md
+    authority: NON_AUTHORIZING
+    lifecycle: REFERENCE
+    agent_usage: DEFINITIONS_ONLY_NO_PACKAGE_OR_SCOPE_INFERENCE
+
+  - path: ../requirements/MODULE-SOURCE-MATRIX.md
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: CANDIDATE_MAPPING_ONLY
+
+  - path: ../requirements/OPENMRS-FIT-GAP.md
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: FIT_GAP_ONLY_NEVER_INSTALL_OR_IMPLEMENT
 
   - path: ../requirements/PHASE-1-TRACEABILITY.md
     authority: EXECUTION_GATE_REGISTER

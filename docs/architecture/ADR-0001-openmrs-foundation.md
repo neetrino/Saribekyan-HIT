@@ -1,6 +1,6 @@
 # ADR-0001: OpenMRS as the clinical platform foundation
 
-- Status: Approved direction / governing canonical-model constraint; not a business implementation go
+- Status: `GOVERNING_CANONICAL_MODEL_NO_SKELETON`
 - Date: 2026-10-19
 - Decision ID: D-002/D-003
 - Decision owner: Project architecture owner

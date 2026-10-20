@@ -40,8 +40,8 @@ Audit-ում password/token/session secret կամ անհարկի ամբողջ cl
 
 - Approved medical record-ը ուղղվում է amendment/correction-ով՝ պահելով նախկին տարբերակը և պատճառը։
 - Financial correction-ը traceable reversal/refund է։
-- Internal confirmation + audit-ը Phase I baseline-ն է. qualified e-signature connector-ը դուրս է scope-ից առանց change request-ի։
-- TLS network boundaries-ում, at-rest encryption DB/files/backups-ի համար, secrets-ը՝ repository/log-ից դուրս։
+- Internal confirmation + audit-ը `DRAFT_CONTRACT_REQUIREMENT_NO_GO` է մինչև ստորագրությունն ու permission/workflow task gate-ը. qualified e-signature connector-ը դուրս է scope-ից առանց change request-ի։
+- TLS-ը network boundaries-ի governing requirement է, secrets-ը repository/log-ից դուրս են։ DB/files/backups at-rest encryption-ը `PROPOSED_DESIGN` է և չի իրականացվում մինչև provider/scope, key ownership/custody, rotation/recovery և acceptance evidence-ը գրավոր հաստատված չեն։
 - Production data-ը non-production-ում միայն approved masking/anonymization-ով։
 - Patient search, logs, exports և prints-ը հետևում են data minimization-ին։
 
