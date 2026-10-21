@@ -88,7 +88,7 @@ FHIR `ServiceRequest`-ի առկայությունը չի նշանակում լի
 | ADM-05–06 | UNVALIDATED_GAP | Location/department/service/patient-care scope-ը proof չունի. authorization policy այս տողով չի հորինվում։ |
 | ADM-07–08 | UNVALIDATED_PARTIAL_FIT | Native OpenMRS authentication-ը Phase I boundary է։ MFA capability-ն անհայտ է. սեփական MFA կամ external IdP այս տողով չի կառուցվում։ |
 | ADM-09–11 | UNVALIDATED_GAP | Encounter/Obs voiding/version history-ն candidate է։ Internal approval և correction contract-ը proof չունեն. այս տողով չեն նախագծվում։ |
-| ADM-10 | UNVALIDATED_GAP | Platform audit/Envers անունը candidate է։ ADM-10 change, export և break-glass audit-ը proof չունեն։ Every-view audit-ը Phase I default չէ և այս տողով չի միացվում։ |
+| ADM-10 | UNVALIDATED_GAP | Platform audit/Envers անունը candidate է, ոչ acceptance evidence։ Action/user/time/object, conditional old/new, IP/device capture semantics-ը, export/break-glass linkage-ը, storage/access/retention-ը և verification-ը proof չունեն։ Every-view audit-ը Phase I default չէ և այս տողով չի միացվում։ |
 | ADM-12 | UNVALIDATED_GAP | Break-glass policy, expiry, reason, alert և audit-ը proof չունեն. custom control այս տողով չի ստեղծվում։ |
 | ADM-13 | UNVALIDATED_PARTIAL_FIT | Locations, concepts, forms և configuration-ը candidates են։ Status/workflow configurability-ն proof չունի։ |
 
@@ -98,7 +98,7 @@ External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS 
 
 | Requirement | Assessment | Decision needed |
 |---|---|---|
-| Form builder | UNVALIDATED_CANDIDATE_FIT | O3 Form Builder/React Form Engine reuse-ը պետք է requirement-by-requirement ապացուցի field types, requiredness, version history, specialty binding և Armenian rendering-ը։ Առանձին custom designer չի կառուցվում և candidate dependency չի ընտրվում մինչև Approved fit decision-ը։ |
+| Form builder | UNVALIDATED_CANDIDATE_FIT | ՏԱ-ն պահանջում է վերջնական user capability, բայց տեխնիկական իրականացումը BLOCKED է։ O3 Form Builder/React Form Engine reuse-ը պետք է requirement-by-requirement ապացուցի field types, requiredness, version history, specialty binding և Armenian rendering-ը։ Առանձին custom designer չի կառուցվում և candidate dependency չի ընտրվում մինչև accepted fit/artifact decision ու task `GO`։ Սա requirement-ը չի չեղարկում և custom implementation-ի default թույլտվություն չի ստեղծում։ |
 | REST API | UNVALIDATED_CANDIDATE_FIT | Native surface-ի առկայությունը custom/public endpoint authorization չէ |
 | FHIR R4 | UNVALIDATED_PARTIAL_FIT | Resource/profile validation-ը proof չունի. FHIR surface այս տողով չի հրապարակվում։ |
 | PDF/print | UNVALIDATED_GAP | Renderer, fonts, versioning և archival rules-ը ընտրված չեն. library այս տողով չի ավելացվում։ |

@@ -1,6 +1,6 @@
 # API Design
 
-> **Status:** target design guidance, ոչ ներկայիս coding authorization։ Մինչ ստորագրված ՏԱ-ն և համապատասխան requirement/go որոշումը թույլատրված է միայն D-008 probe-ը, որի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև custom facade-ի կանոնները կիրառվում են միայն այն endpoint-ի վրա, որի use case-ը և facade-ի անհրաժեշտությունը առանձին հաստատված են։
+> **Status:** target design guidance, ոչ ներկայիս coding authorization (`API_CHECKLIST_NOT_FACADE_CONTRACT`)։ Մինչ ստորագրված ՏԱ-ն և համապատասխան requirement/go որոշումը թույլատրված է միայն D-008 probe-ը, որի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև բերվածը candidate interface-ի review checklist է, ոչ custom facade-ի կամ endpoint-ի պատրաստ կանոնների հավաքածու։
 
 > **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի approved design/go record-ը դրանց չի հղվում։ Դրանք signed contract requirement կամ ընդհանուր API ստեղծելու հրահանգ չեն։
 
@@ -13,21 +13,21 @@
 | Java service API | Backend modules | Առաջնային cross-module contract |
 | OpenMRS REST | O3/internal UI | Օգտագործել միայն semantic fit-ի դեպքում |
 | FHIR R4/FHIR2 | Healthcare interoperability | Profile/use-case validation-ից հետո |
-| Custom `/api/v1/...` facade | Հաստատված custom/external workflows | Narrow, versioned և documented |
+| Candidate custom interface — no implied path/facade | Միայն առանձին հաստատված consumer/use case | Endpoint/path/version/envelope-ը տվյալ design record-ի blocker է |
 | File contract | Approved import/export | Schema, checksum և reconciliation-ով |
 
 OpenMRS API-ն wrapper-ով կրկնել պետք չէ, եթե առկա surface-ը բավարար է։ Ներքին OpenMRS REST endpoint-ը արտաքին public API չի համարվում ինքնաբերաբար։
 
-## Custom facade HTTP contract
+## Candidate custom-interface concerns — not a shared contract
 
-Այս և հաջորդ բաժինների envelope/pagination կանոնները վերաբերում են միայն custom versioned facade-ին։ OpenMRS REST/FHIR-ի առկա contract-ը չի վերափաթեթավորվում միայն ձևաչափը միասնական դարձնելու համար։ Native pagination-ը, error semantics-ը և void/retire վարքը պահպանվում են և documented adapter է ստանում միայն կոնկրետ հաստատված use case-ի դեպքում։
+Այս և հաջորդ բաժինները checklist են միայն այն custom interface-ի համար, որն ունի առանձին approved consumer/use case և task `GO`։ Դրանք չեն սահմանում shared facade, `/api/v1` path, versioning layer, adapter, envelope կամ DTO։ OpenMRS REST/FHIR-ի առկա contract-ը չի վերափաթեթավորվում միայն ձևաչափը միասնական դարձնելու համար։ Native pagination-ը, error semantics-ը և void/retire վարքը պահպանվում են. adapter-ը նույնպես ստեղծվում է միայն կոնկրետ հաստատված incompatibility/design decision-ից հետո։
 
 - JSON UTF-8, ISO-8601 timestamps with offset/UTC և documented code systems։
-- Request-ը ունի կամ ստանում է correlation ID, որը վերադարձվում է response header-ում։ Client-supplied ID-ն validation է անցնում կամ փոխարինվում է։
+- Correlation ID-ի անհրաժեշտությունը, owner-ը, ընդունվող format-ը և response propagation-ը որոշվում են տվյալ consumer/use case-ի design record-ում. մինչև այդ shared correlation middleware չի ստեղծվում։
 - Write request-ը server-side schema և semantic validation է անցնում։ Unknown fields-ի policy-ն explicit է։
 - Resource identifier-ը opaque stable ID է. database sequence-ը contract չի դառնում առանց հիմնավորման։
 - Success response-ը կարող է վերադարձնել resource կամ operation result, բայց մեկ endpoint-ում ձևը կայուն է։
-- `204` response-ը body չունի։
+- Եթե endpoint-specific contract-ը գրավոր ընտրում է HTTP `204`, այն հետևում է HTTP semantics-ին և body չի վերադարձնում. այս կետը որևէ endpoint-ի համար `204` չի ընտրում։
 
 ## Error contract — decision required per endpoint
 

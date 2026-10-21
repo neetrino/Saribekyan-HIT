@@ -45,8 +45,8 @@ documents:
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.md
     authority: CONTRACT_CONTENT_BASELINE
-    lifecycle: DRAFT_CONTRACT
-    agent_usage: DESIGN_AND_TRACEABILITY_ONLY_UNTIL_SIGNATURE_MANIFEST_IS_SIGNED
+    lifecycle: FINISHED_CONTRACT
+    agent_usage: BUSINESS_SOURCE_TEXT_WHEN_SIGNED_SOURCE_IS_VERIFIED
     signed_artifact_manifest: ../contract/phase-1/SIGNATURE-STATUS.yaml
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.docx
@@ -61,8 +61,13 @@ documents:
 
   - path: ../contract/phase-1/SIGNATURE-STATUS.yaml
     authority: SIGNATURE_AND_ARTIFACT_STATUS
-    lifecycle: ACTIVE_UNSIGNED_REGISTER
+    lifecycle: ACTIVE_SIGNED_REGISTER
     agent_usage: MANDATORY_SIGNATURE_CHECK
+
+  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY_signed.jpg
+    authority: SIGNATURE_EVIDENCE
+    lifecycle: SUBMITTED_SIGNATURE_PAGE
+    agent_usage: EVIDENCE_ONLY_NOT_SPEC_TEXT_OR_IMPLEMENTATION_SOURCE
 
   - path: ../contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md
     authority: NON_AUTHORIZING
@@ -172,20 +177,20 @@ documents:
 
   - path: ../requirements/PHASE-1-TRACEABILITY.md
     authority: EXECUTION_GATE_REGISTER
-    lifecycle: ACTIVE_NO_GO_REGISTER
+    lifecycle: ACTIVE_REQUIREMENT_SCOPED_GATE
     agent_usage: MANDATORY_REQUIREMENT_LEVEL_CHECK
   - path: ../requirements/WORKFLOW-TRANSITIONS.md
     authority: BLOCKER_REGISTER
     lifecycle: ACTIVE
-    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
   - path: ../requirements/PERMISSION-MATRIX.md
     authority: BLOCKER_REGISTER
     lifecycle: ACTIVE
-    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
   - path: ../requirements/REPORT-DEFINITIONS.md
     authority: BLOCKER_REGISTER
     lifecycle: ACTIVE
-    agent_usage: NO_GO_UNTIL_APPROVED_ROW
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
 
   - path_prefix: ../modules/
     authority: NON_AUTHORIZING_TEMPLATE_OR_RECORD
@@ -235,4 +240,4 @@ documents:
   - path: ../pilot/COMPATIBILITY-POC.md
     authority: D008_EXCEPTION_SPEC
     lifecycle: ACTIVE_LIMITED_AUTHORIZATION
-    agent_usage: ONLY_D008_COMPATIBILITY_POC
+    agent_usage: ALL

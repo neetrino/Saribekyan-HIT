@@ -11,7 +11,7 @@
 | Distribution | Համատեղելի OpenMRS Platform, backend modules, O3 modules և configuration տարբերակների ամրագրված հավաքածու։ |
 | Concept | OpenMRS-ի clinical terminology/data dictionary տարր։ |
 | Encounter | Պացիենտի հետ կլինիկական փոխգործակցության գրառում։ |
-| Visit | Մեկ կամ մի քանի encounter միավորող բժշկական այց/դեպք։ |
+| Visit | OpenMRS Visit՝ ժամանակային/կազմակերպական container մեկ կամ մի քանի Encounter-ի համար։ Այն ինքնուրույն չի նշանակում ամբուլատոր այց, ստացիոնար admission/episode, մահճակալային դեպք կամ պայմանագրային «դեպք»։ Այդ process-ների mapping-ը հաստատվում է առանձին fit/design record-ով (`NO_VISIT_EQUALS_INPATIENT_CASE`)։ |
 | Observation (Obs) | Կլինիկական դիտարկում կամ չափված/գրանցված արդյունք։ |
 | Order | Հետազոտության, դեղի, խորհրդատվության կամ այլ ծառայության նշանակում։ |
 | Patient Registry | Պացիենտի ինքնության և հիմնական demographic տվյալների գրանցամատյան։ |

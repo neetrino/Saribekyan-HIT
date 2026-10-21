@@ -73,8 +73,9 @@ phase-scope/
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.md` — канонический текст ТЗ Фазы I версии 1.3.
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.docx` — клиентская Word-копия.
 - `../contract/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-копия.
+- `../contract/phase-1/Phase_1_Technical_Specification_HY_signed.jpg` — представленная фотография страницы подписи. Не канонический текст ТЗ и не замена Markdown.
 
-Статус подписи и parity DOCX/PDF читаются только из `../contract/phase-1/SIGNATURE-STATUS.yaml`. DOCX, PDF и юридическая заметка сохраняются. Их удаление не является исправлением расхождения. Пока там `UNSIGNED_DRAFT` или у rendering-ов `STALE_REGENERATE_REQUIRED`, DOCX и PDF не являются исполняемым или подписываемым источником. Расхождение PDF/DOCX с Markdown не реализуется. После `SIGNED_VERIFIED` объём задаёт подписанный artifact из этого manifest, а не рабочие файлы `21` и `31`.
+Статус подписи читается только из `signed_source` в `../contract/phase-1/SIGNATURE-STATUS.yaml`. DOCX и PDF — generated derivatives. Пока их статус `STALE_REGENERATE_REQUIRED`, они не являются источником реализации и не блокируют task, чей signed source уже verified. Непроверенная подпись ТЗ блокирует business task. Расхождение PDF/DOCX с Markdown не реализуется. После `signed_source.status: SIGNED_VERIFIED` и `parity_with_canonical: MATCH` объём задаёт канонический Markdown с совпавшим hash, а не рабочие файлы `21` и `31`.
 
 ## Архив
 

@@ -1,6 +1,6 @@
 # Report definition register
 
-> **Status: BLOCKER REGISTER / report list is closed, calculations are not yet approved։** ՏԱ §6-ը սահմանում է թույլատրելի information outcomes-ը, բայց այս ֆայլը նոր report չի ավելացնում։ Բանաձև, grain կամ rounding չհաստատված լինելու դեպքում implementation-ը `NO_GO` է։
+> **Status: BLOCKER REGISTER / report list is closed, calculations are not yet approved։** ՏԱ §6-ը սահմանում է թույլատրելի information outcomes-ը, բայց այս ֆայլը նոր report չի ավելացնում։ Հաշվետվության անունից բանաձև չի բխում (`NO_FORMULA_FROM_REPORT_LABEL`)։ Բանաձև, grain կամ rounding չհաստատված լինելու դեպքում `NO_GO` է միայն այդ հաշվետվության task-ը։
 
 Անվանված outcome-ը պարտադիր ապագա արդյունք է, ոչ հաշվարկի թույլտվություն։ `TBD/BLOCKED` row-ի համար agent-ը SQL, average denominator, time window, inclusion/exclusion կամ placeholder implementation չի գրում։ Փակուղու լուծումը owner-ի գրավոր definition-ն է և golden example-ը **մինչև code**, ոչ «ողջամիտ» default-ը։
 

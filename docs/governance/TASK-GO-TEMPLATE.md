@@ -1,6 +1,12 @@
 # Task go record
 
-> Պատճենել task-ի հաստատված տեղում։ `TBD`, դատարկ կամ հակասող պարտադիր դաշտը նշանակում է `NO_GO`։ Coding agent-ը չի հաստատում սեփական record-ը։
+> Պատճենել task-ի հաստատված տեղում։ Task-ի իրական dependency-ի վրա `TBD`, դատարկ կամ հակասող արժեքը նշանակում է `NO_GO`։ Այդ task-ին չվերաբերող դաշտը `N/A_NOT_A_DEPENDENCY` է և `NO_GO` չէ։ Coding agent-ը չի հաստատում սեփական record-ը։
+
+Task reviewer-ը գնահատում է միայն scoped task-ի dependency-ները։ Այլ requirement-ի, հետագա slice-ի, module-ի, հաշվետվության, workflow-ի կամ infrastructure-ի բաց decision-ը այս task-ի `GO` որոշման վրա չի ազդում։
+
+`BUSINESS_IMPLEMENTATION` task-ի համար պարտադիր են միայն այն դաշտերը, որոնք այս slice-ի արդյունքի վրա իրականում ազդում են։ ADR, workflow record, permission record, audit decision, concurrency decision, storage decision, UAT scenario, performance evidence կամ rollback procedure պահանջվում է միայն երբ task-ը այդ հարցը ներմուծում կամ դրանից կախված է։ Scoped requirement-ից դուրս բաց decision-ը task-ը չի կանգնեցնում։
+
+`Decision: GO` տողը մենակ բավարար չէ։ `GO` դառնում է միայն երբ պարտադիր դաշտերը կոնկրետ են, `blockers` ցանկը դատարկ է, signed artifact hash-ը `SIGNATURE-STATUS.yaml`-ի իրական hash-ն է, և անկախ reviewer-ը գրել է որոշումը։ Hash, reviewer կամ ADR չհորինել։
 
 `N/A`-ն ազատ escape չէ։ Այն թույլատրելի է միայն ստորև կամ կոնկրետ դաշտում նշված profile-ով։ D-008-ի canonical profile-ը `D008_COMPATIBILITY_POC` է՝ լրացուցիչ պարտադիր `RUN-RECORD.md`-ով։ `PRODUCTION_PILOT_RELEASE`-ը business implementation profile է և D-008 բացառությունը չի ժառանգում։
 
@@ -11,9 +17,54 @@
 - Reviewer/approver: `TBD`
 - Approval evidence: `TBD`
 
+## Scoped business slice
+
+Փոքր business task-ի բավարար record-ը այս կտորն է. այն ամբողջ ՏԱ-ի երկրորդ պայմանագիր չէ։ Ստորևի երկար դաշտերը լրացվում են միայն երբ task-ը այդ վարքն իրականացնում է, այլապես `N/A_NOT_A_DEPENDENCY`։ Այս օրինակը հաստատված record չէ. `decision` արժեքը reviewer-ն է փոխում։
+
+```yaml
+record_id: TASK-GO-REG-01-001
+task_id: REG-01-PATIENT-CREATE
+task_class: BUSINESS_IMPLEMENTATION
+
+source:
+  signed_artifact_sha256: "<copy from SIGNATURE-STATUS.yaml signed_source.sha256>"
+  requirements:
+    - REG-01
+  contract_anchor: "§5.1 / REG-01"
+
+outcome: >
+  Create one patient record with the identity and contact data required by REG-01
+  and a unique patient card number.
+
+non_goals:
+  - patient merge
+  - appointments
+  - historical migration
+  - external integrations
+  - printable forms
+
+dependencies:
+  resolved: []
+  unresolved_non_blocking: []
+
+blockers: []
+
+verification:
+  automated_tests: []
+  uat: []
+
+review:
+  reviewer: "<independent reviewer>"
+  decision: NO_GO
+  date: YYYY-MM-DD
+  evidence: "<review reference>"
+```
+
+`unresolved_non_blocking` արժեքը կարող է մնալ բաց և այս task-ը չի կանգնեցնում։ `blockers` ցանկի ցանկացած կետ նշանակում է `NO_GO`։ `N/A_NOT_A_DEPENDENCY` չի կարելի օգտագործել այն դաշտի վրա, որի վարքը task-ը կարդում կամ գրում է։ Եթե permission-ը, քարտի համարի եզակիությունը կամ audit-ը այս slice-ի մաս են, դրանք `resolved` ցանկում կոնկրետ գրավոր որոշում պետք է լինեն. բացակայության դեպքում slice-ը փոքրացվում է, ոչ թե այդ semantics-ը հորինվում։ `BUSINESS_IMPLEMENTATION` `GO`-ն նաև պահանջում է `signed_source.business_source_authorized: true` և `parity_with_canonical: MATCH`։
+
 ## Scope source
 
-- Signed artifact hash from `SIGNATURE-STATUS.yaml`: `TBD`
+- Signed artifact hash from `SIGNATURE-STATUS.yaml`: `TBD` (copy the real `signed_source.sha256`; a placeholder is `NO_GO`)
 - Requirement ID(s): `TBD`
 - Exact contract section/anchor: `TBD`
 - Approved client clarification, if any: `N/A` / `TBD`
@@ -59,28 +110,30 @@
 - Ownership boundary: `TBD`
 - Approved artifact/module boundary: `TBD`
 - Reuse/configure/extend/custom decision: `TBD`
-- Accepted ADR/design evidence: `TBD`
+- Accepted ADR/design evidence: `N/A_NO_ADR_REQUIRED` / `<ADR-ID>` / `TBD`
 - Canonical data model: `TBD`
 - API/schema/files affected: `TBD`
 
 ## Required semantics
 
-- Workflow transition record: `N/A` / `TBD`
-- Permission record: `TBD`
-- Audit classification/retention decision: `TBD`
-- Concurrency/idempotency/uniqueness decision: `N/A` / `TBD`
-- Money precision/rounding decision: `N/A` / `TBD`
-- Attachment/storage decision: `N/A` / `TBD`
-- Other open values: `NONE` / `TBD`
+- Workflow transition record: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Permission record: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Audit classification/retention decision: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Concurrency/idempotency/uniqueness decision: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Money precision/rounding decision: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Attachment/storage decision: `N/A_NOT_A_DEPENDENCY` / `TBD`
+- Other open values: `NONE` / `N/A_NOT_A_DEPENDENCY` / `TBD`
+
+Պացիենտ ստեղծող slice-ի համար permission-ը, քարտի համարի եզակիությունը և create action-ի audit-ը dependency են. դրանց բաց semantics-ը այդ slice-ը `NO_GO` է պահում։ Finance rounding-ը, bed concurrency-ն, diagnostic workflow-ը և attachment storage-ը այդ slice-ը չեն կանգնեցնում։ Եթե permission-ը, եզակիությունը կամ audit-ը դեռ գրված չեն, task-ը փոքրացվում է մինչև այն slice-ը, որն այդ երեքը չի կատարում։
 
 ## Verification
 
 - D-008 compatibility run record path: `N/A_NON_D008` / `TBD`
-- Automated test IDs: `TBD`
-- UAT scenario IDs: `TBD`
-- Security/performance evidence: `N/A` / `TBD`
-- Rollback/operational verification: `N/A` / `TBD`
+- Automated test IDs: `N/A_NOT_APPLICABLE` / `<IDs>` / `TBD`
+- UAT scenario IDs: `N/A_NOT_APPLICABLE` / `<IDs>` / `TBD`
+- Security/performance evidence: `N/A_NOT_A_DEPENDENCY` / `<evidence-plan>` / `TBD`
+- Rollback/operational verification: `N/A_NO_RUNTIME_CHANGE` / `<rollback-plan>` / `TBD`
 
 ## Gate result
 
-`BUSINESS_IMPLEMENTATION` և `PRODUCTION_PILOT_RELEASE` class-երի `GO`-ն պահանջում է ստորագրված source artifact և փակ կիրառելի blockers։ `D008_COMPATIBILITY_POC` class-ի pre-code `GO`-ն ստորագրված contract կամ Accepted ADR չի պահանջում. այն թույլատրելի է, երբ record-ը համապատասխանում է D-008 mapping-ին, source-ը նշված է, անկախ reviewer-ը հաստատել է exact SHA-ն ու kickoff record-ը, pre-code fields-ը կոնկրետ են, իսկ միայն execution-ից ստացվող fields-ը նշված են `PENDING_D008_EXECUTION`՝ իրենց test/teardown plan-ով։ Post-run completion review-ի համար `PENDING_D008_EXECUTION` այլևս թույլատրելի չէ. այն փոխարինվում է success/failure evidence-ով։ `DOCUMENTATION_ONLY`-ը coding `GO` չէ։
+`BUSINESS_IMPLEMENTATION` և `PRODUCTION_PILOT_RELEASE` class-երի `GO`-ն պահանջում է verified signed source, կոնկրետ պարտադիր դաշտեր և դատարկ `blockers` ցանկ։ `N/A_NO_ADR_REQUIRED` բավարար է, երբ slice-ը նոր architecture decision չի ներմուծում։ Այլ requirement-ի բաց decision-ը այս `GO`-ն չի արգելում։ `D008_COMPATIBILITY_POC` class-ի pre-code `GO`-ն ստորագրված contract կամ Accepted ADR չի պահանջում. այն թույլատրելի է, երբ record-ը համապատասխանում է D-008 mapping-ին, source-ը նշված է, անկախ reviewer-ը հաստատել է exact SHA-ն ու kickoff record-ը, pre-code fields-ը կոնկրետ են, իսկ միայն execution-ից ստացվող fields-ը նշված են `PENDING_D008_EXECUTION`՝ իրենց test/teardown plan-ով։ Post-run completion review-ի համար `PENDING_D008_EXECUTION` այլևս թույլատրելի չէ. այն փոխարինվում է success/failure evidence-ով։ `DOCUMENTATION_ONLY`-ը coding `GO` չէ։

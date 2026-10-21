@@ -1,42 +1,48 @@
-schema_version: 1
+schema_version: 2
 contract_package: PHASE_1_TECHNICAL_SPECIFICATION_V1_3
-authorization_state: UNSIGNED_DRAFT
-business_implementation_authorized: false
-legal_review_required: true
-signing_readiness: NOT_READY_STALE_RENDERINGS
+
+# Business-source verification and generated derivatives are separate.
+# A stale DOCX/PDF does not block a task. It also does not verify the TA.
+
+signed_source:
+  status: NOT_VERIFIED
+  path: Phase_1_Technical_Specification_HY_signed.jpg
+  sha256: C8E24E023D7DC7A51AEC47E7BB8F69C8DDEFA3A1FC755B02F80412A361E288BB
+  role: SUBMITTED_PHOTOGRAPH
+  content_note: >
+    The photograph is page 9 of the software-development contract,
+    sections 9.6-10, with the parties' signatures. It is not TA section 21
+    and does not show the Phase I technical specification. Parity with the
+    canonical Markdown has not been assessed.
+  parity_with_canonical: NOT_ASSESSED
+  business_source_authorized: false
 
 canonical_content:
   path: Phase_1_Technical_Specification_HY.md
   sha256: 9FE316BAC5F571EB28668239C95C5E51638CCA338AC5E57116824847E73B9593
   role: EDITABLE_CONTENT_BASELINE
+  version: "1.3"
 
-renderings:
-  - path: Phase_1_Technical_Specification_HY.docx
+generated_documents:
+  docx:
+    path: Phase_1_Technical_Specification_HY.docx
     sha256: 980E6D725B2405F59085C802668FA7633C9BB70EE7798895605CA6D563EAEA04
-    parity_with_canonical: STALE_REGENERATE_REQUIRED
-  - path: Phase_1_Technical_Specification_HY.pdf
+    status: STALE_REGENERATE_REQUIRED
+    blocks_development: false
+  pdf:
+    path: Phase_1_Technical_Specification_HY.pdf
     sha256: 5B41D9F3596A34D07E6177E479E8770D1417736C1C92C7FA2748103C275A0F97
-    parity_with_canonical: STALE_REGENERATE_REQUIRED
+    status: STALE_REGENERATE_REQUIRED
+    blocks_development: false
 
-signed_artifact:
-  path: null
-  sha256: null
-  version: null
-  signed_at: null
-  client_signatory: null
-  supplier_signatory: null
-  evidence_reviewed_by: null
-  evidence_reviewed_at: null
-
-activation_requirements:
-  - signed_artifact.path_and_sha256_present
-  - signed_artifact.version_equals_1_3
-  - rendering_parity_review_recorded
-  - section_19_values_or_contract_references_completed
-  - authorized_reviewer_sets_authorization_state_to_SIGNED_VERIFIED
+legal_review:
+  required: true
+  blocks_development: false
 
 rules:
   - Editing this file does not itself create signature evidence.
-  - Coding agents must not set SIGNED_VERIFIED or business_implementation_authorized=true.
-  - A signed contract is necessary but does not close task-level blockers or replace TASK-GO-RECORD.
-  - DOCX and PDF files stay in the repository while parity is STALE_REGENERATE_REQUIRED. Deleting them is not a parity correction, and their text is not an implementation source.
+  - Coding agents must not set signed_source.status to SIGNED_VERIFIED or business_source_authorized to true.
+  - SIGNED_VERIFIED requires parity_with_canonical MATCH against the canonical Markdown hash. NOT_ASSESSED is not verification.
+  - Stale generated DOCX/PDF do not block development and are not an implementation source. Deleting them is not a parity correction.
+  - A verified signed TA is necessary for a business task and does not close that task's own blockers or replace its TASK-GO record.
+  - An unresolved decision blocks only tasks that depend on it.

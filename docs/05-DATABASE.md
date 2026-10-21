@@ -17,9 +17,12 @@ OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenM
 | Domain | Canonical owner/model |
 |---|---|
 | Patient identity/demographics | OpenMRS Patient/Person/Identifier |
-| Visit/admission/encounter | OpenMRS Visit/Encounter և համապատասխան extensions |
+| Visit container | OpenMRS Visit՝ միայն ապացուցված semantic fit-ի սահմաններում |
+| Clinical interaction | OpenMRS Encounter՝ միայն ապացուցված encounter-type/form mapping-ով |
+| Inpatient admission/episode/bed stay | Առանձին fit/design blocker. OpenMRS Visit/Encounter-ից ինքնաբերաբար չի բխում, «extensions» կամ custom `inpatient_case` table default չէ (`NO_VISIT_EQUALS_INPATIENT_CASE`) |
 | Clinical facts | Obs/Concept |
-| Orders/results | Order և validated module/FHIR mapping |
+| Orders | OpenMRS Order՝ միայն ապացուցված semantic fit-ի սահմաններում |
+| Results | Obs/Concept կամ validated module/FHIR-ը միայն candidate mappings են. result model, lifecycle կամ FHIR resource/profile այս տողով չի ընտրվում (`NO_RESULT_MODEL_FROM_CANDIDATE_MAPPING`) |
 | Locations/providers/users | OpenMRS canonical models where fit is proven |
 | Finance/reporting/audit gaps | Custom module-owned schema only after fit-gap և approved semantics |
 | Documents/binaries | Metadata/reference in DB; binary storage strategy TBD |
@@ -39,7 +42,7 @@ Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրվա�
 - Time-ը պահվում է unambiguous instant/offset-ով, իսկ local schedule semantics-ը՝ timezone-ով։
 - Sensitive payload-ը JSON blob-ում չի թաքցվում միայն արագության համար։ JSON-ը versioned schema և query/retention հիմնավորում է պահանջում։
 
-Patient, Person, Visit, Encounter, Obs, Order և Concept parallel tables արգելված են։ Attachments-ի binary storage-ը TBD է. մինչև ADR-ը BLOB կամ local filesystem solution չի ընտրվում։ AMD amount-ը floating-point չէ, սակայն precision/rounding mode-ը blocking business decision է։
+Patient, Person, Visit, Encounter, Obs, Order և Concept parallel tables արգելված են։ Inpatient episode-ի gap-ը չի թույլատրում առանց approved model decision-ի ստեղծել parallel `inpatient_case` կամ Visit attribute-ների ենթադրյալ ցանկ։ Attachments-ի binary storage-ը TBD է. մինչև ADR-ը BLOB կամ local filesystem solution չի ընտրվում։ AMD amount-ը floating-point չէ, սակայն precision/rounding mode-ը blocking business decision է։
 
 ## Isolation and access
 

@@ -8,7 +8,7 @@ Agent-ը պարտադիր ստուգում է [documentation manifest](./governa
 
 Հակասության դեպքում կիրառվում է հետևյալ հերթականությունը.
 
-> Այս ցանկը սահմանում է բովանդակային/պայմանագրային աղբյուրների առաջնահերթությունը, ոչ coding go/no-go-ն։ [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը և repository-level `AGENTS.md`-ը պարտադիր applicability/stop checks են **ցանկացած** աղբյուրից առաջ և հետո։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն agent-ին չի թույլատրում լրացնել այնտեղ չսահմանված թիվ, policy, transition, uniqueness, rounding, retention, concurrency կամ այլ semantics։ Այդ դեպքում աշխատանքը կանգ է առնում մինչև գրավոր որոշումը և task-level go-ն։
+> Այս ցանկը սահմանում է բովանդակային/պայմանագրային աղբյուրների առաջնահերթությունը, ոչ coding go/no-go-ն։ [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը և repository-level `AGENTS.md`-ը պարտադիր applicability/stop checks են **ցանկացած** աղբյուրից առաջ և հետո։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն agent-ին չի թույլատրում լրացնել այնտեղ չսահմանված թիվ, policy, transition, uniqueness, rounding, retention, concurrency կամ այլ semantics։ Այդ դեպքում կանգ է առնում միայն այդ արժեքից կախված task-ը, մինչև գրավոր որոշումը և իր task-level go-ն։
 
 1. ստորագրված պայմանագիր և դրա ստորագրված փոփոխություններ,
 2. ստորագրված Փուլ I-ի տեխնիկական առաջադրանք,
@@ -18,9 +18,9 @@ Agent-ը պարտադիր ստուգում է [documentation manifest](./governa
 6. սկզբնական ամբողջական vision փաստաթուղթ,
 7. աշխատանքային վերլուծություններ և տեխնիկական առաջարկներ։
 
-Այս հերթականությունը որոշում է **ինչ արդյունք է պահանջվում**, բայց coding go/no-go չի տալիս։ `AGENTS.md`-ը և [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը պարտադիր execution control են յուրաքանչյուր code/schema/dependency task-ի համար՝ անկախ աղբյուրի բարձր դիրքից։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն չեն թույլատրում agent-ին հորինել բաց implementation value/policy կամ շրջանցել տվյալ task-ի չփակված blocker-ը։ Gate-ը scope չի փոխում, այլ կանգնեցնում է իրականացումը մինչև անհրաժեշտ որոշումը։ ՏԱ-ի «յոթ գործառութային մոդուլ» արտահայտությունը բաժին 5-ի յոթ գործառութային խումբն է, ոչ թե յոթ OMOD կամ directory։
+Այս հերթականությունը որոշում է **ինչ արդյունք է պահանջվում**, բայց coding go/no-go չի տալիս։ `AGENTS.md`-ը և [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ը պարտադիր execution control են յուրաքանչյուր code/schema/dependency task-ի համար՝ անկախ աղբյուրի բարձր դիրքից։ Նույնիսկ ստորագրված պայմանագիրը կամ ՏԱ-ն չեն թույլատրում agent-ին հորինել բաց implementation value/policy կամ շրջանցել տվյալ task-ի չփակված dependency-ն։ Gate-ը scope չի փոխում. այն կանգնեցնում է միայն կախված task-ը։ ՏԱ-ի «յոթ գործառութային մոդուլ» արտահայտությունը բաժին 5-ի յոթ գործառութային խումբն է, ոչ թե յոթ OMOD կամ directory։
 
-`Phase_1_Technical_Specification_HY.md` v1.3-ը Փուլ I-ի **ստորագրման համար պատրաստված draft contractual baseline-ն է**։ Այն գործող ստորագրված scope չի համարվում, մինչև ստորագրման ապացույցը repository-ում չգրանցվի։ Մինչ այդ business implementation-ը փակ է, իսկ D-008 compatibility PoC-ն միակ coding բացառությունն է։ Սկզբնական `...ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md` փաստաթուղթը նկարագրում է ամբողջ երկարաժամկետ տեսլականը և չի կարող ինքնուրույն ընդլայնել Փուլ I-ի ծավալը կամ coding authorization տալ։
+`Phase_1_Technical_Specification_HY.md` v1.3-ը Փուլ I-ի business source-ի տեքստն է։ Ստորագրված scope-ը չի վերաշարադրվում development-ը բացելու համար։ Business task-ը սկսվում է, երբ `SIGNATURE-STATUS.yaml`-ի signed source-ը verified է, task-ի սեփական decision-ները փակ են և կա task-level `GO`։ Stale DOCX/PDF-ը և այլ requirement-ի բաց հարցը այդ task-ը չեն կանգնեցնում։ Քանի դեռ signed source-ը verified չէ, D-008 compatibility PoC-ն միակ business-ից դուրս coding բացառությունն է։ Ընթացիկ առաջին տարբերակի ծավալը բաժին 5-ի յոթ խումբն է՝ REG, AMB, INP, DIA, FIN, REP, ADM։ Սկզբնական `...ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md` փաստաթուղթը երկարաժամկետ տեսլական է և Phase II/III-ի հետագա ուղղությունների պատմական նկարագիր. այն չի ընդլայնում Փուլ I-ը, coding authorization չի տալիս, և դրա «առաջին փուլում» ու `V - 1` նշումները այս առաջին տարբերակը չեն։
 
 Կոդից առաջ կիրառվող stop/go կանոնները կենտրոնացված են [00-IMPLEMENTATION-GATE.md](./00-IMPLEMENTATION-GATE.md)-ում և repository-level `AGENTS.md`-ում։
 
@@ -29,7 +29,7 @@ Agent-ը պարտադիր ստուգում է [documentation manifest](./governa
 - Նախագծի չափը՝ **Size C**։
 - Հիմնական բժշկական հարթակը՝ **OpenMRS**։
 - Custom backend development-ի հիմնական լեզուն՝ **Java**։
-- Ստորագրման ենթակա Փուլ I-ի փակ գործառութային baseline-ը և բացառումները՝ draft տեխնիկական առաջադրանքի բաժիններ 5–16։ Ստորագրումը անհրաժեշտ է, բայց ինքնուրույն բավարար coding authorization չէ. յուրաքանչյուր task նաև անցնում է implementation gate-ը և պահանջում է իր բաց blockers-ի լուծումը։
+- Փուլ I-ի փակ գործառութային baseline-ը և բացառումները՝ տեխնիկական առաջադրանք v1.3-ի բաժիններ 5–16։ Ստորագրության verification-ը անհրաժեշտ է business task-ի համար, բայց ինքնուրույն բավարար coding authorization չէ. յուրաքանչյուր task անցնում է implementation gate-ը և պահանջում է միայն իր dependency-ների լուծումը։
 - OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact տարբերակները կարող են pin արվել միայն հաջող D-008 compatibility PoC-ի immutable evidence-ից և գրանցված review/go որոշումից հետո։ Fit-gap փաստաթուղթը միայն assessment է և ինքնուրույն pin կամ implementation authorization չի տալիս։
 
 ## Կառուցվածք

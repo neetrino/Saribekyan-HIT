@@ -76,7 +76,9 @@ Supported inclusion/build path-ի բացակայությունը **սպասել�
 - Առանց session-ի ստուգվում է `401`։ `403` ստուգվում է միայն եթե ընտրված distro-ում արդեն գոյություն ունի authenticated սահմանափակ test account, որը չունի ընտրված privilege-ը։ Այդպիսի fixture չլինելու դեպքում pilot-ը user, patient, role կամ privilege assignment չի ստեղծում. `403` check-ը նշվում է `NOT_RUN_MISSING_EXISTING_FIXTURE`, և սա pilot failure չէ։ Endpoint-ը patient/system secrets կամ version inventory չի վերադարձնում։
 - Այս probe-ը չի հետևում [04-API.md](../04-API.md)-ի custom facade envelope-ին։ `401/403` response body-ն մնում է ընտրված OpenMRS REST runtime-ի native ձևաչափով, և pilot-ը assertion է անում միայն HTTP status-ի վրա։ Error adapter, wrapper կամ ընդհանուր API layer չի կառուցվում։
 
-## Proof required
+## Completion evidence: success or terminal incompatibility (`D008_SUCCESS_OR_TERMINAL_EVIDENCE`)
+
+Ստորև կետերը success path-ի proof targets են, ոչ բոլորն անպայման կանաչ դարձնելու հրահանգ։ Եթե §-ով թույլատրելի terminal incompatibility է արձանագրվել (օրինակ՝ supported inclusion/build path չկա), բաց success proof-ը չի շրջանցվում workaround-ով. run record-ը պահում է հասած քայլերը, failure evidence-ը և չկատարված proof-ի պատճառը։ `COMPLETION_REVIEW`-ը կարող է ընդունել այդ արդյունքը որպես ավարտված PoC, ոչ որպես production compatibility success։
 
 1. Reference distribution-ը exact SHA-ից reproducibly բարձրանում է։
 2. Minimal OMOD-ը compile/package/install/start է լինում։

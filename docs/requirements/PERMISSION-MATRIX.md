@@ -1,6 +1,6 @@
 # Permission and access decision register
 
-> **Status: BLOCKER REGISTER։** Role անունը կամ UI visibility-ն authorization rule չէ։ Չլրացված permission row-ը `deny/no-go` design state է և agent-ին չի թույլատրում սեփական policy հորինել։
+> **Status: BLOCKER REGISTER։** Role անունը կամ UI visibility-ն authorization rule չէ։ Չլրացված permission row-ը `deny/no-go` է այն task-ի համար, որը այդ access policy-ն սահմանում կամ կիրառում է։ Այն այլ requirement-ի task չի կանգնեցնում, և agent-ին չի թույլատրում սեփական policy հորինել։
 
 ՏԱ `ADM-03`-ի 18 դերանունները սկզբնական կատալոգ են, ոչ իրավունքների մատրիցա։ Քանի դեռ ստորևի տողը `BLOCKED` է, ագենտը privilege չի ստեղծում, դերը գործողության չի կապում և պաշտոնի անունից policy չի դուրս բերում։ Դատարկ կամ `BLOCKED` տողը deny/no-go է։
 

@@ -22,12 +22,16 @@ Search result-ից բացված ֆայլը չի կիրառվում, մինչև a
 | `ACCEPTED_DECISION` | Ստորագրված պահանջի իրականացման հաստատված տեխնիկական որոշում | Ինքնուրույն՝ ոչ |
 | `DRAFT_CONTRACT` | Ստորագրման համար պատրաստված, բայց չստորագրված baseline | Ոչ |
 | `PROPOSED_DESIGN` | Առաջարկ կամ target design | Ոչ |
+| `GOVERNING_GUARDRAIL_NO_GO` | Պարտադիր արգելք կամ ownership սահման, ոչ artifact հրահանգ | Ոչ |
+| `GOVERNING_CANONICAL_MODEL_NO_SKELETON` | Canonical model-ի սահման՝ առանց module/repository skeleton-ի թույլտվության | Ոչ |
+| `BLOCKED` | Պահանջվող որոշումը կամ evidence-ը բացակայում է | Ոչ |
+| `D008_POC_ONLY` | Միայն D-008 disposable compatibility PoC-ի սահմանափակ coding exception | Միայն D-008 profile-ով, ոչ business implementation |
 | `ASSESSMENT` | Fit-gap կամ այլ գնահատում | Ոչ |
 | `HISTORICAL` | Audit/history/archive նյութ | Ոչ |
 | `TEMPLATE` | Դատարկ կառավարման կամ design template | Ոչ |
 | `AS_BUILT` | Իրական ներդրված վիճակի փաստագրում | Միայն source requirement/go record-ի հետ, ոչ ինքնուրույն |
 
-`Approved`, `Accepted`, `Baseline`, `Closed`, `Target`, `Created`, `Expected` և այլ ազատ բառերը canonical lifecycle չեն։ Եթե manifest-ում canonical value չկա, agent-ը ֆայլը համարում է `NON_AUTHORIZING` և կանգ է առնում implementation-ից առաջ։
+`Approved`, `Accepted`, `Approved scope`, `Approved Phase I boundary`, `Baseline`, `Closed`, `Target`, `Created`, `Expected` և այլ ազատ բառերը canonical lifecycle չեն։ Դրանք machine status-ի փոխարեն չեն կիրառվում և երբեք artifact/module count կամ task `GO` չեն սահմանում։ Եթե manifest-ում կամ governing decision register-ում վերևի canonical value չկա, agent-ը ֆայլը համարում է `NON_AUTHORIZING` և կանգ է առնում implementation-ից առաջ։
 
 ## Approval authority
 
@@ -39,7 +43,7 @@ Search result-ից բացված ֆայլը չի կիրառվում, մինչև a
 
 ## Required task record
 
-Յուրաքանչյուր business implementation task repository-ում կամ task description-ում պետք է ունենա `TASK-GO-RECORD.md`-ի լրացված պատճեն։ Բաց կամ `TBD` պարտադիր դաշտը նշանակում է `NO_GO`։ D-008 compatibility PoC-ն պահանջում է **երկուսն էլ**՝ լրացված task-go record՝ բառացի `task_class: D008_COMPATIBILITY_POC` և `TASK-GO-TEMPLATE.md`-ի `N/A_D008` profile-ով, ինչպես նաև compatibility spec-ի լրացված run record։ Ազատ `pilot` class-ը անվավեր է։ `PRODUCTION_PILOT_RELEASE`-ը առանձին business class է և չի օգտագործում D-008 profile-ը։
+Յուրաքանչյուր business implementation task repository-ում կամ task description-ում պետք է ունենա `TASK-GO-RECORD.md`-ի լրացված պատճեն։ Task-ի իրական dependency-ի բաց կամ `TBD` արժեքը նշանակում է `NO_GO`։ Այդ task-ին չվերաբերող դաշտը `N/A_NOT_A_DEPENDENCY` է, իսկ առանձին ADR չպահանջող slice-ը՝ `N/A_NO_ADR_REQUIRED`։ Reviewer-ը գնահատում է միայն այս task-ի dependency-ները. այլ requirement-ի blocker-ը այս record-ը չի կանգնեցնում։ D-008 compatibility PoC-ն պահանջում է **երկուսն էլ**՝ լրացված task-go record՝ բառացի `task_class: D008_COMPATIBILITY_POC` և `TASK-GO-TEMPLATE.md`-ի `N/A_D008` profile-ով, ինչպես նաև compatibility spec-ի լրացված run record։ Ազատ `pilot` class-ը անվավեր է։ `PRODUCTION_PILOT_RELEASE`-ը առանձին business class է և չի օգտագործում D-008 profile-ը։
 
 ## Validation
 

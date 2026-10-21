@@ -49,7 +49,7 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 - Նախագիծը դասակարգված է որպես **Size C**։
 - Բժշկական domain platform-ի հիմքը **OpenMRS** է։
 - Custom backend development-ը կատարվելու է **Java**-ով։
-- OpenMRS core/module հնարավորությունները պետք է նախընտրել custom կրկնակի implementation-ից, եթե դրանք բավարարում են պահանջը, անվտանգությունը և ընդունման չափանիշները։
+- OpenMRS core/module հնարավորությունները պետք է նախընտրել custom կրկնակի implementation-ից, եթե դրանք բավարարում են պահանջը, անվտանգությունը և ընդունման չափանիշները։ Այս նախապատվությունը status, queue, order կամ visit workflow-ին չի տարածվում (`NO_PLATFORM_DEFAULT_WORKFLOW`)։ Հարթակի պատրաստ state-երը չեն միացվում, մինչև գրավոր transition table-ը և դրա հետ համընկնման fit որոշումը լինեն։
 - Custom լուծումը պետք է պահպանի OpenMRS upgrade path-ը։ Phase I-ում OpenMRS core fork/patch չկա. բացակայող extension point-ի դեպքում աշխատանքը կանգ է առնում։
 
 OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact version որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո։ Fit-gap assessment-ը ինքնուրույն pin կամ implementation authorization չի տալիս։ Reporting/document generation-ի այլ տեխնիկական ընտրությունները հետևում են իրենց Approved requirement/ADR-ին։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։

@@ -4,17 +4,7 @@
 
 Սա ապագա ownership/structure reference է, ոչ repository initialization հրահանգ։ **Pilot run-ի ավարտը բավարար չէ։ Մինչ evidence review/go-ն, ADR-0002-ի որոշումը և production artifact-boundary որոշումը business module directories չստեղծել։** Exact artifact/package names-ը որոշվում են դրանից հետո։
 
-```text
-<future-repository-root>/           # DO NOT CREATE before pilot + go decision
-├── <approved distribution assembly>
-├── <approved business module artifacts>
-├── <approved O3 extension artifacts>
-├── <versioned configuration/metadata>
-├── <approved integration contracts>
-└── <tests and operations assets>
-```
-
-Սա ownership/boundary map է, ոչ directory-generation template։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ները չեն նշանակում մեկական OMOD կամ folder։ Physical artifact count-ը, repository root անունը և build layout-ը որոշվում են pilot evidence-ից ու առանձին go որոշումից հետո։
+Այս փաստաթուղթը դիտավորյալ չի ցուցադրում նույնիսկ placeholder repository tree (`NO_PRE_GO_LAYOUT`)։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ները չեն նշանակում մեկական OMOD կամ folder։ Distribution assembly-ի, business artifact-ի, O3 extension-ի, configuration-ի, integration contract-ի և test asset-ի physical paths/count/layout-ը որոշվում են միայն pilot evidence-ից, Accepted artifact-boundary որոշումից և task-level `GO`-ից հետո։
 
 Դատարկ directories-ը Git-ում պահվում են միայն README-ով, երբ դրանց purpose-ը հաստատված է։ Անհաստատ technology-ի placeholder code չի ավելացվում։
 

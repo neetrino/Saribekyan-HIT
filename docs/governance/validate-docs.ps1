@@ -87,29 +87,24 @@ Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs') -Recurse -File | W
     }
 }
 
-# The signature manifest must remain explicitly unsigned until verified evidence is recorded.
+# Signature verification is separate from stale generated DOCX/PDF.
 $signatureManifest = Join-Path $RepositoryRoot 'docs/contract/phase-1/SIGNATURE-STATUS.yaml'
 if (-not (Test-Path -LiteralPath $signatureManifest)) {
     Add-Failure 'Missing SIGNATURE-STATUS.yaml'
 } else {
     $signatureText = Get-Content -Raw -Encoding utf8 -LiteralPath $signatureManifest
-    if ($signatureText -match 'authorization_state:\s*SIGNED_VERIFIED' -and
-        ($signatureText -match 'signed_artifact:\s*\r?\n\s*path:\s*null' -or
-         $signatureText -match 'signed_artifact:[\s\S]*?sha256:\s*null')) {
-        Add-Failure 'SIGNED_VERIFIED is invalid while signed artifact path/hash is null.'
+    $signedVerified = $signatureText -match 'status:\s*SIGNED_VERIFIED'
+    $sourceAuthorized = $signatureText -match 'business_source_authorized:\s*true'
+    $parityMatch = $signatureText -match 'parity_with_canonical:\s*MATCH'
+    if (($signedVerified -or $sourceAuthorized) -and -not $parityMatch) {
+        Add-Failure 'SIGNED_VERIFIED or business_source_authorized requires parity_with_canonical MATCH.'
+    }
+    if ($signatureText -match 'status:\s*STALE_REGENERATE_REQUIRED' -and $signatureText -match 'blocks_development:\s*true') {
+        Add-Failure 'Stale generated DOCX/PDF must not block development.'
     }
 
-    if ($signatureText -notmatch 'authorization_state:\s*SIGNED_VERIFIED') {
-        $readinessIssues.Add('Contract authorization state is not SIGNED_VERIFIED.')
-    }
-    if ($signatureText -notmatch 'business_implementation_authorized:\s*true') {
-        $readinessIssues.Add('Business implementation is not authorized.')
-    }
-    if ($signatureText -match 'parity_with_canonical:\s*(UNVERIFIED|STALE_REGENERATE_REQUIRED)') {
-        $readinessIssues.Add('One or more DOCX/PDF renderings are unverified or stale.')
-    }
-    if ($signatureText -match 'legal_review_required:\s*true') {
-        $readinessIssues.Add('Legal review is still required.')
+    if (-not $sourceAuthorized) {
+        $readinessIssues.Add('TA signed source is not verified. This blocks business tasks and does not block unrelated derivative regeneration.')
     }
 
     $canonicalMatch = [regex]::Match($signatureText, 'canonical_content:\s*\r?\n\s*path:\s*([^\r\n]+)\r?\n\s*sha256:\s*([A-Fa-f0-9]{64})')
@@ -123,6 +118,37 @@ if (-not (Test-Path -LiteralPath $signatureManifest)) {
             $actualHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $canonicalPath).Hash
             if ($actualHash -ne $canonicalMatch.Groups[2].Value.ToUpperInvariant()) {
                 Add-Failure 'Canonical contract hash differs from SIGNATURE-STATUS.yaml.'
+            }
+        }
+    }
+
+    $signedArtifactMatch = [regex]::Match($signatureText, 'signed_source:\s*\r?\n\s*status:\s*[^\r\n]+\r?\n\s*path:\s*([^\r\n]+)\r?\n\s*sha256:\s*([A-Fa-f0-9]{64})')
+    if ($signedVerified) {
+        if (-not $signedArtifactMatch.Success) {
+            Add-Failure 'SIGNED_VERIFIED requires signed_source path and sha256.'
+        } else {
+            $signedRelative = $signedArtifactMatch.Groups[1].Value.Trim()
+            $signedPath = Join-Path (Split-Path $signatureManifest) $signedRelative
+            if (-not (Test-Path -LiteralPath $signedPath)) {
+                Add-Failure "Signed artifact is missing: $signedPath"
+            } else {
+                $signedHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $signedPath).Hash
+                if ($signedHash -ne $signedArtifactMatch.Groups[2].Value.ToUpperInvariant()) {
+                    Add-Failure 'Signed artifact hash differs from SIGNATURE-STATUS.yaml.'
+                }
+            }
+        }
+    } elseif (-not $signedArtifactMatch.Success) {
+        Add-Failure 'signed_source path and sha256 must be parseable.'
+    } else {
+        $signedRelative = $signedArtifactMatch.Groups[1].Value.Trim()
+        $signedPath = Join-Path (Split-Path $signatureManifest) $signedRelative
+        if (-not (Test-Path -LiteralPath $signedPath)) {
+            Add-Failure "Submitted signature photograph is missing: $signedPath"
+        } else {
+            $signedHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $signedPath).Hash
+            if ($signedHash -ne $signedArtifactMatch.Groups[2].Value.ToUpperInvariant()) {
+                Add-Failure 'Submitted signature photograph hash differs from SIGNATURE-STATUS.yaml.'
             }
         }
     }
@@ -143,19 +169,19 @@ $workflowText = Get-Content -Raw -Encoding utf8 -LiteralPath $workflowRegister
 if ($workflowText -notmatch 'NO_ENUM_OR_LINEAR_STATE_MACHINE_UNTIL_APPROVED') {
     Add-Failure 'Workflow register must forbid enum or linear state-machine inference from known lifecycle facts.'
 }
-if ($workflowText -match '\| Diagnostic order lifecycle \| DIA-01[–-]04 \|') {
+if ($workflowText -match '\| Diagnostic order lifecycle \| DIA-01(?:-|\u2013)04 \|') {
     Add-Failure 'DIA-04 must not be classified as part of the diagnostic order lifecycle.'
 }
-if ($workflowText -match '\| Financial operation \| FIN-03[–-]13 \|') {
+if ($workflowText -match '\| Financial operation \| FIN-03(?:-|\u2013)13 \|') {
     Add-Failure 'Distinct financial operations must not be collapsed into one lifecycle row.'
 }
 if ($workflowText -notmatch '\| Laboratory specimen lifecycle \| LAB-01 \|') {
     Add-Failure 'LAB-01 specimen lifecycle must have its own blocker row.'
 }
-if ($workflowText -match '\| Queue/appointment \| REG-04[–-]06 \|') {
+if ($workflowText -match '\| Queue/appointment \| REG-04(?:-|\u2013)06 \|') {
     Add-Failure 'REG schedule, appointment, and queue concerns must not be collapsed into one lifecycle row.'
 }
-if ($workflowText -match '\| Radiology result lifecycle \| RAD-01[–-]03 \|') {
+if ($workflowText -match '\| Radiology result lifecycle \| RAD-01(?:-|\u2013)03 \|') {
     Add-Failure 'RAD order/execution, result, attachment, and applicability concerns must not be collapsed into one result lifecycle row.'
 }
 if ($workflowText -notmatch '\| Clinician queue lifecycle \| REG-06 \|') {
@@ -164,7 +190,7 @@ if ($workflowText -notmatch '\| Clinician queue lifecycle \| REG-06 \|') {
 if ($workflowText -notmatch '\| Laboratory result lifecycle \| LAB-03 \|') {
     Add-Failure 'Only LAB-03 may own the laboratory result lifecycle row.'
 }
-if ($workflowText -match '\| Laboratory result lifecycle \| LAB-02[–-]04 \|') {
+if ($workflowText -match '\| Laboratory result lifecycle \| LAB-02(?:-|\u2013)04 \|') {
     Add-Failure 'LAB-02 data entry and LAB-04 critical fact must not be folded into the LAB-03 lifecycle.'
 }
 $rad01RowCount = ([regex]::Matches($workflowText, '(?m)^\|[^\r\n]*\| RAD-01 \|')).Count
@@ -261,8 +287,8 @@ foreach ($relativeHistoricalPath in $withdrawnHistoricalArtifacts) {
 # D-008 has one canonical task class and an explicit template applicability profile.
 $gateText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/00-IMPLEMENTATION-GATE.md')
 $taskTemplateText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/governance/TASK-GO-TEMPLATE.md')
-if ($gateText.Contains('classification-ը պետք է լինի հստակ `pilot`')) {
-    Add-Failure 'D-008 classification must not use free-form pilot; use D008_COMPATIBILITY_POC.'
+if ($gateText -notmatch 'D008_COMPATIBILITY_POC' -or $gateText -notmatch 'PRODUCTION_PILOT_RELEASE') {
+    Add-Failure 'Gate must distinguish the D-008 task class from the production pilot-release task class.'
 }
 foreach ($requiredD008Token in @(
     'D008_COMPATIBILITY_POC',
@@ -322,6 +348,46 @@ if ($taskTemplateText -notmatch 'pre-code `GO`' -or $taskTemplateText -notmatch 
     Add-Failure 'TASK-GO-TEMPLATE must separate D-008 kickoff authorization from completion evidence.'
 }
 
+# Interpretation guards stay in governance. They are not inserted into the contractual TA.
+if ($gateText -notmatch 'NO_FINANCIAL_STATUS_INFERENCE') {
+    Add-Failure 'Gate must reject inferring a clinical gate from financial status.'
+}
+if ($reportRegisterText -notmatch 'NO_FORMULA_FROM_REPORT_LABEL') {
+    Add-Failure 'Report register must reject formulas inferred from a report label.'
+}
+
+$databaseText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/05-DATABASE.md')
+$glossaryText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/requirements/GLOSSARY.md')
+if ($databaseText -notmatch 'NO_VISIT_EQUALS_INPATIENT_CASE' -or $glossaryText -notmatch 'NO_VISIT_EQUALS_INPATIENT_CASE') {
+    Add-Failure 'Visit/Encounter documentation must not imply an inpatient-case model.'
+}
+if ($databaseText -notmatch 'NO_RESULT_MODEL_FROM_CANDIDATE_MAPPING') {
+    Add-Failure 'Database mapping must not select a result model or FHIR mapping from candidate names.'
+}
+
+$structureText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/03-STRUCTURE.md')
+if ($structureText -notmatch 'NO_PRE_GO_LAYOUT' -or $structureText -match '<future-repository-root>') {
+    Add-Failure 'Structure guidance must not expose a pre-GO repository tree.'
+}
+
+$apiText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/04-API.md')
+if ($apiText -match '\| Custom `/api/v1/\.\.\.` facade \|') {
+    Add-Failure 'API guidance must not present a custom /api/v1 facade as a predefined surface.'
+}
+if ($apiText -notmatch 'API_CHECKLIST_NOT_FACADE_CONTRACT') {
+    Add-Failure 'API guidance must remain a decision checklist, not a ready facade/correlation contract.'
+}
+
+$techCardText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/TECH_CARD.md')
+if ($techCardText -match '\| Business boundaries \|[^\r\n]*\| Approved Phase I ownership map \|' -or
+    $techCardText -match '\| Custom Java finance OMOD \|') {
+    Add-Failure 'TECH_CARD must not turn ownership groups or finance gaps into OMOD instructions.'
+}
+
+if ($pocSpecText -notmatch 'D008_SUCCESS_OR_TERMINAL_EVIDENCE') {
+    Add-Failure 'D-008 proof section must explicitly accept terminal incompatibility evidence without workaround.'
+}
+
 # Retained sources stay in the repository. Authority is corrected in place; deletion is not the control.
 $visionCandidates = @(Get-ChildItem -LiteralPath $RepositoryRoot -File -Filter '*.docx.md')
 if ($visionCandidates.Count -ne 1) {
@@ -348,6 +414,7 @@ foreach ($retainedContractFile in @(
     'docs/contract/phase-1/Phase_1_Technical_Specification_HY.md',
     'docs/contract/phase-1/Phase_1_Technical_Specification_HY.docx',
     'docs/contract/phase-1/Phase_1_Technical_Specification_HY.pdf',
+    'docs/contract/phase-1/Phase_1_Technical_Specification_HY_signed.jpg',
     'docs/contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md'
 )) {
     if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot $retainedContractFile))) {

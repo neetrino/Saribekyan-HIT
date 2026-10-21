@@ -77,7 +77,7 @@ Invariant 9-ի `core patch`-ը նշանակում է OpenMRS core source code-ի
 ## Core flows
 
 - **Registration/encounter.** Duplicate search → canonical patient/visit → validated form → encounter/obs/order → audit։
-- **Order/result.** Clinician order → internal status/result workflow → ապագա LIS/PACS adapter versioned contract-ով։
+- **Order/result.** Clinician order → approved internal order/result workflows։ LIS/PACS-ը միայն future external boundary է. այս flow-ը adapter, port, interface, versioned contract կամ connector ստեղծելու հանձնարարական չէ։
 - **Finance.** Authorized charge/payment/refund/reversal → stable clinical reference → immutable correction trail։
 - **Reporting/export.** Approved definition/filters → authorization → execution → requester/scope/result audit։
 

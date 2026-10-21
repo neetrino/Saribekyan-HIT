@@ -1,8 +1,10 @@
 # Workflow transition register
 
-> **Status: BLOCKER REGISTER / ոչ workflow specification։** Այս ֆայլը transition չի հորինում։ Մինչ approved row չկա, համապատասխան implementation-ը `NO_GO` է։
+> **Status: BLOCKER REGISTER / ոչ workflow specification։** Այս ֆայլը transition չի հորինում։ `BLOCKED` տողը կանգնեցնում է միայն այդ workflow-ն իրականացնող task-ը, ոչ ամբողջ Phase I-ը։
 
 `NO_ENUM_OR_LINEAR_STATE_MACHINE_UNTIL_APPROVED` — ստորև թվարկված բառերը միայն հայտնի capability/action/fact են։ Դրանք չեն սահմանում exhaustive state set, հերթականություն, from/to transition, սկզբնական կամ terminal state, reopen/version semantics կամ գծային state machine։ `BLOCKED` տողի հիման վրա enum, status column, transition code կամ configurable workflow չստեղծել, նույնիսկ եթե ՏԱ-ն նույն բառերը lifecycle-ի նկարագրության մեջ թվարկում է։
+
+`NO_PLATFORM_DEFAULT_WORKFLOW` — OpenMRS-ի կամ այլ հարթակի ներկառուցված Order, Visit, Queue, Encounter կամ Billing status-ները approved transition չեն։ Դրանք կարգավորելը կամ «platform default-ը հորինված չէ» հիմքով միացնելը `NO_GO` է, մինչև տվյալ տողը գրավոր հաստատվի և առանձին fit որոշումը ցույց տա ճիշտ համընկնում։
 
 | Workflow | Requirement IDs | Known lifecycle facts/actions — not a final enum | Missing decision | Owner | Approval evidence | Status |
 |---|---|---|---|---|---|---|
@@ -26,7 +28,7 @@
 | Financial policy inputs — not lifecycle | FIN-07, FIN-10, FIN-12 | discount, payer allocation և documents-ը միասնական states չեն | role discount limits, payer allocation constraints and document generation semantics | Client financial owner | TBD | BLOCKED |
 | Clinician schedule configuration — not lifecycle | REG-04 | աշխատանքային ժամանակացույցի վարում է, ոչ appointment/visit/queue state | schedule model, availability, exceptions, timezone, edit permissions and conflict policy | Client operational owner | TBD | BLOCKED |
 | Appointment lifecycle | REG-05 | first/repeat/follow-up-ը visit types են; select-slot/reschedule/cancel-ը գործողություններ են, ոչ պատրաստ enum | exact appointment states/transitions, actors, cancellation reasons, slot conflict/concurrency and downstream effects | Client operational owner | TBD | BLOCKED |
-| Clinician queue lifecycle | REG-06 | ընթացիկ հերթի դիտումն action է; թարմացվող queue status-ների փակ ցանկը և transitions-ը սահմանված չեն | exact queue states/transitions, actors, ordering/priority and appointment/visit linkage | Client operational owner | TBD | BLOCKED |
+| Clinician queue lifecycle | REG-06 | ընթացիկ հերթի դիտումն action է; թարմացվող queue status-ների փակ ցանկը և transitions-ը սահմանված չեն. OpenMRS queue default-ը այդ ցանկը չէ | exact queue states/transitions, actors, ordering/priority and appointment/visit linkage | Client operational owner | TBD | BLOCKED |
 
 Approved transition record-ը պարտադիր սահմանում է source requirement, from/to, actor/permission, preconditions, required reason, concurrency behavior, audit event, downstream effects և UAT examples։
 

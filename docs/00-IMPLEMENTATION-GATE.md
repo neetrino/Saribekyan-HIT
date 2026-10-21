@@ -1,21 +1,35 @@
 # Phase I Implementation Gate
 
-Այս ֆայլը պարտադիր pre-code ստուգում է մարդկանց և coding agent-ների համար։ Այն չի ընդլայնում պայմանագիրը։
+Այս ֆայլը պարտադիր pre-code ստուգում է մարդկանց և coding agent-ների համար։ Այն չի ընդլայնում պայմանագիրը և ստորագրված business scope-ը չի փոխում։
 
-**Current authorization state.** `contract/phase-1/Phase_1_Technical_Specification_HY.md` v1.3-ի կարգավիճակը «ստորագրման համար» է։ Քանի դեռ ստորագրված տարբերակը կամ ստորագրման հստակ ապացույցը repository-ում գրանցված չէ, ստորև նշված business requirements-ը design/traceability baseline են, ոչ business coding authorization։ Այս պահին միակ coding բացառությունը D-008 compatibility PoC-ն է։
+**Current authorization state.** Business coding-ը ամբողջ Phase I-ի համար միացված կամ անջատված չէ։ Յուրաքանչյուր task ստուգվում է իր dependency-ներով։ `SIGNATURE-STATUS.yaml`-ի `signed_source` բլոկը business source-ի verification-ն է։ Generated DOCX/PDF-ի `STALE_REGENERATE_REQUIRED` վիճակը և իրավական review-ը development չեն կանգնեցնում։ Մեկ այլ requirement-ի չլուծված semantics-ը նույնպես չի կանգնեցնում։ D-008 compatibility PoC-ը մնում է առանձին coding բացառություն, քանի դեռ business source-ը verified չէ։
 
 ## 1. Stop rule
 
-Feature կամ business rule կարելի է իրականացնել միայն եթե միաժամանակ առկա են՝
+Feature կամ business rule կարելի է իրականացնել միայն եթե **այդ task-ի** համար միաժամանակ առկա են՝
 
 1. business source՝ ստորագրված ՏԱ-ի Phase I բաժիններ 5–16 կամ նույն ստորագրված scope-ի ներսում Պատվիրատուի հաստատված Phase I պարզաբանում,
-2. անհրաժեշտության դեպքում այդ պահանջի իրականացման `Approved`/`Accepted` տեխնիկական որոշում, որը business scope չի ստեղծում կամ ընդլայնում,
-3. [signature manifest](./contract/phase-1/SIGNATURE-STATUS.yaml)-ում `SIGNED_VERIFIED` վիճակ և ստորագրված artifact-ի hash,
+2. միայն այն technical decision-ները, որոնցից այս task-ը կախված է. `Approved`/`Accepted` որոշումը business scope չի ստեղծում կամ ընդլայնում,
+3. [signature manifest](./contract/phase-1/SIGNATURE-STATUS.yaml)-ում `signed_source.status: SIGNED_VERIFIED`, `parity_with_canonical: MATCH` և `business_source_authorized: true`,
 4. [task go record](./governance/TASK-GO-TEMPLATE.md)-ի լրացված պատճեն՝ անկախ reviewer-ի `GO` որոշմամբ։
+
+Չլուծված decision-ը կանգնեցնում է միայն իրենից կախված task-ը։
+
+```text
+SIGNED BUSINESS SPEC
+        ↓
+Requirement
+        ↓
+Does this task depend on an unresolved decision?
+        ├── YES → block only this task
+        └── NO  → Task-Go review → GO → DEVELOPMENT
+```
+
+Phase I-ի որևէ այլ պահանջի բաց semantics-ը business implementation-ի ընդհանուր արգելք չէ։
 
 Այս փաստաթղթերում `Approved` կամ `Accepted` status-ը նշանակում է միայն համապատասխան decision/ADR-ի հաստատված լինելը։ Այն երբեք չի նշանակում task-level `GO`։ Նմանապես historical clarification-ում «փակված է» բառը չի նշանակում client approval կամ blocker closure, եթե manifest-ը և ստորագրված evidence-ը դա չեն հաստատում։
 
-Ստորագրումն ինքնուրույն բավարար չէ, եթե տվյալ task-ի համար այս gate-ում նշված կամ այլ բացահայտ չսահմանված blocker-ը բաց է։ ՏԱ-ն սահմանում է պահանջվող արդյունքը, իսկ unresolved policy/value-ի դեպքում agent-ը կանգ է առնում։
+Ստորագրումն ինքնուրույն բավարար չէ, եթե տվյալ task-ի սեփական dependency-ն բաց է։ Այլ requirement-ի blocker-ը այս task-ի բաց dependency չէ։ ՏԱ-ն սահմանում է պահանջվող արդյունքը, իսկ այս task-ի unresolved policy/value-ի դեպքում agent-ը կանգ է առնում միայն այդ task-ի վրա։
 
 Եթե traceability-ն չկա, հակասական է կամ պահանջում է բժշկական/ֆինանսական semantics հորինել, գործակալը **կանգ է առնում և պահանջում է որոշում**։ Vision-ը, `Proposed` ADR-ը, fit-gap-ը, archive-ը և library candidate-ը scope կամ implementation authorization չեն։
 
@@ -58,8 +72,8 @@ Search result-ից կամ direct link-ից բացված ֆայլը կիրառե�
 - Patient/encounter/obs/order parallel custom tables չստեղծել։
 - PDF/image binary-ը DB BLOB-ում կամ local disk-ում չպահել, մինչև storage ADR չկա։
 - OpenMRS REST-ը ամբողջությամբ `/api/v1` facade-ով չփաթաթել։ Custom envelope/cursor conventions-ը միայն custom facade-ինն են. native OpenMRS endpoints-ը պահպանում են իրենց contract-ը։
-- Մեկ ընդհանուր `Status` enum չստեղծել clinical note, order, lab result, payment կամ admission workflow-ների համար։
-- Unpaid վիճակը clinical action-ի gate չդարձնել և հակառակ business policy չհորինել, մինչև գրավոր կանոն չկա։
+- Մեկ ընդհանուր `Status` enum չստեղծել clinical note, order, lab result, payment կամ admission workflow-ների համար։ Requirement-ում թվարկված lifecycle բառերից enum չկազմել, և OpenMRS-ի ներկառուցված order/visit/queue/status արժեքները չմիացնել որպես պայմանագրային workflow (`NO_PLATFORM_DEFAULT_WORKFLOW`)։ Platform default-ը transition table չէ. reuse-ը թույլատրվում է միայն գրավոր table-ից և դրա հետ համընկնման fit որոշումից հետո։
+- Unpaid վիճակը clinical action-ի gate չդարձնել և հակառակ business policy չհորինել, մինչև գրավոր կանոն չկա (`NO_FINANCIAL_STATUS_INFERENCE`)։ Այս կանգառը վերաբերում է միայն այն task-ին, որը payment state-ից clinical action է թույլատրում կամ արգելում։
 - Pharmacy/inventory, drug lots/stock deduction, operating-room schedule/resources/team planning չավելացնել։
 - ICD catalog-ը WHO API-ից ինքնուրույն չլցնել. version/content-ը տրամադրում կամ հաստատում է Պատվիրատուն։
 - Critical lab result-ի համար SMS/email/phone integration չավելացնել. Phase I-ը պահում է նշումը և clinician notification fact-ը։
@@ -70,29 +84,29 @@ Search result-ից կամ direct link-ից բացված ֆայլը կիրառե�
 
 Phase I-ի պարտադիր նվազագույնը ADM-10-ն է՝ action, user, timestamp, object և, երբ հասանելի է, old/new value։ Դրան ավելանում են export և break-glass audit-ը՝ արդեն հաստատված security boundary-ի համաձայն։ **Յուրաքանչյուր patient record view-ի audit-ը Phase I-ի default պարտավորություն չէ** և չի իրականացվում մինչև performance, privacy և retention որոշումը։
 
-## 6. Blocking decisions before business implementation
+## 6. Blocking decisions for the tasks that depend on them
 
-Հետևյալները deliberately unresolved են և չեն լրացվում agent-ի ենթադրությամբ.
+Հետևյալները deliberately unresolved են և չեն լրացվում agent-ի ենթադրությամբ. Յուրաքանչյուր տող կանգնեցնում է միայն «Blocks only» սյունակում նշված task-երը։
 
-Այս աղյուսակը **ոչ սպառիչ է**։ ՏԱ-ում կամ Approved որոշման մեջ չսահմանված ցանկացած business, clinical, financial, security, privacy, retention կամ concurrency արժեք նույնպես blocker է, նույնիսկ եթե ստորև առանձին տողով նշված չէ։
+Այս աղյուսակը **ոչ սպառիչ է**։ ՏԱ-ում կամ Approved որոշման մեջ չսահմանված business, clinical, financial, security, privacy, retention կամ concurrency արժեքը blocker է այն task-ի համար, որի արդյունքը կախված է այդ արժեքից։ Այն ամբողջ Phase I-ը չի կանգնեցնում։
 
-| Blocker | Required owner decision |
-|---|---|
-| Java package prefix | Հաստատված reverse-domain namespace |
-| Pilot stack | OpenMRS distribution/release, JVM, DB և exact module versions |
-| Payment vs clinical action | Չվճարված վիճակի ազդեցությունը admission/order/discharge գործողությունների վրա |
-| FIN-03 duplicate line | Business uniqueness/idempotency key |
-| AMD rounding | Precision, rounding mode և երբ է rounding արվում |
-| Workflow states | Առանձին transition tables՝ medical note, order, lab result և financial operation-ի համար |
-| Bed assignment concurrency | Locking/conflict և override policy |
-| Attachment storage | Provider, limits, malware scanning, retention |
-| Audit retention | Storage, retention, access և review policy |
+| Blocker | Required owner decision | Blocks only |
+|---|---|---|
+| Java package prefix | Հաստատված reverse-domain namespace | production Java package ստեղծող task-երը |
+| Pilot stack | OpenMRS distribution/release, JVM, DB և exact module versions | production distribution/version pin անող task-երը |
+| Payment vs clinical action | Չվճարված վիճակի ազդեցությունը admission/order/discharge գործողությունների վրա | task-եր, որոնք payment state-ից clinical action են թույլատրում կամ արգելում |
+| FIN-03 duplicate line | Business uniqueness/idempotency key | FIN-03 duplicate-prevention semantics |
+| AMD rounding | Precision, rounding mode և երբ է rounding արվում | task-եր, որոնց գումարային արդյունքը կախված է rounding-ից |
+| Workflow states | Առանձին transition tables՝ medical note, order, lab result և financial operation-ի համար | տվյալ workflow-ն իրականացնող task-ը |
+| Bed assignment concurrency | Locking/conflict և override policy | concurrent bed assignment և override |
+| Attachment storage | Provider, limits, malware scanning, retention | PDF/image binary պահող task-երը |
+| Audit retention | Storage, retention, access և review policy | retention, պահման ժամկետ և review policy |
 
-Այս աղյուսակի production package/stack blockers-ը չեն արգելում D-008 pilot-ը։ Pilot-ի temporary namespace-ը, exact candidate commit ընտրելու կարգը և minimal layout-ը սահմանված են [Compatibility PoC](./pilot/COMPATIBILITY-POC.md)-ում։
+Այս աղյուսակի production package/stack blockers-ը չեն արգելում D-008 pilot-ը և չեն արգելում այն business task-ը, որը production package չի ստեղծում և production stack չի pin անում։ Pilot-ի temporary namespace-ը, exact candidate commit ընտրելու կարգը և minimal layout-ը սահմանված են [Compatibility PoC](./pilot/COMPATIBILITY-POC.md)-ում։ REP-ի formula/grain/time/rounding/access-ը կանգնեցնում է միայն համապատասխան հաշվետվության task-ը։
 
 ## 7. Required output before coding
 
-Յուրաքանչյուր task-ը պետք է նշի ՏԱ/clarification ID-ն, owning module-ը, reuse/configure/custom որոշումը, canonical data model-ը, permissions/audit-ը և verification-ը։ Եթե այս դաշտերից scope/source-ը բացակայում է, implementation-ը չի սկսվում։
+Յուրաքանչյուր task-ը պետք է նշի ՏԱ/clarification ID-ն, owning module-ը, reuse/configure/custom որոշումը, canonical data model-ը և verification-ը։ Permissions, audit, workflow, money, concurrency և storage դաշտերը պարտադիր են միայն երբ task-ը այդ վարքն իրականացնում է։ Կախվածություն չհանդիսացող դաշտը լրացվում է `N/A_NOT_A_DEPENDENCY`։ Այդ արժեքը `NO_GO` չէ։ Եթե task-ի իրական scope/source-ը կամ իրական dependency-ն բացակայում է, այդ task-ը չի սկսվում։
 
 Այս տվյալները գրանցվում են [TASK-GO-TEMPLATE.md](./governance/TASK-GO-TEMPLATE.md)-ի համաձայն։ Coding agent-ը կարող է պատրաստել record-ը, բայց չի կարող հաստատել սեփական `GO`-ն, ստորագրության evidence-ը կամ ADR status transition-ը։
 

@@ -1,7 +1,7 @@
 schema_version: 1
 source:
   path: ../../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
-  current_sha256: 4061E12F03017E98953A0E3529A941EED086D38DCC28193661105F08965CEB33
+  current_sha256: FF93AB7B65961E4B5CB42683AD168A499C13C3D5DD6374FE7AD4D120271FE011
   lifecycle: HISTORICAL_VISION
   implementation_authority: NONE
 
