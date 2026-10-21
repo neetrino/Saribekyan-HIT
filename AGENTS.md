@@ -37,6 +37,11 @@ manifest clearance, or an implementation-gate `GO`.
 The always-applied rule `.cursor/rules/no-documentary-blockers.mdc` states
 the same override.
 
+A coding agent never writes `decision: GO`. That mark is written only by
+the `task-go-reviewer` subagent in `.cursor/agents/task-go-reviewer.md`,
+and only after its own review passes. Asking that subagent is not a
+pre-code stop.
+
 ---
 
 ## Current scope — Phase I only

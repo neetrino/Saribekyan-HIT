@@ -12,6 +12,7 @@ Task reviewer-ը գնահատում է միայն scoped task-ի dependency-նե
 
 - Record ID: `TBD`
 - Task class: `BUSINESS_IMPLEMENTATION` / `D008_COMPATIBILITY_POC` / `PRODUCTION_PILOT_RELEASE` / `DOCUMENTATION_ONLY` (`pilot` alone is invalid; human labels “D-008 compatibility PoC” and “production pilot-release” map to the two exact enum values and are not alternative values)
+- Review checkpoint: `KICKOFF_REVIEW` / `COMPLETION_REVIEW`
 - Decision: `NO_GO` / `GO`
 - Decision date: `TBD`
 - Reviewer/approver: `TBD`
@@ -25,6 +26,7 @@ Task reviewer-ը գնահատում է միայն scoped task-ի dependency-նե
 record_id: TASK-GO-REG-01-001
 task_id: REG-01-PATIENT-CREATE
 task_class: BUSINESS_IMPLEMENTATION
+review_checkpoint: KICKOFF_REVIEW
 
 source:
   signed_artifact_sha256: "<copy from SIGNATURE-STATUS.yaml signed_source.sha256>"
@@ -49,6 +51,9 @@ dependencies:
 
 blockers: []
 
+affected_files:
+  - "<exact repository-relative path>"
+
 verification:
   automated_tests: []
   uat: []
@@ -59,6 +64,8 @@ review:
   date: YYYY-MM-DD
   evidence: "<review reference>"
 ```
+
+`KICKOFF_REVIEW`-ը ստուգում է source-ը, scope-ը, dependency-ները, blockers-ը, planned affected files-ը և verification plan-ը մինչև implementation review verdict-ը։ `COMPLETION_REVIEW`-ը նորից ստուգում է նույն record-ը իրական diff-ի, changed files-ի, tests-ի, acceptance evidence-ի և reviewed commit/diff identity-ի դեմ։ Kickoff `GO`-ն completion evidence չէ, իսկ completion-ից հետո code change-ը պահանջում է նոր completion review։
 
 `unresolved_non_blocking` արժեքը կարող է մնալ բաց և այս task-ը չի կանգնեցնում։ `blockers` ցանկի ցանկացած կետ նշանակում է `NO_GO`։ `N/A_NOT_A_DEPENDENCY` չի կարելի օգտագործել այն դաշտի վրա, որի վարքը task-ը կարդում կամ գրում է։ Եթե permission-ը, քարտի համարի եզակիությունը կամ audit-ը այս slice-ի մաս են, դրանք `resolved` ցանկում կոնկրետ գրավոր որոշում պետք է լինեն. բացակայության դեպքում slice-ը փոքրացվում է, ոչ թե այդ semantics-ը հորինվում։ `BUSINESS_IMPLEMENTATION` `GO`-ն նաև պահանջում է `signed_source.business_source_authorized: true` և `parity_with_canonical: MATCH`։
 

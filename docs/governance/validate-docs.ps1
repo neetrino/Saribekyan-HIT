@@ -388,6 +388,33 @@ if ($pocSpecText -notmatch 'D008_SUCCESS_OR_TERMINAL_EVIDENCE') {
     Add-Failure 'D-008 proof section must explicitly accept terminal incompatibility evidence without workaround.'
 }
 
+$taskGoReviewerPath = Join-Path $RepositoryRoot '.cursor/agents/task-go-reviewer.md'
+if (-not (Test-Path -LiteralPath $taskGoReviewerPath)) {
+    Add-Failure 'Missing independent task-go-reviewer agent definition.'
+} else {
+    $taskGoReviewerText = Get-Content -Raw -Encoding utf8 -LiteralPath $taskGoReviewerPath
+    foreach ($requiredReviewerRule in @(
+        'KICKOFF_REVIEW',
+        'COMPLETION_REVIEW',
+        'PHASE-1-TRACEABILITY.md',
+        'DOCUMENT-MANIFEST.yaml',
+        'independent dependency inventory',
+        'actual repository diff',
+        'affected_files',
+        'NO_GO',
+        'D008_SUCCESS_OR_TERMINAL_EVIDENCE'
+    )) {
+        if ($taskGoReviewerText -notmatch [regex]::Escape($requiredReviewerRule)) {
+            Add-Failure "Task-go reviewer is missing hardened review rule: $requiredReviewerRule"
+        }
+    }
+}
+
+if ($taskTemplateText -notmatch 'review_checkpoint:\s*KICKOFF_REVIEW' -or
+    $taskTemplateText -notmatch 'COMPLETION_REVIEW') {
+    Add-Failure 'TASK-GO template must declare kickoff and completion review checkpoints.'
+}
+
 # Retained sources stay in the repository. Authority is corrected in place; deletion is not the control.
 $visionCandidates = @(Get-ChildItem -LiteralPath $RepositoryRoot -File -Filter '*.docx.md')
 if ($visionCandidates.Count -ne 1) {
