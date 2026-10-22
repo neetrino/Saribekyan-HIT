@@ -4,7 +4,7 @@
 
 Development is authorized for the Phase I scope defined in:
 
-`docs/contract/phase-1/Phase_1_Technical_Specification_HY.md`
+`docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.md`
 
 The Technical Specification is the authoritative business-scope source.
 
@@ -26,7 +26,7 @@ Technical uncertainty alone is not a reason to stop development.
 ## Documentary process is not a blocker
 
 `docs/00-IMPLEMENTATION-GATE.md`, `docs/governance/**`,
-`docs/contract/phase-1/SIGNATURE-STATUS.yaml`, and the contract photograph,
+`docs/techHistory/phase-1/SIGNATURE-STATUS.yaml`, and the contract photograph,
 DOCX, PDF, and legal-review notes are a historical record of how Phase I
 scope was discussed. They have no legal force here and are not blockers.
 

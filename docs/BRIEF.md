@@ -6,7 +6,7 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 
 ## Փաստաթղթի սահմանը
 
-Այս brief-ը չի փոխարինում ստորագրված տեխնիկական առաջադրանքին։ `contract/phase-1/Phase_1_Technical_Specification_HY.md` v1.3-ը ներկայում ստորագրման համար draft baseline է։ Մինչ ստորագրումը այն օգտագործվում է design/traceability-ի համար, ոչ business coding authorization-ի։ Միակ coding բացառությունը D-008 compatibility PoC-ն է։ Ստորագրումից հետո scope-ի հակասության դեպքում գերակայում է ստորագրված ՏԱ-ն։
+Այս brief-ը չի փոխարինում ստորագրված տեխնիկական առաջադրանքին։ `techHistory/phase-1/Phase_1_Technical_Specification_HY.md` v1.3-ը ներկայում ստորագրման համար draft baseline է։ Մինչ ստորագրումը այն օգտագործվում է design/traceability-ի համար, ոչ business coding authorization-ի։ Միակ coding բացառությունը D-008 compatibility PoC-ն է։ Ստորագրումից հետո scope-ի հակասության դեպքում գերակայում է ստորագրված ՏԱ-ն։
 
 ## Օգտատերեր
 

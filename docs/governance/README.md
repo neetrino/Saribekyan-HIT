@@ -7,7 +7,7 @@
 1. repository-level `AGENTS.md`,
 2. `../00-IMPLEMENTATION-GATE.md`,
 3. `DOCUMENT-MANIFEST.yaml`,
-4. կիրառելի signed contract/TA և `../contract/phase-1/SIGNATURE-STATUS.yaml`,
+4. կիրառելի signed contract/TA և `../techHistory/phase-1/SIGNATURE-STATUS.yaml`,
 5. requirement-level traceability և task-ի `TASK-GO-RECORD.md`,
 6. միայն դրանից հետո՝ Approved/Accepted ADR/design և implementation փաստաթղթեր։
 

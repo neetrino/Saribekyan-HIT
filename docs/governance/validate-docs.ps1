@@ -88,7 +88,7 @@ Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs') -Recurse -File | W
 }
 
 # Signature verification is separate from stale generated DOCX/PDF.
-$signatureManifest = Join-Path $RepositoryRoot 'docs/contract/phase-1/SIGNATURE-STATUS.yaml'
+$signatureManifest = Join-Path $RepositoryRoot 'docs/techHistory/phase-1/SIGNATURE-STATUS.yaml'
 if (-not (Test-Path -LiteralPath $signatureManifest)) {
     Add-Failure 'Missing SIGNATURE-STATUS.yaml'
 } else {
@@ -438,11 +438,11 @@ if ($visionPath) {
 }
 
 foreach ($retainedContractFile in @(
-    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.md',
-    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.docx',
-    'docs/contract/phase-1/Phase_1_Technical_Specification_HY.pdf',
-    'docs/contract/phase-1/Phase_1_Technical_Specification_HY_signed.jpg',
-    'docs/contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md'
+    'docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.md',
+    'docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.docx',
+    'docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.pdf',
+    'docs/techHistory/phase-1/Phase_1_Technical_Specification_HY_signed.jpg',
+    'docs/techHistory/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md'
 )) {
     if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot $retainedContractFile))) {
         Add-Failure "Retained contract artifact is missing: $retainedContractFile"
@@ -452,7 +452,7 @@ if ($signatureText -notmatch 'STALE_REGENERATE_REQUIRED' -or $signatureText -not
     Add-Failure 'Stale DOCX/PDF must remain declared and must not be treated as deleted.'
 }
 
-$contractText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/contract/phase-1/Phase_1_Technical_Specification_HY.md')
+$contractText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.md')
 foreach ($lifecycleId in @('AMB-13', 'DIA-03', 'LAB-03', 'RAD-01', 'FDI-01')) {
     if ($contractText -notmatch ('(?m)^\| ' + [regex]::Escape($lifecycleId) + ' \|[^\r\n]*NO_ENUM_FROM_THIS_LIST')) {
         Add-Failure "Contract lifecycle row must reject enum inference: $lifecycleId"

@@ -10,7 +10,7 @@ Feature կամ business rule կարելի է իրականացնել միայն �
 
 1. business source՝ ստորագրված ՏԱ-ի Phase I բաժիններ 5–16 կամ նույն ստորագրված scope-ի ներսում Պատվիրատուի հաստատված Phase I պարզաբանում,
 2. միայն այն technical decision-ները, որոնցից այս task-ը կախված է. `Approved`/`Accepted` որոշումը business scope չի ստեղծում կամ ընդլայնում,
-3. [signature manifest](./contract/phase-1/SIGNATURE-STATUS.yaml)-ում `signed_source.status: SIGNED_VERIFIED`, `parity_with_canonical: MATCH` և `business_source_authorized: true`,
+3. [signature manifest](./techHistory/phase-1/SIGNATURE-STATUS.yaml)-ում `signed_source.status: SIGNED_VERIFIED`, `parity_with_canonical: MATCH` և `business_source_authorized: true`,
 4. [task go record](./governance/TASK-GO-TEMPLATE.md)-ի լրացված պատճեն՝ անկախ reviewer-ի `GO` որոշմամբ։
 
 Չլուծված decision-ը կանգնեցնում է միայն իրենից կախված task-ը։

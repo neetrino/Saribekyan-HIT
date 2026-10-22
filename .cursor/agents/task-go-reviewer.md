@@ -28,8 +28,8 @@ with only the task id, `review.reviewer: task-go-reviewer`, `decision: NO_GO`, t
 Do not trust the parent summary, a pre-filled `GO`, or a previous task's record. Open the files yourself.
 
 1. Read the whole draft record.
-2. Read each cited section of `docs/contract/phase-1/Phase_1_Technical_Specification_HY.md`, plus the neighboring section when the slice could cross it. Also read §16, §17, and §20.2.
-3. Read `docs/contract/phase-1/SIGNATURE-STATUS.yaml` when the task class requires a signed source.
+2. Read each cited section of `docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.md`, plus the neighboring section when the slice could cross it. Also read §16, §17, and §20.2.
+3. Read `docs/techHistory/phase-1/SIGNATURE-STATUS.yaml` when the task class requires a signed source.
 4. Read each decision, ADR, or clarification the record cites. `Approved` or `Accepted` elsewhere is not this task's `GO`.
 5. Read `docs/requirements/PHASE-1-TRACEABILITY.md` for every requirement id. Independently identify and read every active blocker register named by that row; do not rely on the record's citation list.
 6. Read `docs/governance/DOCUMENT-MANIFEST.yaml` before using any non-contract source. A historical, vision-only, assessment, proposed, candidate, or `NON_AUTHORIZING` artifact cannot supply business scope or close a blocker.

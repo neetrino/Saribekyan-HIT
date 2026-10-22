@@ -43,33 +43,33 @@ documents:
     lifecycle: ACTIVE_INDEX
     agent_usage: NAVIGATION_ONLY_FOLLOW_REFERENCED_RECORD
 
-  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.md
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.md
     authority: CONTRACT_CONTENT_BASELINE
     lifecycle: FINISHED_CONTRACT
     agent_usage: BUSINESS_SOURCE_TEXT_WHEN_SIGNED_SOURCE_IS_VERIFIED
-    signed_artifact_manifest: ../contract/phase-1/SIGNATURE-STATUS.yaml
+    signed_artifact_manifest: ../techHistory/phase-1/SIGNATURE-STATUS.yaml
 
-  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.docx
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.docx
     authority: CLIENT_RENDERING
     lifecycle: RETAINED_STALE_RENDERING
     agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
 
-  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY.pdf
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.pdf
     authority: CLIENT_RENDERING
     lifecycle: RETAINED_STALE_RENDERING
     agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
 
-  - path: ../contract/phase-1/SIGNATURE-STATUS.yaml
+  - path: ../techHistory/phase-1/SIGNATURE-STATUS.yaml
     authority: SIGNATURE_AND_ARTIFACT_STATUS
     lifecycle: ACTIVE_SIGNED_REGISTER
     agent_usage: MANDATORY_SIGNATURE_CHECK
 
-  - path: ../contract/phase-1/Phase_1_Technical_Specification_HY_signed.jpg
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY_signed.jpg
     authority: SIGNATURE_EVIDENCE
     lifecycle: SUBMITTED_SIGNATURE_PAGE
     agent_usage: EVIDENCE_ONLY_NOT_SPEC_TEXT_OR_IMPLEMENTATION_SOURCE
 
-  - path: ../contract/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md
     authority: NON_AUTHORIZING
     lifecycle: LEGAL_REVIEW_GUIDANCE
     agent_usage: LEGAL_REVIEW_ONLY_NEVER_SCOPE_OR_IMPLEMENTATION
