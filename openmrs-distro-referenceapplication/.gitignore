@@ -1,0 +1,13 @@
+**/target/
+**/.DS_Store
+.env
+**/node_modules/
+.idea/
+
+# LLM coding agent documentation
+CLAUDE.md
+.claude/
+.cursorrules
+.cursor/
+.aider*
+.clinerules

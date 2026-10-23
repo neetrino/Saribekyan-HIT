@@ -1,0 +1,110 @@
+schema_version: 1
+plan: PHASED-IMPLEMENTATION-PLAN.md
+updated_at: 2026-10-23
+updated_by: orchestrator
+
+allowed_states:
+  - NOT_STARTED
+  - READY
+  - IN_PROGRESS
+  - PARTIAL_BLOCKED
+  - REVIEW
+  - QA
+  - NEEDS_REWORK
+  - COMPLETE
+
+current_phase: P0
+active_phases: [P0, P2]
+execution_note: >
+  P0 remains the primary foundation phase. The REG-02 patient-search configuration
+  is a recorded early P2 slice that started before P1 completion; this is allowed
+  by owner authorization, does not mark P1 complete, and does not waive P0 blockers.
+
+phases:
+  - id: P0
+    name: Platform and delivery foundation
+    feature_group: NONE
+    requirements: []
+    depends_on: []
+    state: IN_PROGRESS
+    evidence: []
+    blockers:
+      - Clean-clone reproducibility, stable Docker frontend runtime, OMOD distro inclusion, CI and test harness are not yet evidenced as complete.
+
+  - id: P1
+    name: Administration and cross-cutting controls
+    feature_group: ADM
+    requirements: [ADM-01, ADM-02, ADM-03, ADM-04, ADM-05, ADM-06, ADM-07, ADM-08, ADM-09, ADM-10, ADM-11, ADM-12, ADM-13]
+    depends_on: [P0]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P2
+    name: Registration identity and visits
+    feature_group: REG
+    requirements: [REG-01, REG-02, REG-03, REG-04, REG-05, REG-06, REG-07, REG-08, REG-09]
+    depends_on: [P1]
+    state: PARTIAL_BLOCKED
+    evidence:
+      - REG-02 patient-search partial slice uses the accepted O3 patient-search app rather than a replacement SPA; it does not claim REG-01 patient-card creation.
+      - openmrs-distro-referenceapplication/frontend/config-core_demo.json enables dateOfBirth and configures the telephone person-attribute UUID.
+      - openmrs-distro-referenceapplication/frontend/startup.sh forwards a populated person-attribute value to the existing patient-search query.
+    blockers:
+      - REG-02 date-of-birth-only search still needs explicit runtime and Playwright verification.
+      - A fresh database still needs reproducible bootstrap/migration evidence that the telephone person attribute type is searchable=true.
+      - The remaining REG-03 through REG-09 slices are not completed by this patient-search configuration.
+
+  - id: P3
+    name: Diagnostic and treatment orders and results
+    feature_group: DIA
+    requirements: [DIA-01, DIA-02, DIA-03, DIA-04, LAB-01, LAB-02, LAB-03, LAB-04, RAD-01, RAD-02, RAD-03, FDI-01, END-01, TRT-01]
+    depends_on: [P2]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P4
+    name: Ambulatory medical record
+    feature_group: AMB
+    requirements: [AMB-01, AMB-02, AMB-03, AMB-04, AMB-05, AMB-06, AMB-07, AMB-08, AMB-09, AMB-10, AMB-11, AMB-12, AMB-13, AMB-14]
+    depends_on: [P3]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P5
+    name: Inpatient medical record
+    feature_group: INP
+    requirements: [INP-01, INP-02, INP-03, INP-04, INP-05, INP-06, INP-07, INP-08, INP-09, INP-10, INP-11, INP-12, INP-13]
+    depends_on: [P4]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P6
+    name: Billing payments and cashier
+    feature_group: FIN
+    requirements: [FIN-01, FIN-02, FIN-03, FIN-04, FIN-05, FIN-06, FIN-07, FIN-08, FIN-09, FIN-10, FIN-11, FIN-12, FIN-13, FIN-14, FIN-15]
+    depends_on: [P5]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P7
+    name: Operational monitoring and reports
+    feature_group: REP
+    requirements: [REP-01, REP-02, REP-03, REP-04, REP-05, REP-06, REP-07]
+    depends_on: [P6]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []
+
+  - id: P8
+    name: Cross-feature integration hardening UAT and release readiness
+    feature_group: INTEGRATION
+    requirements: []
+    depends_on: [P1, P2, P3, P4, P5, P6, P7]
+    state: NOT_STARTED
+    evidence: []
+    blockers: []

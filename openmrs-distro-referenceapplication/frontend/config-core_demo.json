@@ -1,0 +1,68 @@
+{
+  "@openmrs/esm-patient-chart-app": {
+    "restrictByVisitLocationTag": true,
+    "showUpcomingAppointments": true,
+    "extensionSlots": {
+      "action-menu-patient-chart-items-slot": {
+        "order": ["order-basket-action-menu"]
+      }
+    }
+  },
+
+  "@openmrs/esm-home-app": {
+    "extensionSlots": {
+      "homepage-dashboard-slot": {
+        "add": ["dashboard"],
+        "configure": {
+          "dashboard": {
+            "title": "Patient search",
+            "path": "search"
+          }
+        }
+      }
+    }
+  },
+
+  "@openmrs/esm-patient-search-app": {
+    "search": {
+      "searchFilterFields": {
+        "dateOfBirth": {
+          "enabled": true
+        },
+        "personAttributes": [
+          {
+            "attributeTypeUuid": "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+            "placeholder": "Հեռախոսահամար"
+          }
+        ]
+      }
+    },
+    "contactAttributeType": [
+      "14d4f066-15f5-102d-96e4-000c29c2a5d7"
+    ]
+  },
+
+  "@openmrs/esm-ward-app": {
+    "extensionSlots": {
+      "action-menu-ward-patient-items-slot": {
+        "add": ["order-basket-action-menu"]
+      }
+    }
+  },
+
+  "@openmrs/esm-laboratory-app": {
+    "labTableColumns": [
+      "name",
+      "patientId",
+      "urgency",
+      "age",
+      "sex",
+      "totalOrders",
+      "action"
+    ]
+  },
+
+  "@openmrs/esm-styleguide": {
+    "Brand color #1": "#005d5d"
+  }
+}

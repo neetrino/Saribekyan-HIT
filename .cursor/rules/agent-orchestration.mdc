@@ -1,0 +1,19 @@
+---
+description: Role separation, handoff, review, Playwright QA, and security/privacy routing for multi-agent work
+alwaysApply: true
+---
+
+# Agent orchestration
+
+For work delegated across agents, read and follow `docs/governance/AGENT-ORCHESTRATION.md`.
+For Phase I feature work, also follow `docs/governance/PHASED-IMPLEMENTATION-PLAN.md` and the current state in `docs/governance/PHASE-STATUS.yaml`.
+
+- `orchestrator` coordinates and aggregates evidence; it does not write product code or self-approve.
+- `developer` designs the bounded technical slice.
+- `coder` implements it and cannot be the final reviewer or QA agent.
+- `reviewer` independently reviews a stable diff.
+- `qa-playwright` verifies user-visible flows against the same stable build.
+- `security-privacy-reviewer` is required for sensitive/auth/PHI/audit/export/upload/integration changes.
+- `task-go-reviewer` remains a separate governance verdict role, not a replacement for code review or QA.
+
+Do not mark a task complete from a summary alone. Preserve exact diff/build identity across review and QA, and invalidate evidence after behavior-changing edits.

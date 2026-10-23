@@ -1,1 +1,8 @@
 .DS_Store
+
+# Local documentation/runtime overrides. Commit only the example template.
+/docs/.env
+
+# Disposable OpenMRS compatibility-pilot checkouts/build worktrees.
+/pilot/openmrs-compatibility/upstream/
+/pilot/openmrs-compatibility/work/

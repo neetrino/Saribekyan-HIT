@@ -1,0 +1,18 @@
+schema_version: 1
+source:
+  path: ../../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
+  current_sha256: D877DC2373A8821D94AB64D3C458ED11F4B68ABA123B1578C18C194A6B49B91A
+  lifecycle: HISTORICAL_VISION
+  implementation_authority: NONE
+
+audit_provenance:
+  audited_snapshot_sha256: UNKNOWN_NOT_RECORDED_AT_ORIGINAL_AUDIT
+  line_number_stability: INVALID_AFTER_SOURCE_EDITS
+  coverage_claim: HISTORICAL_NOT_REPRODUCIBLE_FROM_LINE_NUMBERS_ALONE
+
+rules:
+  - Current line numbers are navigation hints only and are not stable provenance.
+  - A future re-audit must first freeze a snapshot hash and use section identifiers or quoted anchors.
+  - This manifest does not authorize opening the vision as Phase I scope or backlog.
+  - current_sha256 is the hash of the retained repository file. A mismatch is not a reason to restore another snapshot or to delete the body.
+  - The retained body is historical vision evidence (`RETAINED_HISTORICAL_VISION_BODY_NOT_PHASE_I_SCOPE`). Deleting it is not an authority correction.

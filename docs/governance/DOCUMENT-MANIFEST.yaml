@@ -1,0 +1,282 @@
+schema_version: 1
+default_policy:
+  matching_precedence: EXACT_PATH_BEFORE_LONGEST_PATH_PREFIX
+  unlisted_document:
+    authority: NON_AUTHORIZING
+    lifecycle: UNCLASSIFIED
+    agent_usage: DO_NOT_USE_AS_BUSINESS_SOURCE
+  search_result_rule: CHECK_THIS_MANIFEST_BEFORE_USE
+
+documents:
+  - path: ../00-IMPLEMENTATION-GATE.md
+    authority: READINESS_AND_AMBIGUITY_GUIDANCE
+    lifecycle: ACTIVE
+    agent_usage: USE_TO_IDENTIFY_SLICE_SPECIFIC_DEPENDENCIES
+
+  - path: README.md
+    authority: GOVERNANCE_GUIDANCE
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_AUTHORITY_RULES
+  - path: DOCUMENT-MANIFEST.yaml
+    authority: AUTHORITY_INDEX
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_AUTHORITY_LOOKUP
+  - path: TASK-GO-TEMPLATE.md
+    authority: GOVERNANCE_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: OPTIONAL_INDEPENDENT_TASK_REVIEW
+  - path: OPTIONAL-TASK-GO-REVIEW-PROCEDURE.md
+    authority: OPTIONAL_GOVERNANCE_PROCEDURE
+    lifecycle: TEMPLATE
+    agent_usage: OUTSIDE_ORCHESTRATION_USE_ONLY_WHEN_OWNER_OR_COMPLIANCE_REQUESTS
+  - path: AGENT-ORCHESTRATION.md
+    authority: ORCHESTRATION_PROCESS
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_FOR_MULTI_AGENT_COORDINATION
+  - path: ORCHESTRATION-RUN-TEMPLATE.md
+    authority: ORCHESTRATION_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: USE_FOR_LONG_MULTI_AGENT_OR_HIGH_RISK_TASKS
+  - path: PHASED-IMPLEMENTATION-PLAN.md
+    authority: DELIVERY_SEQUENCE
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_PHASE_ORDER_AND_EXIT_CRITERIA
+  - path: PHASE-STATUS.yaml
+    authority: DELIVERY_PROCESS_STATE
+    lifecycle: ACTIVE
+    agent_usage: ORCHESTRATOR_UPDATES_FROM_ACCEPTED_EVIDENCE_ONLY
+  - path: validate-docs.ps1
+    authority: VALIDATION_TOOL
+    lifecycle: ACTIVE
+    agent_usage: SAFE_READ_ONLY_VALIDATION
+
+  - path: ../README.md
+    authority: DOCUMENTATION_ENTRY_POINT
+    lifecycle: ACTIVE
+    agent_usage: NAVIGATION_AND_PRECEDENCE
+  - path: ../.env.example
+    authority: DEVELOPMENT_CONFIG_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: COPY_TO_LOCAL_IGNORED_ENV_IF_NEEDED
+  - path: ../BRIEF.md
+    authority: NON_AUTHORIZING
+    lifecycle: SUMMARY
+    agent_usage: CONTEXT_ONLY
+  - path: ../DECISIONS.md
+    authority: DECISION_INDEX_NOT_EVIDENCE
+    lifecycle: ACTIVE_INDEX
+    agent_usage: NAVIGATION_ONLY_FOLLOW_REFERENCED_RECORD
+
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.md
+    authority: OWNER_AUTHORIZED_BUSINESS_BASELINE
+    lifecycle: ACTIVE_DEVELOPMENT_BASELINE
+    agent_usage: BUSINESS_SOURCE_FOR_PHASE_I_DEVELOPMENT
+    signed_artifact_manifest: ../techHistory/phase-1/SIGNATURE-STATUS.yaml
+
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.docx
+    authority: CLIENT_RENDERING
+    lifecycle: RETAINED_STALE_RENDERING
+    agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
+
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY.pdf
+    authority: CLIENT_RENDERING
+    lifecycle: RETAINED_STALE_RENDERING
+    agent_usage: RETAINED_STALE_RENDERING_DO_NOT_INFER_PARITY_OR_DELETE
+
+  - path: ../techHistory/phase-1/SIGNATURE-STATUS.yaml
+    authority: SIGNATURE_AND_ARTIFACT_STATUS
+    lifecycle: ACTIVE_LEGAL_AND_REPOSITORY_STATUS_REGISTER
+    agent_usage: LEGAL_STATUS_INFORMATION_AND_OWNER_AUTHORIZATION
+
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_HY_signed.jpg
+    authority: SIGNATURE_EVIDENCE
+    lifecycle: SUBMITTED_SIGNATURE_PAGE
+    agent_usage: EVIDENCE_ONLY_NOT_SPEC_TEXT_OR_IMPLEMENTATION_SOURCE
+
+  - path: ../techHistory/phase-1/Phase_1_Technical_Specification_Legal_Review_Recommendations_RU.md
+    authority: NON_AUTHORIZING
+    lifecycle: LEGAL_REVIEW_GUIDANCE
+    agent_usage: LEGAL_REVIEW_ONLY_NEVER_SCOPE_OR_IMPLEMENTATION
+
+  - path: ../../ՍԱՐԻԲԵԿՅԱՆ_ՀԱՄԱԼՍԱՐԱՆԱԿԱՆ_ԲԺՇԿԱԿԱՆ_ՀԱՄԱԼԻՐԻ_ՄԻԱՍՆԱԿԱՆ_ՏԵՂԵԿԱՏՎԱԿԱՆ.docx.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: VISION_ONLY_NEVER_SCOPE_OR_BACKLOG
+    source_audit_manifest: ../phase-scope/source-audit/SOURCE-AUDIT-MANIFEST.yaml
+
+  - path_prefix: ../phase-scope/archive/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: NEVER_IMPLEMENT
+
+  - path: ../phase-scope/00_README.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL_INDEX
+    agent_usage: NAVIGATION_ONLY_NOT_NEXT_STEP_AUTHORIZATION
+
+  - path_prefix: ../phase-scope/phases/phase-1/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SOURCE_ANALYSIS_ONLY_NEVER_SPEC_OR_ACCEPTANCE
+
+  - path_prefix: ../phase-scope/cross-cutting/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SOURCE_ANALYSIS_ONLY
+
+  - path: ../phase-scope/decisions/09_Decision_Log.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: DECISION_HISTORY_ONLY
+
+  - path: ../phase-scope/decisions/17_Questions_Only_After_Source_Audit.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: QUESTION_HISTORY_ONLY
+
+  - path_prefix: ../phase-scope/source-audit/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: PROVENANCE_ONLY
+
+  - path_prefix: ../phase-scope/phases/phase-2/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: FUTURE_INVENTORY_ONLY
+
+  - path_prefix: ../phase-scope/phases/phase-3/
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: FUTURE_INVENTORY_ONLY
+
+  - path_prefix: ../phase-scope/decisions/client/21_
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SUPERSEDED_QUESTION_SET
+
+  - path_prefix: ../phase-scope/decisions/client/31_
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: SUPERSEDED_APPROVAL_PACKAGE
+
+  - path: ../phase-scope/decisions/client/32_Client_Clarifications_Resolution_Phase_1_HY.md
+    authority: NON_AUTHORIZING_UNTIL_CLIENT_EVIDENCE
+    lifecycle: RETAINED_DRAFT_TEXT
+    agent_usage: RETAINED_DRAFT_NOT_DECISION_OR_SCOPE
+
+  - path: ../phase-scope/decisions/client/23_Template_Content_Commercial_Boundary.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: COMMERCIAL_HISTORY_ONLY_USE_TA_SECTION_7
+
+  - path: ../phase-scope/decisions/client/33_Client_Post_Signing_Inputs_Phase_1_HY.md
+    authority: NON_AUTHORIZING
+    lifecycle: HISTORICAL
+    agent_usage: CLIENT_INPUT_CHECKLIST_NOT_SCHEMA
+
+  - path: ../phase-scope/decisions/client/README.md
+    authority: NON_AUTHORIZING_INDEX
+    lifecycle: ACTIVE_INDEX
+    agent_usage: CLIENT_ARTIFACT_NAVIGATION_ONLY
+
+  - path: ../requirements/README.md
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: GOVERNANCE_GUIDANCE_NOT_IMPLEMENTATION
+
+  - path: ../requirements/GLOSSARY.md
+    authority: NON_AUTHORIZING
+    lifecycle: REFERENCE
+    agent_usage: DEFINITIONS_ONLY_NO_PACKAGE_OR_SCOPE_INFERENCE
+
+  - path: ../requirements/MODULE-SOURCE-MATRIX.md
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: CANDIDATE_MAPPING_ONLY
+
+  - path: ../requirements/OPENMRS-FIT-GAP.md
+    authority: FIT_GAP_AND_AS_BUILT_EVIDENCE
+    lifecycle: ASSESSMENT
+    agent_usage: CANDIDATE_ROWS_DO_NOT_AUTHORIZE_INSTALL; AS_BUILT_ROWS_PRESERVE_COMMITTED_CAPABILITY
+
+  - path: ../requirements/PHASE-1-TRACEABILITY.md
+    authority: REQUIREMENT_READINESS_REGISTER
+    lifecycle: ACTIVE_REQUIREMENT_STATUS
+    agent_usage: TRACK_SCOPE_EVIDENCE_AND_SLICE_SPECIFIC_BLOCKERS_WITHOUT_TASK_GO
+  - path: ../requirements/WORKFLOW-TRANSITIONS.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
+  - path: ../requirements/PERMISSION-MATRIX.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
+  - path: ../requirements/REPORT-DEFINITIONS.md
+    authority: BLOCKER_REGISTER
+    lifecycle: ACTIVE
+    agent_usage: BLOCKS_ONLY_TASKS_THAT_IMPLEMENT_THIS_ROW
+
+  - path_prefix: ../modules/
+    authority: NON_AUTHORIZING_TEMPLATE_OR_RECORD
+    lifecycle: TEMPLATE_OR_DESIGN_RECORD
+    agent_usage: USE_FOR_MODULE_DESIGN_OR_AS_BUILT_RECORD_WITH_REQUIREMENT_EVIDENCE
+
+  - path: ../modules/SARIBEKYAN-OMOD.md
+    authority: AS_BUILT_MODULE_RECORD
+    lifecycle: AS_BUILT_FOUNDATION
+    agent_usage: CURRENT_CUSTOM_OMOD_FOUNDATION_WITH_NO_BUSINESS_COMPLETION_CLAIM
+
+  - path: ../08-TESTING-AND-UAT.md
+    authority: DELIVERY_VERIFICATION_BASELINE
+    lifecycle: ACTIVE
+    agent_usage: USE_FOR_TEST_PLAYWRIGHT_AND_UAT_EVIDENCE
+
+  - path: ../09-OPERATIONS-AND-RELEASE.md
+    authority: OPERATIONS_RELEASE_BASELINE
+    lifecycle: ACTIVE
+    agent_usage: USE_FOR_BUILD_RELEASE_BACKUP_AND_ROLLBACK_READINESS
+
+  - path_prefix: ../technology-options/
+    authority: NON_AUTHORIZING
+    lifecycle: ASSESSMENT
+    agent_usage: NEVER_INSTALL_FROM_CANDIDATE_LIST
+
+  - path: ../TECH_CARD.md
+    authority: TECHNICAL_DECISION_INDEX
+    lifecycle: MIXED_PER_ROW
+    agent_usage: USE_ONLY_ROWS_WITH_CANONICAL_STATUS_AND_DECISION_EVIDENCE
+
+  - path_prefix: ../architecture/
+    authority: TECHNICAL_DECISION_RECORD
+    lifecycle: MIXED_PER_DOCUMENT
+    agent_usage: NEVER_CREATES_BUSINESS_SCOPE
+
+  - path: ../01-ARCHITECTURE.md
+    authority: ARCHITECTURE_BASELINE
+    lifecycle: MIXED_AS_BUILT_AND_PROPOSED
+    agent_usage: USE_AS_BUILT_ROWS_AS_CURRENT_ARCHITECTURE_AND_PROPOSED_ROWS_AS_NON_BLOCKING_CANDIDATES
+  - path: ../03-STRUCTURE.md
+    authority: STRUCTURE_GUIDANCE
+    lifecycle: AS_BUILT_GUIDANCE
+    agent_usage: USE_FOR_CURRENT_EXTENSION_AND_LAYOUT_RULES_WITHOUT_TASK_GO
+  - path: ../04-API.md
+    authority: MIXED_AS_BUILT_AND_TARGET_CHECKLIST
+    lifecycle: MIXED_AS_BUILT_AND_PROPOSED
+    agent_usage: PRESERVE_CURRENT_NATIVE_API_STATE; APPLY_TARGET_RULES_TO_NEW_ENDPOINT_SLICES
+  - path: ../05-DATABASE.md
+    authority: MIXED_AS_BUILT_AND_TARGET_CHECKLIST
+    lifecycle: MIXED_AS_BUILT_AND_PROPOSED
+    agent_usage: PRESERVE_OPENMRS_SCHEMA_OWNERSHIP; APPLY_TARGET_RULES_TO_NEW_SCHEMA_SLICES
+  - path: ../06-SECURITY-AND-PRIVACY.md
+    authority: MIXED_AS_BUILT_AND_TARGET_CHECKLIST
+    lifecycle: MIXED_AS_BUILT_AND_PROPOSED
+    agent_usage: PRESERVE_NATIVE_AUTH_AS_BUILT; APPLY_CHECKLIST_PER_OWNER_AUTHORIZED_CAPABILITY
+  - path: ../07-INTEGRATIONS.md
+    authority: NON_AUTHORIZING
+    lifecycle: PROPOSED_DESIGN
+    agent_usage: APPLY_PER_OWNER_AUTHORIZED_CONNECTOR_USE_CASE_WITHOUT_TASK_GO
+
+  - path: ../pilot/COMPATIBILITY-POC.md
+    authority: D008_EXCEPTION_SPEC
+    lifecycle: ACTIVE_LIMITED_AUTHORIZATION
+    agent_usage: ALL

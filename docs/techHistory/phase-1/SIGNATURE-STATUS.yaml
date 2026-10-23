@@ -1,0 +1,59 @@
+schema_version: 2
+contract_package: PHASE_1_TECHNICAL_SPECIFICATION_V1_3
+
+# Business-source verification and generated derivatives are separate.
+# A stale DOCX/PDF does not block a task. It also does not verify the TA.
+
+signed_source:
+  status: NOT_VERIFIED
+  path: Phase_1_Technical_Specification_HY_signed.jpg
+  sha256: C8E24E023D7DC7A51AEC47E7BB8F69C8DDEFA3A1FC755B02F80412A361E288BB
+  role: SUBMITTED_PHOTOGRAPH
+  content_note: >
+    The photograph is page 9 of the software-development contract,
+    sections 9.6-10, with the parties' signatures. It is not TA section 21
+    and does not show the Phase I technical specification. Parity with the
+    canonical Markdown has not been assessed.
+  parity_with_canonical: NOT_ASSESSED
+  business_source_authorized: false
+
+canonical_content:
+  path: Phase_1_Technical_Specification_HY.md
+  sha256: 6D9E9918B2B26E0ABFB1DDFD0599076A59B0E3C5C418B5E3B8263D97E360B665
+  role: EDITABLE_CONTENT_BASELINE
+  version: "1.3"
+
+generated_documents:
+  docx:
+    path: Phase_1_Technical_Specification_HY.docx
+    sha256: 980E6D725B2405F59085C802668FA7633C9BB70EE7798895605CA6D563EAEA04
+    status: STALE_REGENERATE_REQUIRED
+    blocks_development: false
+  pdf:
+    path: Phase_1_Technical_Specification_HY.pdf
+    sha256: 5B41D9F3596A34D07E6177E479E8770D1417736C1C92C7FA2748103C275A0F97
+    status: STALE_REGENERATE_REQUIRED
+    blocks_development: false
+
+legal_review:
+  required: true
+  blocks_development: false
+
+# Repository development authority is independent from contract-signature
+# verification. This authorizes implementation against the canonical baseline;
+# it does not claim that the contract or TA has been signed.
+repository_development:
+  status: AUTHORIZED_BY_OWNER
+  baseline: Phase_1_Technical_Specification_HY.md
+  baseline_sha256: 6D9E9918B2B26E0ABFB1DDFD0599076A59B0E3C5C418B5E3B8263D97E360B665
+  requires_signed_source: false
+  requires_task_go: false
+
+rules:
+  - Editing this file does not itself create signature evidence.
+  - Coding agents must not set signed_source.status to SIGNED_VERIFIED or business_source_authorized to true.
+  - SIGNED_VERIFIED requires parity_with_canonical MATCH against the canonical Markdown hash. NOT_ASSESSED is not verification.
+  - Stale generated DOCX/PDF do not block development and are not an implementation source. Deleting them is not a parity correction.
+  - Contract-signature verification is legal/readiness metadata and is not a repository development prerequisite.
+  - Development is authorized by repository_development.status against the named canonical baseline; TASK-GO is an optional independent review verdict.
+  - An unresolved decision blocks only tasks that depend on it.
