@@ -4,6 +4,8 @@
 
 Այս legend-ը համադրվում է `governance/README.md`-ի canonical lifecycle-ին։ Ազատ status բառը coding authorization չէ։ `Approved`/`Accepted` row-ը պարտադիր պետք է ունենա decision ID, approver/date/evidence. այդ metadata-ի բացակայության դեպքում agent-ը այն կիրառում է միայն guardrail/context-ի համար և business code չի սկսում։
 
+`SIGNATURE_IS_LEGAL_METADATA_NOT_CODING_GATE`: owner-authorized canonical Markdown-ը development baseline-ն է։
+
 ### Legacy row status → agent action
 
 | TECH_CARD status | Canonical interpretation | Agent action |
@@ -14,17 +16,17 @@
 | PROPOSED_DESIGN | canonical literal | Candidate է. չի ստեղծում նոր scope և կանգնեցնում է միայն այն behavior-ը, որի համար ընտրությունը իսկապես անհրաժեշտ է |
 | BLOCKED | canonical literal | Կանգնեցնել միայն այս decision-ից կախված task-ը և պահանջել փակող evidence |
 | D008_POC_ONLY | canonical literal | Միայն `D008_COMPATIBILITY_POC` profile, ոչ business code |
-| Accepted | `ACCEPTED_DIRECTION` | Կիրառելի տեխնիկական ուղղություն է իր սահմաններում, ոչ նոր business scope |
+| Accepted | `ACCEPTED_DECISION` | Կիրառելի տեխնիկական որոշում է իր evidence-ի սահմաններում, ոչ նոր business scope |
 | ACCEPTED_AS_BUILT | canonical literal | Repository/runtime evidence-ով գործող և ընդունված տեխնիկական ընտրություն է |
 | ACCEPTED_AS_BUILT_PARTIAL | canonical literal | Նշված capability-ն իրական է և պահպանվում է, բայց requirement-ի մնացած acceptance/evidence-ը շարունակում է բաց մնալ |
-| Draft contract baseline | `BASELINE_V1_3_OWNER_AUTHORIZED` | Owner-authorized business baseline է. signature status-ը իրավական metadata է |
+| Draft contract baseline | `OWNER_AUTHORIZED_BASELINE` | Owner-authorized business baseline է. signature status-ը իրավական metadata է |
 | Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
 | D-008 PoC profile | `D008_POC_ONLY` | Միայն disposable compatibility PoC-ի scope-ն է սահմանում. business development-ի global gate չէ |
 | Approved Phase I boundary / Approved scope / Approved constraint | `GOVERNING_GUARDRAIL` | Պահպանել արգելքը/սահմանը, բայց code չսկսել |
-| Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION` | Design constraint է canonical requirement-ի համար. բաց մասը blocker է միայն իրենից կախված task-ի համար |
-| Contract baseline / Conditional contract requirement | `BASELINE_V1_3_OWNER_AUTHORIZED` | Development baseline է. signature verification-ը իրավական metadata է |
+| Approved direction / Approved principle / Approved / partially open | `APPROVED_CONSTRAINT` | Design constraint է canonical requirement-ի համար. բաց մասը blocker է միայն իրենից կախված task-ի համար |
+| Contract baseline / Conditional contract requirement | `OWNER_AUTHORIZED_BASELINE` | Development baseline է. signature verification-ը իրավական metadata է |
 | Proposed / Proposed baseline / Required design / Custom design required | `PROPOSED_DESIGN` | Չհորինել candidate-ից նոր scope. կոնկրետ capability-ի համար ընտրել ամենապարզ maintainable լուծումը և գրանցել evidence-ը |
-| PoC required / Proposed + PoC required | `VALIDATION_REQUIRED` | Validation-ը պահանջվում է dependent adoption/release claim-ի համար, ոչ unrelated development-ը սկսելու համար |
+| PoC required / Proposed + PoC required | `PROPOSED_DESIGN` | Validation-ը պահանջվում է dependent adoption/release claim-ի համար, ոչ unrelated development-ը սկսելու համար |
 | Proposed / blocked | `BLOCKED` | Կանգնեցնել միայն կախված task-ը |
 | Change request required / Out of Phase I | `OUT_OF_SCOPE` | Չիրականացնել առանց repository owner-ի բացահայտ scope change-ի. contract signature-ը coding prerequisite չէ |
 | Deferred / Open / TBD | `BLOCKED` | Կանգնեցնել միայն այն task-ը, որի արդյունքը կախված է այս արժեքից |
@@ -33,7 +35,7 @@
 
 | Status | Meaning |
 |---|---|
-| Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
+| Draft contract baseline | Owner-authorized canonical Markdown development baseline. ստորագրության վիճակը միայն իրավական readiness metadata է |
 | Approved | Ուղղություն կամ սահման իր նկարագրության մեջ. չի ստեղծում նոր business scope |
 | Accepted | Հաստատված տեխնիկական ուղղություն է իր evidence-ի սահմաններում. TASK-GO prerequisite չէ |
 | ACCEPTED_AS_BUILT | Repository/runtime evidence-ով հաստատված գործող տեխնիկական ընտրություն |
@@ -44,7 +46,7 @@
 | Proposed baseline | Նախնական design assumption, ոչ implementation authorization |
 | PoC required | Որոշումից առաջ անհրաժեշտ է փորձնական իրականացում |
 | Custom design required / Required design | Պահանջի համար design-ը անհրաժեշտ է, բայց դեռ ընդունված կամ կառուցելու թույլատրված չէ |
-| Contract baseline / Conditional contract requirement | Draft/ստորագրված ՏԱ-ից եկող պայման՝ կիրառելի միայն contract status-ի և gate-ի համաձայն |
+| Contract baseline / Conditional contract requirement | Owner-authorized canonical baseline-ից եկող պայման. signature կամ implementation gate coding prerequisite չեն |
 | Deferred | Այս documentation փուլում չի որոշվում |
 | Out of Phase I | Փուլ I-ի պայմանագրային ծավալից դուրս է |
 
@@ -197,11 +199,11 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 | Area | Required production outcome | Current authority/status |
 |---|---|---|
 | Version pinning | Reference Application 3.7.1, Platform 2.8.8, Java 21; OMOD/O3 versions from manifests | ACCEPTED_AS_BUILT; փոփոխությունը պահանջում է compatibility review |
-| CI | Build, unit, integration, security/dependency և distribution smoke tests | REQUIRED_FOR_CHANGED_ARTIFACTS |
-| Clinical workflows | Automated integration + role-based UAT | REQUIRED_PER_IMPLEMENTED_REQUIREMENT |
-| Upgrade safety | Clean distribution rebuild և migration rehearsal | REQUIRED_FOR_STACK_OR_MIGRATION_CHANGES |
-| Traceability | ՏԱ ID → design → code → test → UAT evidence | GOVERNANCE REQUIREMENT; code authorization չէ |
-| Documentation | Architecture, DB, API, deployment, operations և user guides | AS-BUILT DELIVERABLE; դատարկ skeleton չի պահանջում |
+| CI | Build, unit, integration, security/dependency և distribution smoke tests՝ changed artifacts-ի համար | APPROVED_CONSTRAINT |
+| Clinical workflows | Automated integration + role-based UAT՝ implemented requirement-ի համար | APPROVED_CONSTRAINT |
+| Upgrade safety | Clean distribution rebuild և migration rehearsal՝ stack/migration change-ի համար | APPROVED_CONSTRAINT |
+| Traceability | ՏԱ ID → design → code → test → UAT evidence | GOVERNING_GUARDRAIL; code authorization չէ |
+| Documentation | Architecture, DB, API, deployment, operations և user guides՝ behavior change-ի հետ համաժամեցված | APPROVED_CONSTRAINT; դատարկ skeleton չի պահանջում |
 
 ## 13. Remaining stack and feature decisions
 

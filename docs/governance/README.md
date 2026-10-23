@@ -33,6 +33,7 @@ Search result-ից բացված ֆայլը չի կիրառվում, մինչև a
 | `GOVERNING_CANONICAL_MODEL_NO_SKELETON` | Canonical model-ի սահման՝ առանց module/repository skeleton-ի թույլտվության | Ոչ |
 | `BLOCKED` | Պահանջվող որոշումը կամ evidence-ը բացակայում է | Ոչ |
 | `BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY` | Infrastructure որոշումը բաց է | Կանգնեցնում է միայն դրանից կախված infrastructure slice-ը |
+| `OUT_OF_SCOPE` | Owner-authorized Phase I սահմաններից դուրս capability | Չիրականացնել առանց repository owner-ի բացահայտ scope change-ի |
 | `D008_POC_ONLY` | D-008 disposable compatibility PoC-ի սահմանափակ profile | Միայն D-008 scope-ի համար, ոչ business implementation |
 | `ASSESSMENT` | Fit-gap կամ այլ գնահատում | Ոչ |
 | `HISTORICAL` | Audit/history/archive նյութ | Ոչ |

@@ -53,7 +53,7 @@ Search result-ից կամ direct link-ից բացված ֆայլը կիրառե�
 |---|---|---|
 | REG | Registration and patient identification | OpenMRS canonical patient/visit foundation |
 | AMB | Ambulatory care | Առանձին boundary, ոչ Registration/Inpatient-ի ենթաբաժին |
-| INP | Inpatient care | Includes baseline bed/nursing scope միայն ՏԱ-ով |
+| INP | Inpatient care | Includes baseline bed/nursing scope միայն owner-authorized canonical ՏԱ-ով |
 | DIA | Diagnostics and treatment | LAB/RAD/FDI/END/TRT-ը subdomains/workflows են, ոչ ինքնաբերաբար առանձին deployable modules |
 | FIN | Finance and cashier | Clinical status-ից առանձին financial state |
 | REP | Reporting | Միայն ՏԱ-ով անվանված outcomes. formula/grain/time/rounding/access-ը մինչև implementation գրավոր հաստատվող blockers են |
@@ -64,7 +64,7 @@ Search result-ից կամ direct link-ից բացված ֆայլը կիրառե�
 - REG/AMB/INP/DIA/FIN/REP/ADM-ը ownership boundaries են, ոչ պարտադիր մեկական OMOD կամ repository directory։ ՏԱ-ի «յոթ գործառութային մոդուլ» արտահայտությունը հենց այս յոթ խումբն է և յոթ OMOD, directory կամ database չի պահանջում։ DIA-ի LAB/RAD/FDI/END/TRT ենթահոսքերը ինքնուրույն deployable module չեն դառնում առանց post-pilot գրավոր artifact-boundary որոշման։
 - `Required design` կամ fit-gap gap նշումը coding authorization չէ։ Մասնավորապես read-access audit-ը չի կառուցվում մինչև performance/privacy/retention որոշումը։
 - AMB/INP medication prescribing/administration-ը չի ներառում pharmacy dispensing, stock deduction, lot կամ inventory management։
-- INP baseline nursing scope-ը սահմանափակվում է ստորագրված ՏԱ-ի կոնկրետ դաշտերով/գործողություններով։ «Ընդլայնված nursing module» չստեղծել բաց տերմինների հիման վրա։
+- INP baseline nursing scope-ը սահմանափակվում է owner-authorized canonical ՏԱ-ի կոնկրետ դաշտերով/գործողություններով։ «Ընդլայնված nursing module» չստեղծել բաց տերմինների հիման վրա։
 - AMB/INP financial/payment status field-ը կարող է լինել պահանջվող ցուցադրվող տվյալ, բայց դրանից clinical allow/deny վարք չի բխում մինչև առանձին գրավոր policy-ն։
 
 ## 4. Explicit prohibitions
@@ -92,8 +92,7 @@ Phase I-ի պարտադիր նվազագույնը ADM-10-ն է՝ action, user, 
 
 | Blocker | Required owner decision | Blocks only |
 |---|---|---|
-| Java package prefix | Հաստատված reverse-domain namespace | production Java package ստեղծող task-երը |
-| Pilot stack | OpenMRS distribution/release, JVM, DB և exact module versions | production distribution/version pin անող task-երը |
+| Production database | Engine/version/topology և operations ownership | Միայն production database ընտրող կամ deploy անող infrastructure task-երը. development-ի MySQL-compatible configuration-ը բաց չէ |
 | Payment vs clinical action | Չվճարված վիճակի ազդեցությունը admission/order/discharge գործողությունների վրա | task-եր, որոնք payment state-ից clinical action են թույլատրում կամ արգելում |
 | FIN-03 duplicate line | Business uniqueness/idempotency key | FIN-03 duplicate-prevention semantics |
 | AMD rounding | Precision, rounding mode և երբ է rounding արվում | task-եր, որոնց գումարային արդյունքը կախված է rounding-ից |
@@ -102,7 +101,7 @@ Phase I-ի պարտադիր նվազագույնը ADM-10-ն է՝ action, user, 
 | Attachment storage | Provider, limits, malware scanning, retention | PDF/image binary պահող task-երը |
 | Audit retention | Storage, retention, access և review policy | retention, պահման ժամկետ և review policy |
 
-Այս աղյուսակի production package/stack blockers-ը չեն արգելում D-008 pilot-ը և չեն արգելում այն business task-ը, որը production package չի ստեղծում և production stack չի pin անում։ Pilot-ի temporary namespace-ը, exact candidate commit ընտրելու կարգը և minimal layout-ը սահմանված են [Compatibility PoC](./pilot/COMPATIBILITY-POC.md)-ում։ REP-ի formula/grain/time/rounding/access-ը կանգնեցնում է միայն համապատասխան հաշվետվության task-ը։
+Java namespace-ը `org.openmrs.module.saribekyan` է, իսկ գործող runtime pin-ը՝ Reference Application 3.7.1 / Platform 2.8.8 / Java 21։ Դրանք բաց blocker չեն։ Production database-ի բաց որոշումը կանգնեցնում է միայն production database infrastructure slice-ը, ոչ business development-ը կամ committed development stack-ը։ D-008 pilot-ի սահմանները մնում են [Compatibility PoC](./pilot/COMPATIBILITY-POC.md)-ում։ REP-ի formula/grain/time/rounding/access-ը կանգնեցնում է միայն համապատասխան հաշվետվության task-ը։
 
 ## 7. Required output before coding
 

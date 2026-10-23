@@ -50,6 +50,10 @@ documents:
     authority: DOCUMENTATION_ENTRY_POINT
     lifecycle: ACTIVE
     agent_usage: NAVIGATION_AND_PRECEDENCE
+  - path: ../.env.example
+    authority: DEVELOPMENT_CONFIG_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: COPY_TO_LOCAL_IGNORED_ENV_IF_NEEDED
   - path: ../BRIEF.md
     authority: NON_AUTHORIZING
     lifecycle: SUMMARY

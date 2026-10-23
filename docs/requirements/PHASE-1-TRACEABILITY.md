@@ -6,11 +6,20 @@
 
 `Source`-ը stable contract section + row ID է, ոչ փխրուն line number։ `Implementation` սյունակը այս requirement-ի semantics-ն է, ոչ ամբողջ Phase I-ի վիճակը։
 
+`Implementation`-ը ցույց է տալիս՝ պահանջից ինչն է ներկայում իրագործելի։ `Readiness`-ը ցույց է տալիս evidence/blocker-ի ընթացիկ վիճակը և չի վերածվում phase-wide coding gate-ի։ `BLOCKED` տողը կարող է փոքրացվել նոր bounded slice-ի, եթե agent-ը գրանցում է դրա observable outcome-ը և ապացուցում է, որ նշված blocker-ից կախված չէ։
+
 | Implementation | Meaning |
 |---|---|
 | `READY` | Այս requirement-ի համար գրանցված semantic blocker չկա. implementation-ը կարող է սկսվել owner-authorized scope-ով |
 | `PARTIALLY_READY` | Թվարկված ready capability-ն կարող է իրականացվել. blocked capability-ն մնում է կանգնած |
 | `BLOCKED` | Կանգնած է միայն այս requirement-ի նշված blocker-ը |
+
+| Readiness | Meaning |
+|---|---|
+| `READY` | Ամբողջ գրանցված requirement-ը չունի բաց blocker |
+| `PARTIAL_BLOCKED` | Աղյուսակում անվանված implemented/ready slice-ը կարող է շարունակվել կամ ստուգվել, իսկ նշված մնացորդը դեռ blocked է |
+| `READY_SLICE_WITH_CONCURRENCY_BLOCKER` | Միայն թվարկված catalog/read slice-երն են ready. write/assignment slice-ը կանգնած է concurrency rule-ի վրա |
+| `BLOCKED` | Այս պահին bounded ready slice գրանցված չէ. սա unrelated requirements-ի կամ ամբողջ phase-ի blocker չէ |
 
 | Requirement | Source | Ownership | Business source | Implementation | Technical mapping | Design | Blockers | Verification | Readiness |
 |---|---|---|---|---|---|---|---|---|

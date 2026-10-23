@@ -507,11 +507,58 @@ foreach ($canonicalStatus in @(
     'OWNER_AUTHORIZED_BASELINE',
     'APPROVED_CONSTRAINT',
     'GOVERNING_GUARDRAIL_NO_GO',
-    'BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY'
+    'BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY',
+    'OUT_OF_SCOPE'
 )) {
     if ($governanceReadmeText -notmatch [regex]::Escape($canonicalStatus)) {
         Add-Failure "Governance lifecycle dictionary is missing an in-use status: $canonicalStatus"
     }
+}
+
+$techCardText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/TECH_CARD.md')
+foreach ($obsoleteTechCardStatus in @(
+    'ACCEPTED_DIRECTION',
+    'BASELINE_V1_3_OWNER_AUTHORIZED',
+    'APPROVED_DIRECTION',
+    'VALIDATION_REQUIRED',
+    'REQUIRED_FOR_CHANGED_ARTIFACTS',
+    'REQUIRED_PER_IMPLEMENTED_REQUIREMENT',
+    'REQUIRED_FOR_STACK_OR_MIGRATION_CHANGES',
+    'GOVERNANCE REQUIREMENT',
+    'AS-BUILT DELIVERABLE'
+)) {
+    if ($techCardText -match [regex]::Escape($obsoleteTechCardStatus)) {
+        Add-Failure "TECH_CARD contains a non-canonical status token: $obsoleteTechCardStatus"
+    }
+}
+if ($techCardText -notmatch 'SIGNATURE_IS_LEGAL_METADATA_NOT_CODING_GATE') {
+    Add-Failure 'TECH_CARD must identify signature state as legal metadata rather than a coding gate.'
+}
+
+$implementationGateText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/00-IMPLEMENTATION-GATE.md')
+if ($implementationGateText -match '\| Java package prefix \|' -or
+    $implementationGateText -match '\| Pilot stack \|') {
+    Add-Failure 'Implementation guidance still contains an obsolete namespace, stack-pin, or signed-TA blocker.'
+}
+
+$adrIdentityText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/architecture/ADR-0003-identity-boundary.md')
+$clientDecisionIndexText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/phase-scope/decisions/client/README.md')
+if ($adrIdentityText -match 'business scope still requires signed TA' -or
+    $clientDecisionIndexText -match 'verified signed TA artifact') {
+    Add-Failure 'An active guidance file still treats a verified signed TA as a development prerequisite.'
+}
+
+$traceabilityText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/requirements/PHASE-1-TRACEABILITY.md')
+foreach ($readinessStatus in @('PARTIAL_BLOCKED', 'READY_SLICE_WITH_CONCURRENCY_BLOCKER')) {
+    if ($traceabilityText -notmatch "\| ``$readinessStatus`` \|.*\|") {
+        Add-Failure "Traceability legend is missing an in-use readiness status: $readinessStatus"
+    }
+}
+
+$gitignoreText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot '.gitignore')
+if ($gitignoreText -notmatch '(?m)^/docs/\.env$' -or
+    -not (Test-Path -LiteralPath (Join-Path $RepositoryRoot 'docs/.env.example'))) {
+    Add-Failure 'Local docs/.env must be ignored and docs/.env.example must remain as the committed template.'
 }
 
 $architectureText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/01-ARCHITECTURE.md')

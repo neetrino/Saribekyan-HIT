@@ -4,7 +4,7 @@
 - Date: 2026-10-19
 - Decision ID: D-007
 - Decision owner: Project architecture owner
-- Approval evidence: governing Phase I boundary recorded by D-007; `DECISIONS.md` is an index, not independent approval evidence; business scope still requires signed TA
+- Approval evidence: governing Phase I boundary recorded by D-007; `DECISIONS.md` is an index, not independent approval evidence; development scope-ի source-ը owner-authorized canonical TA Markdown-ն է, իսկ signature-ը իրավական readiness metadata է
 - Implementation authority: Owner-authorized canonical Phase I requirements; TASK-GO is optional review
 
 ## Context
