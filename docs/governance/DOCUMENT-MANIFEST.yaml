@@ -25,6 +25,14 @@ documents:
     authority: GOVERNANCE_TEMPLATE
     lifecycle: TEMPLATE
     agent_usage: REQUIRED_FOR_BUSINESS_TASK_GO_RECORD
+  - path: AGENT-ORCHESTRATION.md
+    authority: ORCHESTRATION_PROCESS
+    lifecycle: ACTIVE
+    agent_usage: MANDATORY_FOR_MULTI_AGENT_COORDINATION
+  - path: ORCHESTRATION-RUN-TEMPLATE.md
+    authority: ORCHESTRATION_TEMPLATE
+    lifecycle: TEMPLATE
+    agent_usage: USE_FOR_LONG_MULTI_AGENT_OR_HIGH_RISK_TASKS
   - path: validate-docs.ps1
     authority: VALIDATION_TOOL
     lifecycle: ACTIVE

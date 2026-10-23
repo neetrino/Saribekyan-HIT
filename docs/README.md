@@ -61,6 +61,8 @@ docs/
     └── PHASE-1-TRACEABILITY.md       # ՏԱ պահանջների traceability հիմք
 ```
 
+Multi-agent աշխատանքի դերերը, routing-ը, handoff contract-ը, Playwright QA-ն և completion rule-ը սահմանված են [Agent orchestration](./governance/AGENT-ORCHESTRATION.md)-ում։ Երկար կամ high-risk task-երի համար կիրառվում է [orchestration run record template](./governance/ORCHESTRATION-RUN-TEMPLATE.md)-ը։
+
 Այս ծառը միայն `docs/` documentation tree-ն է։ D-008-ի runtime/source workspace-ը դրա child-ը չէ. այն կարող է ստեղծվել միայն repository root-ի `pilot/openmrs-compatibility/` հասցեում։ `docs/pilot/openmrs-compatibility/`-ը արգելված duplicate workspace է։
 
 Հաջորդ documentation փուլերում այս design baseline-ը կլրացվի testing, UAT, operations, release և իրական module records-ով։

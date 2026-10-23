@@ -66,4 +66,11 @@ if [ -f "$manifest" ]; then
   envsubst '${IMPORTMAP_URL} ${SPA_PATH} ${API_URL}' < "$manifest" | sponge "$manifest"
 fi
 
+# Refine search only filters the name/identifier query. When that box is empty,
+# use the filled person-attribute value (telephone) as the patient search.
+SEARCH_BUNDLE=/usr/share/nginx/html/openmrs-esm-patient-search-app-11.1.0/5882.js
+if [ -f "$SEARCH_BUNDLE" ] && grep -q '(0,s.HJ)(r,u,!!r,50)' "$SEARCH_BUNDLE"; then
+  sed -i 's/(0,s\.HJ)(r,u,!!r,50)/(0,s.HJ)((function(){var e=String(r||"").trim();if(e)return e;var n=f\&\&f.attributes||{},t=Object.keys(n).find(function(e){return n[e]\&\&String(n[e]).trim()});return t?String(n[t]).trim():""})(),u,!!(String(r||"").trim()||Object.keys((f\&\&f.attributes)||{}).some(function(e){return f.attributes[e]\&\&String(f.attributes[e]).trim()})),50)/' "$SEARCH_BUNDLE"
+fi
+
 exec nginx -g "daemon off;"
