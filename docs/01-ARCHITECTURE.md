@@ -2,7 +2,7 @@
 
 ## Purpose and status
 
-Այս փաստաթուղթը սահմանում է Phase I-ի նպատակային ճարտարապետությունը, ոչ թե դեռ չգրված համակարգի as-built վիճակը։ Հաստատված ուղղություններն են՝ **Size C**, **OpenMRS clinical foundation** և **Java**-ն՝ որպես custom backend-ի լեզու։ OMOD/O3 փաթեթավորումը `Proposed` է [ADR-0002](./architecture/ADR-0002-extension-strategy.md)-ում և այս նախադասությամբ հաստատված չէ։ Owner-authorized Phase I scope-ը կիրառվում է առանց signature կամ TASK-GO prerequisite-ի։ `Proposed` ու `PoC required` տեխնիկական ընտրությունները վերջնական չեն մինչև համապատասխան ապացույցն ու ADR-ը, երբ տվյալ implementation-ը դրանցից կախված է։
+Այս փաստաթուղթը սահմանում է Phase I-ի նպատակային և գործող հիմքային ճարտարապետությունը։ Հաստատված ուղղություններն են՝ **Size C**, **OpenMRS clinical foundation**, **Java 21** և [ADR-0002](./architecture/ADR-0002-extension-strategy.md)-ով ընդունված OMOD/O3 extension strategy-ն։ Գործող runtime pin-ն է Reference Application 3.7.1 / Platform 2.8.8։ Owner-authorized Phase I scope-ը կիրառվում է առանց signature կամ TASK-GO prerequisite-ի։ Feature-specific `Proposed` ընտրությունը կանգնեցնում է միայն իրենից կախված behavior-ը։
 
 Չնշված աղյուսակային status-ը կամ հրամայական architecture լեզուն նոր business scope չի ստեղծում։ Canonical foundation/no-fork/no-direct-SQL սահմանները governing են, իսկ component/topology/product/pattern ընտրությունները `PROPOSED_DESIGN` են մինչև կիրառելի Accepted decision։ TASK-GO record-ը optional review artifact է։
 
@@ -19,7 +19,7 @@
 
 Ստորև նկարագրվածը **նպատակային architecture պատկերն է, ոչ business implementation սկսելու թույլտվություն**։ D-008-ը թույլատրում է միայն մեկ compatibility PoC՝ մեկ non-business pilot OMOD-ով և մեկ minimal O3 extension-ով՝ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ի համաձայն։ Pilot-ի տեխնիկական ավարտը go որոշում չէ։ REG–ADM business module-ները և production distribution tree-ն չեն ստեղծվում, մինչև evidence review/go որոշումը գրանցված չէ և ADR-0002-ը ընդունված կամ մերժված չէ։
 
-Եթե pilot evidence-ի review/go որոշումը դրական է և ADR-0002-ն ընդունում է extension strategy-ն, նպատակային համակարգը կարող է հաստատվել որպես OpenMRS distribution՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Մինչ այդ OMOD/O3 business architecture-ը մնում է `Proposed`։ Եթե ADR-0002-ը մերժվի, այս repository-ում փոխարինող business architecture չկա։ Ագենտը չի ընտրում առանձին Spring/JPA մոդել, microservices կամ այլ փաթեթավորում. աշխատանքը կանգ է առնում մինչև նոր գրավոր որոշում։ Concepts, forms, locations, roles և distribution metadata-ն նպատակային տարբերակում version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
+Գործող համակարգը OpenMRS Reference Application distribution է՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Սա `ACCEPTED_AS_BUILT` հիմք է։ Ագենտը չի ընտրում առանձին Spring/JPA clinical model, microservices կամ այլ փաթեթավորում առանց կոնկրետ կարիքի և architecture decision-ի։ Concepts, forms, locations, roles և distribution metadata-ն version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
 
 ## System context
 

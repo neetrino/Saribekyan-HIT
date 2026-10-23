@@ -17,7 +17,7 @@
 | Accepted | `ACCEPTED_DIRECTION` | Կիրառելի տեխնիկական ուղղություն է իր սահմաններում, ոչ նոր business scope |
 | Draft contract baseline | `BASELINE_V1_3_OWNER_AUTHORIZED` | Owner-authorized business baseline է. signature status-ը իրավական metadata է |
 | Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
-| Approved gate / D-008 PoC gate only | `D008_POC_ONLY` | Միայն D-008 compatibility PoC-ն. business implementation չսկսել |
+| D-008 PoC profile | `D008_POC_ONLY` | Միայն disposable compatibility PoC-ի scope-ն է սահմանում. business development-ի global gate չէ |
 | Approved Phase I boundary / Approved scope / Approved constraint | `GOVERNING_GUARDRAIL` | Պահպանել արգելքը/սահմանը, բայց code չսկսել |
 | Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION` | Design constraint է canonical requirement-ի համար. բաց մասը blocker է միայն իրենից կախված task-ի համար |
 | Contract baseline / Conditional contract requirement | `BASELINE_V1_3_OWNER_AUTHORIZED` | Development baseline է. signature verification-ը իրավական metadata է |
@@ -53,18 +53,18 @@
 | Project size | Size C | APPROVED_CONSTRAINT | Դասակարգում է governance/quality կարիքները. module tree չի սահմանում |
 | Clinical platform | OpenMRS | GOVERNING_CANONICAL_MODEL_NO_SKELETON | Պացիենտ, visit, encounter, obs, order և clinical terminology ownership guardrail է. distribution/OMOD tree չի թույլատրում |
 | Backend language | Java | APPROVED_CONSTRAINT | Թույլատրված custom backend-ի լեզվի constraint է. ինքնուրույն module count չի սահմանում |
-| Delivery scope | Phase I contract specification v1.3 | Business source text | Signed-source verification-ը պարտադիր է business task-ի համար. այլ requirement-ի բաց decision-ը այս task-ը չի կանգնեցնում. D-008 PoC-ն մնում է բացառություն, քանի դեռ signed source-ը verified չէ |
-| Architecture approach | OpenMRS distribution + modules | Proposed | Core fork-ից խուսափելու և upgrade path-ը պահպանելու սկզբունք |
+| Delivery scope | Phase I technical specification v1.3 | OWNER_AUTHORIZED_BASELINE | Signature verification-ը և TASK-GO-ն coding prerequisites չեն. բաց business semantics-ը կանգնեցնում է միայն կախված slice-ը |
+| Architecture approach | OpenMRS Reference Application distribution + supported modules | ACCEPTED_AS_BUILT | Գործող repository/runtime կառուցվածքն է՝ առանց OpenMRS core fork-ի |
 
 ## 2. OpenMRS distribution
 
 | Decision | Value | Status | Acceptance condition |
 |---|---|---|---|
-| Starting distribution | OpenMRS 3 Reference Application derivative | Proposed | Exact candidate-ը հաստատվում է միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո; fit-gap assessment-ը բավարար չէ |
-| OpenMRS Platform version | Exact version TBD | PoC required | Պետք է pin անել մեկ release line, ոչ `latest`/`next` |
-| Backend modules | Exact versions TBD | PoC required | Compatibility matrix + automated smoke tests |
-| Frontend modules | Exact versions TBD | PoC required | `spa-assemble-config.json`-ում exact versions |
-| Metadata/configuration | Version-controlled distribution content | Proposed | Concepts, forms, locations, roles և configuration-ը reproducible են |
+| Starting distribution | OpenMRS Reference Application 3.7.1 | ACCEPTED_AS_BUILT | `openmrs-distro-referenceapplication/pom.xml` և Docker Compose image tags |
+| OpenMRS Platform version | 2.8.8 | ACCEPTED_AS_BUILT | `openmrs-distro-referenceapplication/distro/pom.xml`-ի `openmrs.version` |
+| Backend modules | Distribution manifest-ում pinned versions | ACCEPTED_AS_BUILT | Source of truth՝ distro POM/build output; փոփոխությունը պահանջում է compatibility verification |
+| Frontend modules | Reference Application 3.7.1 build/configuration-ում pinned versions | ACCEPTED_AS_BUILT | Source of truth՝ frontend build/config և distribution image |
+| Metadata/configuration | Version-controlled distribution content | ACCEPTED_AS_BUILT | Concepts, forms, locations, roles և configuration-ը պահվում են reproducible distribution content-ում |
 | Core modification | Phase I-ում OpenMRS core fork/patch արգելված է | Approved Phase I boundary | ADR կամ review-ը ներկայիս scope-ում բացառություն չէ։ D-008-ի `spa-assemble-config.patch` և `omod-inclusion.patch` միայն ignored `pilot/openmrs-compatibility/work/reference-application/` distro copy-ի configuration/assembly patch-եր են, ոչ core source patch, և թույլատրված են միայն PoC spec-ի սահմաններով |
 
 ## 3. Backend
@@ -72,15 +72,15 @@
 | Area | Decision | Status |
 |---|---|---|
 | Runtime | OpenMRS Java backend/module runtime | GOVERNING_CANONICAL_MODEL_NO_SKELETON |
-| Custom server capabilities | Java OMOD modules | Proposed |
+| Custom server capabilities | Java OMOD modules | ACCEPTED_AS_BUILT |
 | Business boundaries | REG registration, AMB ambulatory, INP inpatient, DIA diagnostics/treatment, FIN finance, REP reporting, ADM administration | GOVERNING_GUARDRAIL — ownership only; no OMOD/package/directory count |
 | Database access | OpenMRS service/API layer, custom module DAOs միայն module-owned data-ի համար | Proposed |
 | Schema migrations | OpenMRS/Liquibase module migrations | Proposed |
 | Background work | Exact mechanism TBD | Deferred |
-| Dependency/build tool | Maven-compatible OpenMRS module builds | Proposed |
-| JVM version | Distribution compatibility review-ից հետո | PoC required |
+| Dependency/build tool | Maven OpenMRS module/distribution build | ACCEPTED_AS_BUILT |
+| JVM version | Java 21 | ACCEPTED_AS_BUILT |
 
-Repository-ում հիշատակված որևէ կոնկրետ Platform/JVM զույգ ինքնաբերաբար baseline չէ։ Exact Platform և Java/JVM տարբերակները վերցվում են D-008 pilot-ի ընտրված exact commit-ից և հաստատվում են compatibility evidence-ով. մինչ այդ agent-ը version չի pin անում։
+Գործող ընդունված stack baseline-ն է Reference Application 3.7.1 + Platform 2.8.8 + Java 21։ Evidence-ը repository-ի distro POM-երը, Docker image configuration-ը և module compiler release-ն են։ Այս pin-ի փոփոխությունը սովորական feature implementation չէ և պահանջում է առանձին compatibility review։
 
 ## 4. Frontend
 
@@ -113,7 +113,7 @@ Form schema validation-ը բավարար չէ․ յուրաքանչյուր clin
 | Area | Decision | Status |
 |---|---|---|
 | Primary database | Distribution-supported relational database | Approved constraint |
-| DB engine candidate | TBD՝ D-008 exact distribution commit-ի supported manifest-ից | PoC required |
+| DB engine candidate | Production engine/version decision TBD; current development distro uses its configured MySQL-compatible database | BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY |
 | Custom tables | Միայն այն domain-ների համար, որոնք OpenMRS canonical model-ը չի ծածկում | Proposed |
 | Files/documents | Storage strategy TBD | Deferred |
 | Backup/restore | Automated baseline + documented restore test | Contract baseline |
@@ -188,24 +188,24 @@ Audit Log Web/Envers capability-ն ինքնուրույն չի ապացուցո�
 
 ## 12. Delivery and quality
 
-Այս աղյուսակը production delivery-ի acceptance checklist է, ոչ անմիջապես կատարվող setup task։ Յուրաքանչյուր տող կիրառվում է միայն համապատասխան artifact/task-ի `GO`-ից հետո։ Այն չի թույլատրում version pin, CI pipeline, module tree կամ business skeleton ստեղծել նախապես։
+Այս աղյուսակը production delivery-ի acceptance checklist է։ TASK-GO-ն կամ signature verification-ը դրա prerequisite չեն։ Այն չի ստեղծում նոր business scope, իսկ չլուծված կետը կանգնեցնում է միայն իրենից կախված delivery outcome-ը։
 
 | Area | Required production outcome | Current authority/status |
 |---|---|---|
-| Version pinning | Platform, OMOD և O3 package exact versions | BLOCKED մինչև D-008 evidence review/go և stack decision |
-| CI | Build, unit, integration, security/dependency և distribution smoke tests | POST-GO; իրական approved artifact-ների համար միայն |
-| Clinical workflows | Automated integration + role-based UAT | POST-SIGNATURE/PER-REQUIREMENT GO |
-| Upgrade safety | Clean distribution rebuild և migration rehearsal | POST-GO; ընտրված distribution-ի համար |
+| Version pinning | Reference Application 3.7.1, Platform 2.8.8, Java 21; OMOD/O3 versions from manifests | ACCEPTED_AS_BUILT; փոփոխությունը պահանջում է compatibility review |
+| CI | Build, unit, integration, security/dependency և distribution smoke tests | REQUIRED_FOR_CHANGED_ARTIFACTS |
+| Clinical workflows | Automated integration + role-based UAT | REQUIRED_PER_IMPLEMENTED_REQUIREMENT |
+| Upgrade safety | Clean distribution rebuild և migration rehearsal | REQUIRED_FOR_STACK_OR_MIGRATION_CHANGES |
 | Traceability | ՏԱ ID → design → code → test → UAT evidence | GOVERNANCE REQUIREMENT; code authorization չէ |
 | Documentation | Architecture, DB, API, deployment, operations և user guides | AS-BUILT DELIVERABLE; դատարկ skeleton չի պահանջում |
 
-## 13. Decisions required before business implementation
+## 13. Remaining stack and feature decisions
 
-Այս ցանկը D-008 compatibility pilot-ը չի արգելում։ Pilot-ը հատուկ թույլատրված է, որպեսզի 1–4 կետերի exact candidate versions-ը և compatibility evidence-ը ստացվեն։ Pilot-ի սահմանները, disposable namespace-ը և exact-commit selection-ը սահմանված են [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում։ Ստորև բերված որոշումները պարտադիր են REG–ADM business implementation-ից առաջ։
+Գործող distribution/platform/JVM pin-ն արդեն ընդունված as-built հիմք է։ Ստորև նշված բաց կետերը global development gate չեն. յուրաքանչյուրը լուծվում է այն feature-ի կամ փոփոխության ժամանակ, որն իրականում դրանից կախված է։ D-008-ի պատմական սահմանները նկարագրված են [COMPATIBILITY-POC.md](./pilot/COMPATIBILITY-POC.md)-ում։
 
-1. Reference Application-ից մեկնարկելու exact release-ը։
-2. Platform/JVM/DB engine և DB version compatibility matrix-ը։ Matrix-ը չի կանխորոշում MariaDB-ն կամ այլ շարժիչ. engine/version-ը հաստատվում են միայն հաջող D-008 evidence-ի review/go որոշմամբ։
-3. Պարտադիր backend և O3 modules-ի exact versions-ը։
+1. **Resolved:** Reference Application 3.7.1։
+2. **Resolved for Platform/JVM:** Platform 2.8.8 և Java 21։ DB engine/version-ի production compatibility-ն մնում է առանձին infrastructure decision։
+3. **Resolved for current build:** backend և O3 module versions-ը վերցվում են committed distribution manifests/build configuration-ից։ Նրանց փոփոխությունը պահանջում է compatibility verification։
 4. Ստուգել ընտրված native OpenMRS release-ի session controls-ը և արդյոք այն ներկառուցված MFA ունի։ Եթե չունի, դա արձանագրվում է որպես unavailable՝ առանց սեփական TOTP/SMS կամ external IdP կառուցելու։
 5. Finance persistence և billing extension boundary-ն։
 6. Reporting/document generation stack-ը։

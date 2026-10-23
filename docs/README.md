@@ -29,8 +29,8 @@ Agent-ը պարտադիր ստուգում է [documentation manifest](./governa
 - Նախագծի չափը՝ **Size C**։
 - Հիմնական բժշկական հարթակը՝ **OpenMRS**։
 - Custom backend development-ի հիմնական լեզուն՝ **Java**։
-- Փուլ I-ի փակ գործառութային baseline-ը և բացառումները՝ տեխնիկական առաջադրանք v1.3-ի բաժիններ 5–16։ Ստորագրության verification-ը անհրաժեշտ է business task-ի համար, բայց ինքնուրույն բավարար coding authorization չէ. յուրաքանչյուր task անցնում է implementation gate-ը և պահանջում է միայն իր dependency-ների լուծումը։
-- OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact տարբերակները կարող են pin արվել միայն հաջող D-008 compatibility PoC-ի immutable evidence-ից և գրանցված review/go որոշումից հետո։ Fit-gap փաստաթուղթը միայն assessment է և ինքնուրույն pin կամ implementation authorization չի տալիս։
+- Փուլ I-ի գործառութային baseline-ը և բացառումները՝ տեխնիկական առաջադրանք v1.3-ի բաժիններ 5–16։ Repository owner-ը development-ը թույլատրել է այդ canonical baseline-ի հիման վրա։ Signature verification-ը, TASK-GO-ն և implementation-gate verdict-ը business task-ի մեկնարկի prerequisites չեն. իրական բաց business semantics-ը կանգնեցնում է միայն իրենից կախված slice-ը։
+- Ընդունված և repository-ում կիրառվող runtime pin-ն է՝ **OpenMRS Reference Application 3.7.1**, **OpenMRS Platform 2.8.8**, **Java 21**։ OMOD/O3 package-ների կոնկրետ տարբերակների source of truth-ը distribution manifest/build configuration-ն է։ Նոր stack migration-ը կամ pin-ի փոփոխությունը պահանջում է առանձին տեխնիկական որոշում և compatibility verification։
 
 ## Կառուցվածք
 
@@ -74,9 +74,9 @@ Phase I-ի յոթ functional group-երի dependency-ordered իրականացո�
 | Փուլ | Արդյունք | Կարգավիճակ |
 |---|---|---|
 | 1. Scope baseline | Brief, glossary, source matrix, traceability հիմք | Documentation artifact պատրաստ է, contract-ը դեռ ստորագրված չէ |
-| 2. Technology decisions | TECH_CARD, OpenMRS fit-gap, տեխնոլոգիական ADR-ներ | Documentation artifact պատրաստ է, Proposed/PoC որոշումները բաց են |
-| 3. Architecture | System context, components, security և integrations | Target design artifact պատրաստ է, Proposed/PoC որոշումները բաց են |
-| 4. Detailed design | Repository structure, API, database և module contracts | Business implementation-ից առաջ հաստատման ենթակա. D-008 compatibility pilot-ը թույլատրված է հիմա |
+| 2. Technology decisions | TECH_CARD, OpenMRS fit-gap, տեխնոլոգիական ADR-ներ | Runtime baseline-ը ընդունված է. feature-specific բաց որոշումները նշված են առանձին |
+| 3. Architecture | System context, components, security և integrations | Գործող հիմքը as-built է, իսկ չիրականացված feature-specific ընտրությունները մնում են Proposed |
+| 4. Detailed design | Repository structure, API, database և module contracts | Իրականացվում է owner-authorized scope-ի հետ միասին. բաց որոշումը կանգնեցնում է միայն կախված slice-ը |
 | 5. Delivery controls | Testing, UAT, operations, progress և release controls | Սպասվող |
 | 6. Consistency audit | Փաստաթղթերի և ՏԱ-ի վերջնական traceability review | Սպասվող |
 

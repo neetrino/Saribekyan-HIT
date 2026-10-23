@@ -13,7 +13,7 @@
 
 ## Decision
 
-OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք, իսկ custom backend development-ի հիմնական լեզուն Java-ն է։ Այս ADR-ը չի ընդունում production OMOD/O3 artifact strategy-ն կամ module tree-ը. extension/package մեխանիզմի ընտրությունը մնում է ADR-0002-ի `Proposed` մաս և ներկայում թույլատրված է միայն D-008 compatibility PoC-ի սահմաններում։
+OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք, իսկ custom backend development-ի լեզուն Java 21-ն է։ Production OMOD/O3 extension mechanism-ը ընդունված է որպես գործող as-built ռազմավարություն [ADR-0002](./ADR-0002-extension-strategy.md)-ով։ Դա ինքնաբերաբար module tree կամ ownership group-ի դիմաց մեկ artifact չի սահմանում։
 
 Այս որոշումը չի հաստատում որևէ կոնկրետ OpenMRS release կամ community module version։ Դրանք ընտրվում և pin են արվում միայն հաջող D-008 compatibility PoC-ի immutable evidence review/go որոշումից հետո։ Fit-gap assessment-ը բավարար չէ։
 
