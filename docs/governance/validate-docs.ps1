@@ -534,6 +534,10 @@ foreach ($obsoleteTechCardStatus in @(
 if ($techCardText -notmatch 'SIGNATURE_IS_LEGAL_METADATA_NOT_CODING_GATE') {
     Add-Failure 'TECH_CARD must identify signature state as legal metadata rather than a coding gate.'
 }
+if ($techCardText -notmatch 'PROPOSED_DESIGN_ALLOWS_OWNER_AUTHORIZED_IMPLEMENTATION' -or
+    $techCardText -match 'Proposed baseline \|.*not implementation authorization') {
+    Add-Failure 'TECH_CARD must keep Proposed/Required design compatible with owner-authorized implementation.'
+}
 
 $implementationGateText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/00-IMPLEMENTATION-GATE.md')
 if ($implementationGateText -match '\| Java package prefix \|' -or

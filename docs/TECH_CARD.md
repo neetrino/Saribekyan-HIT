@@ -6,6 +6,8 @@
 
 `SIGNATURE_IS_LEGAL_METADATA_NOT_CODING_GATE`: owner-authorized canonical Markdown-ը development baseline-ն է։
 
+`PROPOSED_DESIGN_ALLOWS_OWNER_AUTHORIZED_IMPLEMENTATION`: առաջարկված design-ը ինքնուրույն նոր scope չի ստեղծում, բայց հստակ Phase I capability-ի դեպքում agent-ը կարող է ընտրել ամենապարզ maintainable լուծումը և գրանցել evidence-ը։
+
 ### Legacy row status → agent action
 
 | TECH_CARD status | Canonical interpretation | Agent action |
@@ -43,9 +45,9 @@
 | Approved Phase I boundary / Approved scope / Approved constraint | Փուլ I-ի պարտադիր սահման կամ արգելք, ոչ ամբողջ տեխնոլոգիական ռազմավարության ընդունում |
 | Approved direction | Հաստատված ուղղություն, որի exact product/version/layout-ը կարող է դեռ բաց լինել |
 | Proposed | Ուժեղ թեկնածու, որը պահանջում է տեխնիկական հաստատում |
-| Proposed baseline | Նախնական design assumption, ոչ implementation authorization |
+| Proposed baseline | Նախնական design ուղղություն. owner-authorized Phase I capability-ի համար կարելի է ընտրել ամենապարզ maintainable իրականացումը՝ առանց նոր business semantics հորինելու |
 | PoC required | Որոշումից առաջ անհրաժեշտ է փորձնական իրականացում |
-| Custom design required / Required design | Պահանջի համար design-ը անհրաժեշտ է, բայց դեռ ընդունված կամ կառուցելու թույլատրված չէ |
+| Custom design required / Required design | Պահանջի համար design ընտրությունը անհրաժեշտ է. owner-authorized Phase I capability-ի համար ընտրել ամենապարզ maintainable լուծումը և գրանցել evidence-ը |
 | Contract baseline / Conditional contract requirement | Owner-authorized canonical baseline-ից եկող պայման. signature կամ implementation gate coding prerequisite չեն |
 | Deferred | Այս documentation փուլում չի որոշվում |
 | Out of Phase I | Փուլ I-ի պայմանագրային ծավալից դուրս է |
