@@ -11,20 +11,22 @@
 | Approved | `APPROVED_CONSTRAINT` | Սահմանը կամ ուղղությունը պահել. նոր business scope չստեղծել |
 | APPROVED_CONSTRAINT / GOVERNING_CANONICAL_MODEL_NO_SKELETON | նույն canonical literal-ը | Constraint/ownership guardrail է. ինքնուրույն dependency, Maven/OMOD tree կամ skeleton չի սահմանում |
 | GOVERNING_GUARDRAIL | canonical literal | Պարտադիր արգելք/սահման է authorized implementation-ի ընթացքում |
-| PROPOSED_DESIGN | canonical literal | Չդարձնել վերջնական architecture առանց accepted decision-ի, երբ task-ը դրանից կախված է |
+| PROPOSED_DESIGN | canonical literal | Candidate է. չի ստեղծում նոր scope և կանգնեցնում է միայն այն behavior-ը, որի համար ընտրությունը իսկապես անհրաժեշտ է |
 | BLOCKED | canonical literal | Կանգնեցնել միայն այս decision-ից կախված task-ը և պահանջել փակող evidence |
 | D008_POC_ONLY | canonical literal | Միայն `D008_COMPATIBILITY_POC` profile, ոչ business code |
 | Accepted | `ACCEPTED_DIRECTION` | Կիրառելի տեխնիկական ուղղություն է իր սահմաններում, ոչ նոր business scope |
+| ACCEPTED_AS_BUILT | canonical literal | Repository/runtime evidence-ով գործող և ընդունված տեխնիկական ընտրություն է |
+| ACCEPTED_AS_BUILT_PARTIAL | canonical literal | Նշված capability-ն իրական է և պահպանվում է, բայց requirement-ի մնացած acceptance/evidence-ը շարունակում է բաց մնալ |
 | Draft contract baseline | `BASELINE_V1_3_OWNER_AUTHORIZED` | Owner-authorized business baseline է. signature status-ը իրավական metadata է |
 | Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
 | D-008 PoC profile | `D008_POC_ONLY` | Միայն disposable compatibility PoC-ի scope-ն է սահմանում. business development-ի global gate չէ |
 | Approved Phase I boundary / Approved scope / Approved constraint | `GOVERNING_GUARDRAIL` | Պահպանել արգելքը/սահմանը, բայց code չսկսել |
 | Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION` | Design constraint է canonical requirement-ի համար. բաց մասը blocker է միայն իրենից կախված task-ի համար |
 | Contract baseline / Conditional contract requirement | `BASELINE_V1_3_OWNER_AUTHORIZED` | Development baseline է. signature verification-ը իրավական metadata է |
-| Proposed / Proposed baseline / Required design / Custom design required | `PROPOSED_DESIGN` | Code/dependency/schema չստեղծել |
-| PoC required / Proposed + PoC required | `VALIDATION_REQUIRED` | Install կամ version pin չանել. միայն առանձին թույլատրված PoC scope |
+| Proposed / Proposed baseline / Required design / Custom design required | `PROPOSED_DESIGN` | Չհորինել candidate-ից նոր scope. կոնկրետ capability-ի համար ընտրել ամենապարզ maintainable լուծումը և գրանցել evidence-ը |
+| PoC required / Proposed + PoC required | `VALIDATION_REQUIRED` | Validation-ը պահանջվում է dependent adoption/release claim-ի համար, ոչ unrelated development-ը սկսելու համար |
 | Proposed / blocked | `BLOCKED` | Կանգնեցնել միայն կախված task-ը |
-| Change request required / Out of Phase I | `OUT_OF_SCOPE` | Չիրականացնել առանց signed change request-ի |
+| Change request required / Out of Phase I | `OUT_OF_SCOPE` | Չիրականացնել առանց repository owner-ի բացահայտ scope change-ի. contract signature-ը coding prerequisite չէ |
 | Deferred / Open / TBD | `BLOCKED` | Կանգնեցնել միայն այն task-ը, որի արդյունքը կախված է այս արժեքից |
 
 Վերևի mapping-ում չգտնված ցանկացած status, այդ թվում `Approved direction / open detail` տիպի չթվարկված համակցությունը, `BLOCKED` է։ `Approved` և `Accepted` արդեն mapping-ում են և business code չեն թույլատրում։
@@ -34,6 +36,8 @@
 | Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
 | Approved | Ուղղություն կամ սահման իր նկարագրության մեջ. չի ստեղծում նոր business scope |
 | Accepted | Հաստատված տեխնիկական ուղղություն է իր evidence-ի սահմաններում. TASK-GO prerequisite չէ |
+| ACCEPTED_AS_BUILT | Repository/runtime evidence-ով հաստատված գործող տեխնիկական ընտրություն |
+| ACCEPTED_AS_BUILT_PARTIAL | Գործող capability-ի ընդունված մասնակի վիճակ. չի նշանակում ամբողջ requirement-ի completion |
 | Approved Phase I boundary / Approved scope / Approved constraint | Փուլ I-ի պարտադիր սահման կամ արգելք, ոչ ամբողջ տեխնոլոգիական ռազմավարության ընդունում |
 | Approved direction | Հաստատված ուղղություն, որի exact product/version/layout-ը կարող է դեռ բաց լինել |
 | Proposed | Ուժեղ թեկնածու, որը պահանջում է տեխնիկական հաստատում |
@@ -86,8 +90,8 @@
 
 | Area | Decision | Status |
 |---|---|---|
-| Shell | OpenMRS O3 app shell | Proposed |
-| Reused UI | O3 patient management, chart, forms և այլ համապատասխան modules | Proposed / PoC required |
+| Shell | OpenMRS O3 app shell | ACCEPTED_AS_BUILT |
+| Reused UI | O3 patient management/chart և O3 patient-search app; այլ modules՝ ըստ feature fit-ի | ACCEPTED_AS_BUILT_PARTIAL — patient-search configuration committed; մնացած feature fit-ը requirement-scoped է |
 | Custom UI | O3 frontend modules, extensions, pages և workspaces | Proposed |
 | Framework | O3-ի կողմից աջակցվող React ecosystem | Proposed |
 | Localization | Հայերեն պարտադիր, լրացուցիչ լեզուները՝ առանձին որոշմամբ | Approved / partially open |

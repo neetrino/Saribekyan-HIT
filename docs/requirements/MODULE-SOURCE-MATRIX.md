@@ -2,7 +2,7 @@
 
 ## Նպատակ
 
-Այս ֆայլը candidate gap inventory է, ոչ artifact, package, layer կամ տեխնոլոգիական հանձնարարական (`NO_ARTIFACT_FROM_MAPPING`)։ Requirement ID-ի տողը թույլ չի տալիս ստեղծել OMOD, O3 module, service, API, `domain` շերտ, database կամ dependency։ Reuse/configure/custom և physical artifact boundary-ն որոշվում են միայն D-008 review-ից, Accepted ADR-ից և task-level `GO`-ից հետո։
+Այս ֆայլը candidate gap inventory է, ոչ artifact, package, layer կամ տեխնոլոգիական հանձնարարական (`NO_ARTIFACT_FROM_MAPPING`)։ Requirement ID-ի տողը ինքնուրույն չի ստեղծում OMOD, O3 module, service, API, `domain` շերտ, database կամ dependency։ Reuse/configure/custom և physical artifact boundary-ն ընտրվում են միայն կոնկրետ Phase I capability-ի իրականացման կարիքից ու առկա repository/runtime fit-ից։ Սովորական implementation detail-ը D-008 review, Accepted ADR կամ task-level `GO` չի պահանջում. առանձին ADR պետք է միայն նշանակալի architecture որոշման համար։
 
 ## Դասակարգում
 

@@ -15,7 +15,7 @@
 
 OpenMRS-ը օգտագործվում է որպես HIS-ի clinical platform հիմք, իսկ custom backend development-ի լեզուն Java 21-ն է։ Production OMOD/O3 extension mechanism-ը ընդունված է որպես գործող as-built ռազմավարություն [ADR-0002](./ADR-0002-extension-strategy.md)-ով։ Դա ինքնաբերաբար module tree կամ ownership group-ի դիմաց մեկ artifact չի սահմանում։
 
-Այս որոշումը չի հաստատում որևէ կոնկրետ OpenMRS release կամ community module version։ Դրանք ընտրվում և pin են արվում միայն հաջող D-008 compatibility PoC-ի immutable evidence review/go որոշումից հետո։ Fit-gap assessment-ը բավարար չէ։
+Գործող ընդունված release baseline-ն է Reference Application 3.7.1, OpenMRS Platform 2.8.8 և Java 21։ Community/backend/frontend module versions-ի source of truth-ը committed distribution manifests/build configuration-ն է։ Այս pin-ի փոփոխությունը պահանջում է compatibility verification, բայց D-008 կամ TASK-GO prerequisite չկա։
 
 ## Consequences
 

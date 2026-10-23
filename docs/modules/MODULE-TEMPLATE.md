@@ -1,6 +1,6 @@
 # Module: `<name>`
 
-> **DO NOT INSTANTIATE FROM REQUIREMENT IDS.** Սա միայն արդեն առանձին հաստատված physical artifact-ի documentation template է։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ը կամ LAB/RAD/FDI/END/TRT prefix-ը module/folder/OMOD ստեղծելու պատճառ չէ։ Template-ը պատճենվում է միայն approved artifact-boundary decision-ից և task `GO`-ից հետո։
+> **DO NOT INSTANTIATE FROM REQUIREMENT IDS.** Սա իրական physical artifact-ի documentation template է։ REG/AMB/INP/DIA/FIN/REP/ADM ownership group-ը կամ LAB/RAD/FDI/END/TRT prefix-ը module/folder/OMOD ստեղծելու պատճառ չէ։ Template-ը կիրառվում է, երբ repository-ում կա իրական reused/configured/custom artifact կամ owner-authorized capability-ն դրա կարիքն ունի։ TASK-GO prerequisite չկա։
 
 ## Status and ownership
 
@@ -12,9 +12,9 @@
 - Decision/ADR:
 - Canonical baseline hash (`SIGNATURE-STATUS.yaml` → `canonical_content.sha256`):
 - Contract signature status (informational only):
-- Task go record ID/path:
+- Optional independent review record ID/path:
 - Independent approver/date/evidence:
-- Open blockers (`NONE` required before implementation):
+- Open blockers (`NONE` required before declaring the affected capability complete):
 
 Եթե canonical baseline reference-ը կամ տվյալ module slice-ի իրական requirement/blocker resolution-ը բացակայում է, այս record-ից նոր business semantics չի կարելի հորինել։ Contract signature-ը և TASK-GO-ն code/schema/dependency ստեղծելու prerequisites չեն։
 

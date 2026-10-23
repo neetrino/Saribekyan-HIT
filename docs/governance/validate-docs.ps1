@@ -376,8 +376,8 @@ if ($databaseText -notmatch 'NO_RESULT_MODEL_FROM_CANDIDATE_MAPPING') {
 }
 
 $structureText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/03-STRUCTURE.md')
-if ($structureText -notmatch 'NO_PRE_GO_LAYOUT' -or $structureText -match '<future-repository-root>') {
-    Add-Failure 'Structure guidance must not expose a pre-GO repository tree.'
+if ($structureText -notmatch 'placeholder repository tree' -or $structureText -match '<future-repository-root>') {
+    Add-Failure 'Structure guidance must not prescribe a speculative repository tree.'
 }
 
 $apiText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/04-API.md')
@@ -495,6 +495,64 @@ if ($archiveIndexText -notmatch 'NO_CURRENT_PRIORITY_SOURCES' -or
     $archiveIndexText -notmatch 'NON_AUTHORIZING' -or
     $archiveIndexText -notmatch 'NO_CLOSED_CLARIFICATION_CLAIM') {
     Add-Failure 'The archived-drafts index must not promote any archived artifact or draft 32 as a current source.'
+}
+
+# Option A/as-built documentation must remain internally aligned.
+$governanceReadmeText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/governance/README.md')
+foreach ($canonicalStatus in @(
+    'ACCEPTED_AS_BUILT',
+    'ACCEPTED_AS_BUILT_PARTIAL',
+    'AS_BUILT_FOUNDATION',
+    'ACTIVE_DELIVERY_BASELINE',
+    'OWNER_AUTHORIZED_BASELINE',
+    'APPROVED_CONSTRAINT',
+    'GOVERNING_GUARDRAIL_NO_GO',
+    'BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY'
+)) {
+    if ($governanceReadmeText -notmatch [regex]::Escape($canonicalStatus)) {
+        Add-Failure "Governance lifecycle dictionary is missing an in-use status: $canonicalStatus"
+    }
+}
+
+$architectureText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/01-ARCHITECTURE.md')
+foreach ($asBuiltArchitectureRule in @(
+    'O3 app shell | Navigation, localization, extensions, shared UI | ACCEPTED_AS_BUILT',
+    'Reused O3 modules',
+    'ACCEPTED_AS_BUILT_PARTIAL',
+    'openmrs-module-saribekyan'
+)) {
+    if ($architectureText -notmatch [regex]::Escape($asBuiltArchitectureRule)) {
+        Add-Failure "Architecture is missing as-built evidence/status: $asBuiltArchitectureRule"
+    }
+}
+
+$phaseStatusText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/governance/PHASE-STATUS.yaml')
+if ($phaseStatusText -notmatch 'active_phases:\s*\[P0, P2\]' -or
+    $phaseStatusText -notmatch 'REG-02 patient-search partial slice' -or
+    $phaseStatusText -match 'REG-01/REG-02 partial slice') {
+    Add-Failure 'Phase status must record the early REG-02 slice alongside unfinished P0 without claiming REG-01.'
+}
+
+foreach ($deliveryDoc in @(
+    'docs/08-TESTING-AND-UAT.md',
+    'docs/09-OPERATIONS-AND-RELEASE.md',
+    'docs/modules/SARIBEKYAN-OMOD.md'
+)) {
+    if (-not (Test-Path -LiteralPath (Join-Path $RepositoryRoot $deliveryDoc))) {
+        Add-Failure "Missing active delivery/as-built document: $deliveryDoc"
+    }
+}
+
+foreach ($obsoleteGateToken in @('READY_FOR_TASK_GO', 'AWAITING_TASK_GO', 'REQUIRES_TASK_GO_EVIDENCE')) {
+    foreach ($activeRegister in @(
+        'docs/requirements/PHASE-1-TRACEABILITY.md',
+        'docs/governance/DOCUMENT-MANIFEST.yaml'
+    )) {
+        $activeRegisterText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot $activeRegister)
+        if ($activeRegisterText -match [regex]::Escape($obsoleteGateToken)) {
+            Add-Failure "Obsolete mandatory TASK-GO token remains in ${activeRegister}: $obsoleteGateToken"
+        }
+    }
 }
 
 if ($failures.Count -gt 0) {

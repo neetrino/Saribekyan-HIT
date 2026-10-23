@@ -8,14 +8,14 @@
 
 | Implementation | Meaning |
 |---|---|
-| `READY_FOR_TASK_GO` | Այս requirement-ի semantic blocker չկա. task go-ն դեռ պետք է |
-| `PARTIALLY_READY` | Թվարկված ready capability-ն կարող է ունենալ իր task go-ն. blocked capability-ն մնում է կանգնած |
+| `READY` | Այս requirement-ի համար գրանցված semantic blocker չկա. implementation-ը կարող է սկսվել owner-authorized scope-ով |
+| `PARTIALLY_READY` | Թվարկված ready capability-ն կարող է իրականացվել. blocked capability-ն մնում է կանգնած |
 | `BLOCKED` | Կանգնած է միայն այս requirement-ի նշված blocker-ը |
 
-| Requirement | Source | Ownership | Business source | Implementation | Technical mapping | Design | Blockers | Verification | Task gate |
+| Requirement | Source | Ownership | Business source | Implementation | Technical mapping | Design | Blockers | Verification | Readiness |
 |---|---|---|---|---|---|---|---|---|
-| REG-01 | ՏԱ §5.1 / REG-01 | REG | BASELINE_V1_3 | READY_FOR_TASK_GO | OpenMRS Patient | Pending | none | Pending | AWAITING_TASK_GO |
-| REG-02 | ՏԱ §5.1 / REG-02 | REG | BASELINE_V1_3 | READY_FOR_TASK_GO | OpenMRS Patient search | Pending | none | Pending | AWAITING_TASK_GO |
+| REG-01 | ՏԱ §5.1 / REG-01 | REG | BASELINE_V1_3 | READY | OpenMRS Patient | Pending | none | Pending | READY |
+| REG-02 | ՏԱ §5.1 / REG-02 | REG | BASELINE_V1_3 | PARTIALLY_READY | Accepted O3 patient-search app | `config-core_demo.json` + `startup.sh` | date-of-birth-only runtime proof and fresh-DB telephone `searchable=true` bootstrap remain open | Committed configuration evidence | PARTIAL_BLOCKED |
 | REG-03 | ՏԱ §5.1 / REG-03 | REG | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | merge/duplicate policy open | Pending | BLOCKED |
 | REG-04 | ՏԱ §5.1 / REG-04 | REG | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | schedule semantics open | Pending | BLOCKED |
 | REG-05 | ՏԱ §5.1 / REG-05 | REG | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | schedule semantics open | Pending | BLOCKED |
@@ -40,7 +40,7 @@
 | INP-01 | ՏԱ §5.3 / INP-01 | INP | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | payment display vs gate policy open | Pending | BLOCKED |
 | INP-02 | ՏԱ §5.3 / INP-02 | INP | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | admission transitions open | Pending | BLOCKED |
 | INP-03 | ՏԱ §5.3 / INP-03 | INP | BASELINE_V1_3 | BLOCKED | Pending fit proof | Pending | admission transitions open | Pending | BLOCKED |
-| INP-04 | ՏԱ §5.3 / INP-04 | INP | BASELINE_V1_3 | PARTIALLY_READY | Pending bed fit proof | Pending | blocked: concurrent bed assignment. ready: room catalog, bed catalog, occupancy read | Pending | AWAITING_TASK_GO_FOR_READY_SLICE |
+| INP-04 | ՏԱ §5.3 / INP-04 | INP | BASELINE_V1_3 | PARTIALLY_READY | Pending bed fit proof | Pending | blocked: concurrent bed assignment. ready: room catalog, bed catalog, occupancy read | Pending | READY_SLICE_WITH_CONCURRENCY_BLOCKER |
 | INP-05 | ՏԱ §5.3 / INP-05 | INP | BASELINE_V1_3 | BLOCKED | Pending form fit proof | Pending | content/permissions open | Pending | BLOCKED |
 | INP-06 | ՏԱ §5.3 / INP-06 | INP | BASELINE_V1_3 | BLOCKED | Pending form fit proof | Pending | content/permissions open | Pending | BLOCKED |
 | INP-07 | ՏԱ §5.3 / INP-07 | INP | BASELINE_V1_3 | BLOCKED | Pending order fit proof | Pending | order transitions open | Pending | BLOCKED |
@@ -116,4 +116,4 @@
 
 ## Update rule
 
-Յուրաքանչյուր row-ի task gate-ը փոխվում է միայն այդ requirement-ի approved design/blocker evidence-ով, tests/UAT IDs-ով և հաստատված task go record-ով։ Range-ով զանգվածային `GO` արգելված է։ `BLOCKED` տողը այլ requirement-ի task-ը չի կանգնեցնում։
+Յուրաքանչյուր row-ի readiness-ը թարմացվում է իրական design/blocker evidence-ով և tests/UAT IDs-ով։ TASK-GO record չի պահանջվում։ `BLOCKED` տողը այլ requirement-ի task-ը չի կանգնեցնում։

@@ -75,7 +75,7 @@ phase-scope/
 - `../techHistory/phase-1/Phase_1_Technical_Specification_HY.pdf` — клиентская PDF-копия.
 - `../techHistory/phase-1/Phase_1_Technical_Specification_HY_signed.jpg` — представленная фотография страницы подписи. Не канонический текст ТЗ и не замена Markdown.
 
-Статус подписи читается только из `signed_source` в `../techHistory/phase-1/SIGNATURE-STATUS.yaml`. DOCX и PDF — generated derivatives. Пока их статус `STALE_REGENERATE_REQUIRED`, они не являются источником реализации и не блокируют task, чей signed source уже verified. Непроверенная подпись ТЗ блокирует business task. Расхождение PDF/DOCX с Markdown не реализуется. После `signed_source.status: SIGNED_VERIFIED` и `parity_with_canonical: MATCH` объём задаёт канонический Markdown с совпавшим hash, а не рабочие файлы `21` и `31`.
+Статус подписи читается только из `signed_source` в `../techHistory/phase-1/SIGNATURE-STATUS.yaml`. DOCX и PDF — generated derivatives со статусом `STALE_REGENERATE_REQUIRED`; они не являются источником реализации. Непроверенная подпись ТЗ влияет только на юридическую/signing readiness и не блокирует owner-authorized repository development. Scope разработки задаёт канонический Markdown, указанный в `repository_development`, а после будущей подписи legal parity отдельно сверяется по hash. Рабочие файлы `21` и `31` scope не задают.
 
 ## Архив
 

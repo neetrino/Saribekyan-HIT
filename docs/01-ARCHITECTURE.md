@@ -17,7 +17,7 @@
 
 ## Architectural style
 
-Ստորև նկարագրվածը **նպատակային architecture պատկերն է, ոչ business implementation սկսելու թույլտվություն**։ D-008-ը թույլատրում է միայն մեկ compatibility PoC՝ մեկ non-business pilot OMOD-ով և մեկ minimal O3 extension-ով՝ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ի համաձայն։ Pilot-ի տեխնիկական ավարտը go որոշում չէ։ REG–ADM business module-ները և production distribution tree-ն չեն ստեղծվում, մինչև evidence review/go որոշումը գրանցված չէ և ADR-0002-ը ընդունված կամ մերժված չէ։
+Ստորև նկարագրվածը նպատակային և մասամբ as-built architecture պատկերն է։ Business development-ը թույլատրված է owner-authorized Phase I scope-ով՝ առանց D-008, signature կամ TASK-GO prerequisite-ի։ D-008-ը մեկ disposable compatibility PoC-ի պատմական profile է։ REG–ADM ownership boundaries-ը module count չեն սահմանում, իսկ production artifact-ները ստեղծվում են կոնկրետ capability-ի կարիքից և ընդունված OMOD/O3 extension strategy-ից։
 
 Գործող համակարգը OpenMRS Reference Application distribution է՝ modular-monolith backend-ով (OpenMRS Platform, community OMOD-ներ և Java custom OMOD-ներ) և O3 microfrontend UI-ով։ Սա `ACCEPTED_AS_BUILT` հիմք է։ Ագենտը չի ընտրում առանձին Spring/JPA clinical model, microservices կամ այլ փաթեթավորում առանց կոնկրետ կարիքի և architecture decision-ի։ Concepts, forms, locations, roles և distribution metadata-ն version-controlled configuration են։ Microservices-ը Phase I-ի default-ը չէ. առանձին service թույլատրվում է միայն չափված isolation/operational կարիքով և ADR-ով։
 
@@ -37,15 +37,15 @@ flowchart LR
 | Component | Responsibility | Status |
 |---|---|---|
 | Gateway/reverse proxy | TLS, routing, limits, security headers | Proposed; product TBD |
-| O3 app shell | Navigation, localization, extensions, shared UI | Proposed |
-| Reused O3 modules | Patient/chart/forms և fit-gap-ով հաստատված UI | PoC required |
+| O3 app shell | Navigation, localization, extensions, shared UI | ACCEPTED_AS_BUILT |
+| Reused O3 modules | Patient/chart և patient-search UI-ն as-built են; մնացած reuse-ը՝ requirement-scoped fit-ով | ACCEPTED_AS_BUILT_PARTIAL |
 | Custom O3 modules | Phase I-ի բացակայող workflows և Armenian UX | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն minimal non-business pilot extension |
 | OpenMRS Platform | Patient, visit, encounter, obs, order, concepts | GOVERNING_CANONICAL_MODEL_NO_SKELETON; foundation ownership only, ոչ distribution/OMOD generation approval |
-| Community/custom OMOD-ներ | Reused capability և Java business extensions | PROPOSED_DESIGN; D-008-ը հիմա թույլ է տալիս միայն մեկ non-business pilot OMOD |
-| Relational database | Canonical և module-owned transactional data | Engine/version TBD; վերցվում է D-008 exact commit-ի supported manifest-ից և հաստատվում review/go-ով |
+| Community/custom OMOD-ներ | Distribution community modules և `openmrs-module-saribekyan` Java extension foundation | ACCEPTED_AS_BUILT; նոր business capability-ն requirement-scoped է |
+| Relational database | Canonical և module-owned transactional data | Development-ը օգտագործում է repository-ում ամրագրված MySQL-compatible database configuration-ը։ Production engine/version/topology-ն առանձին infrastructure որոշում է և D-008 կամ TASK-GO prerequisite չունի |
 | Document storage | Attachments և generated documents | Design/PoC required |
 | Reporting/export | Contract reports, dashboards, controlled export | PROPOSED_DESIGN; reuse/custom fit decision required |
-| Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | GOVERNING_GUARDRAIL_NO_GO; native MFA capability BLOCKED/TBD |
+| Identity boundary | Native OpenMRS authentication, lifecycle և role/privilege mapping | GOVERNING_GUARDRAIL; native MFA capability BLOCKED/TBD |
 | Audit capability | ADM-10 change, export և break-glass evidence; all-read audit-ը default չէ | PROPOSED_DESIGN; cross-cutting ownership |
 | Operations layer | Logs, metrics, backup/restore, health, alerts | Detailed design pending |
 
@@ -68,7 +68,7 @@ Phase I-ի boundaries-ն են Registration, Ambulatory, Inpatient, Diagnostics/T
 5. Medical/financial correction-ը traceable է. hard delete կամ լուռ overwrite-ը default չէ։
 6. ADM-10 change audit-ը, export-ը և break-glass access-ը audit են արվում։ Ամեն patient record view-ի audit-ը առանձին չհաստատված որոշում է։
 7. Integration-ը չի գրում DB-ին ուղղակի և չի շրջանցում business validation-ը։
-8. OpenMRS/module/frontend exact versions-ը pin և compatibility-test են արվում միայն հաջող D-008 evidence review/go որոշումից հետո։ Մինչ այդ agent-ը version չի pin անում։
+8. Գործող pin-ն է Reference Application 3.7.1 / Platform 2.8.8 / Java 21, իսկ module/frontend versions-ի source of truth-ը committed manifests/build configuration-ն է։ Pin-ի փոփոխությունը compatibility-test է պահանջում։
 9. Phase I-ում OpenMRS core fork կամ patch արգելված է։ Առանձին ADR-ը և upgrade-impact review-ը ներկայիս scope-ի ներսում բացառություն չեն ստեղծում։ Ապագա core փոփոխությունը կարող է քննարկվել միայն նոր գրավոր scope/change request-ի հաստատումից հետո՝ առանձին ADR-ով և upgrade-impact review-ով։ Մինչ այդ agent-ը կանգ է առնում և core-ը չի փոխում։
 10. External failure-ը չի թողնում local transaction-ը կիսատ կամ անորոշ։
 

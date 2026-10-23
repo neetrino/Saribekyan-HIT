@@ -52,7 +52,7 @@ Saribekyan HIS-ը Սարիբեկյան համալսարանական բժշկակ
 - OpenMRS core/module հնարավորությունները պետք է նախընտրել custom կրկնակի implementation-ից, եթե դրանք բավարարում են պահանջը, անվտանգությունը և ընդունման չափանիշները։ Այս նախապատվությունը status, queue, order կամ visit workflow-ին չի տարածվում (`NO_PLATFORM_DEFAULT_WORKFLOW`)։ Հարթակի պատրաստ state-երը չեն միացվում, մինչև գրավոր transition table-ը և դրա հետ համընկնման fit որոշումը լինեն։
 - Custom լուծումը պետք է պահպանի OpenMRS upgrade path-ը։ Phase I-ում OpenMRS core fork/patch չկա. բացակայող extension point-ի դեպքում աշխատանքը կանգ է առնում։
 
-OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact version որոշումները կգրանցվեն `TECH_CARD.md`-ում և ADR-ներում միայն հաջող D-008 compatibility PoC-ի evidence review/go որոշումից հետո։ Fit-gap assessment-ը ինքնուրույն pin կամ implementation authorization չի տալիս։ Reporting/document generation-ի այլ տեխնիկական ընտրությունները հետևում են իրենց Approved requirement/ADR-ին։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։
+Գործող ընդունված runtime pin-ը գրանցված է `TECH_CARD.md`-ում և ADR-ներում՝ OpenMRS Reference Application 3.7.1, Platform 2.8.8 և Java 21։ OMOD/O3 package-ների ընթացիկ տարբերակների source of truth-ը committed distribution manifests/build configuration-ն է։ D-008-ը պատմական compatibility evidence է, ոչ pin-ի կամ business development-ի prerequisite։ Stack-ի փոփոխությունը պահանջում է առանձին compatibility verification։ Reporting/document generation-ի այլ տեխնիկական ընտրությունները հետևում են իրենց կիրառելի requirement/ADR-ին։ Phase I authentication-ը native OpenMRS է. external identity provider-ը Phase I-ից դուրս է։
 
 ## Փուլ I-ից դուրս
 
@@ -60,7 +60,7 @@ OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact versio
 
 ## Հիմնական սահմանափակումներ
 
-- **Production pilot-release**-ի պայմանագրային նպատակային ժամկետը մեկնարկից չորս ամիս է։ Սա D-008 non-business compatibility PoC-ն չէ և մինչև ստորագրումը դրա implementation-ը թույլատրված չէ։
+- **Production pilot-release**-ի պայմանագրային նպատակային ժամկետը մեկնարկից չորս ամիս է։ Սա D-008 non-business compatibility PoC-ն չէ։ Repository development-ը և production pilot-release-ի պատրաստումը owner-authorized են առանց signature verification prerequisite-ի, իսկ պայմանագրային ստորագրության վիճակը մնում է առանձին legal/readiness metadata։
 - Նախնական կազմակերպական չափը մոտ 150–200 աշխատակից է, ոչ պարտադիր միաժամանակյա session։
 - Համալիրը նոր է, և պարտադիր legacy migration նախատեսված չէ։
 - Production cloud-ի պարբերական ծախսերը, maintenance-ը և SLA-ն առանձին պայմաններ են։
@@ -68,4 +68,4 @@ OpenMRS distribution/platform/JVM/DB-ի և OMOD/O3 package-ների exact versio
 
 ## Հաջողության չափանիշ
 
-Ստորագրումից և business implementation authorization-ից հետո Փուլ I-ը հաջող է, երբ ՏԱ-ի պարտադիր workflow-ները աշխատում են փոխկապակցված, դերերն ու հասանելիությունները կարգավորված են, կրիտիկական թերությունները փակված են, backup/restore փորձարկումն իրականացված է, փաստաթղթերը և ուսուցողական նյութերը փոխանցված են, և ավարտված է համաձայնեցված production pilot-release/UAT գործընթացը։ Սա D-008 compatibility PoC-ի acceptance criterion չէ։
+Փուլ I-ը հաջող է, երբ owner-authorized ՏԱ-ի պարտադիր workflow-ները աշխատում են փոխկապակցված, դերերն ու հասանելիությունները կարգավորված են, կրիտիկական թերությունները փակված են, backup/restore փորձարկումն իրականացված է, փաստաթղթերը և ուսուցողական նյութերը փոխանցված են, և ավարտված է համաձայնեցված production pilot-release/UAT գործընթացը։ Contract signature verification-ը այս repository acceptance flow-ի prerequisite չէ։ Սա D-008 compatibility PoC-ի acceptance criterion չէ։

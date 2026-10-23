@@ -2,13 +2,13 @@
 
 > **Status:** target persistence guidance է, ոչ ինքնուրույն business scope։ Business schema կամ migration ստեղծվում է owner-authorized canonical պահանջից և տվյալ schema-ին իրականում անհրաժեշտ semantics/stack/artifact որոշումներից։ Signature verification-ը և TASK-GO-ն prerequisites չեն։ Pilot evidence-ը պահանջվում է միայն այն տեխնիկական ընտրության համար, որն իսկապես դրանից կախված է։
 
-> **Rule classification:** canonical OpenMRS ownership/no-direct-SQL արգելքները governing constraints են։ Մնացած migration, locking, backup, JSON, indexing և reporting կանոնները `PROPOSED_DESIGN` են մինչև համապատասխան schema/task go record-ը։ Հրամայական լեզուն ինքնուրույն approval չէ։
+> **Rule classification:** canonical OpenMRS ownership/no-direct-SQL արգելքները governing constraints են։ Մնացած migration, locking, backup, JSON, indexing և reporting կանոնները `PROPOSED_DESIGN` են մինչև համապատասխան owner-authorized schema slice-ը դրանց կարիքն ունի։ TASK-GO prerequisite չկա։
 
 ## Status and ownership
 
-Exact DB engine/version-ը դեռ հաստատված չէ և նախապես անվանված թեկնածու չկա։ Այն վերցվում է D-008-ում ընտրված exact distribution commit-ի supported manifest-ից և pin է արվում միայն հաջող evidence review/go որոշմամբ։
+Production DB engine/version-ը դեռ առանձին infrastructure decision է։ Գործող development distribution-ը օգտագործում է committed Docker/distribution configuration-ի MySQL-compatible database-ը։ Սա չի ընտրում վերջնական production engine-ը և չի կանգնեցնում module-owned schema չպահանջող աշխատանքը։
 
-Մինչ հաջող D-008 evidence review/go-ն և համապատասխան Approved schema semantics-ը agent-ը DB engine չի pin անում, schema չի գեներացնում և business migrations չի ստեղծում։
+> **Current as-built:** `openmrs-module-saribekyan`-ը module-owned tables կամ Liquibase changesets դեռ չունի։ OpenMRS schema-ն կառավարվում է distribution/platform-ի supported migrations-ով։ Նոր business migration ավելացվում է միայն այն requirement slice-ի հետ, որն իրականում module-owned persistence է պահանջում։
 
 OpenMRS schema-ն canonical clinical store է և կառավարվում է OpenMRS/platform modules-ի supported migrations-ով։ Custom module-ը չի վերաձևավորում core tables-ը և սեփական Liquibase changeset-ներով տնօրինում է միայն module-owned tables-ը։
 
@@ -31,7 +31,7 @@ Physical ERD-ն և exact column catalog-ը ստեղծվում են ընտրվա�
 
 ## Candidate custom-schema checklist — not a schema recipe
 
-Ստորև կետերը կիրառվում են միայն այն բանից հետո, երբ կոնկրետ module-owned schema-ն ունի approved semantics և task go record։ Դրանք table ստեղծելու պատճառ կամ default column list չեն։ Յուրաքանչյուր field/constraint պահանջում է տվյալ domain-ի source և հիմնավորում։
+Ստորև կետերը կիրառվում են, երբ կոնկրետ owner-authorized capability-ն իրական module-owned schema է պահանջում։ TASK-GO prerequisite չկա։ Դրանք ինքնուրույն table ստեղծելու պատճառ կամ default column list չեն։ Յուրաքանչյուր field/constraint պահանջում է տվյալ domain-ի source և հիմնավորում։
 
 - Table-ը ունի stable primary key, timestamps, provenance և state/version fields ըստ domain-ի։
 - Clinical patient reference-ը օգտագործում է canonical OpenMRS ID-ն և application/service validation-ը։

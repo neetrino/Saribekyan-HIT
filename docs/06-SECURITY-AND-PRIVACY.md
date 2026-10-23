@@ -2,11 +2,13 @@
 
 > **Կարգավիճակ:** target security/privacy design և review checklist է, ոչ նոր business scope։ Կիրառելի implementation-ը վերցվում է owner-authorized canonical ՏԱ-ից։ Signature verification-ը, implementation-gate verdict-ը և TASK-GO-ն pre-code prerequisites չեն։ Այս ֆայլը չի թույլատրում հորինել session/password timeout, joiner/mover/leaver workflow, break-glass duration/scope, retention, encryption կամ այլ բաց security/privacy արժեք։ D-008 compatibility PoC-ի security սահմանը կարգավորվում է միայն PoC spec-ով։
 
-> **Rule classification:** native OpenMRS authentication/no-external-IdP սահմանը և server-side authorization սկզբունքը governing constraints են։ At-rest encryption, malware scanning, rate limits, centralized alerts, incident runbook և այլ checklist կետերը `PROPOSED_DESIGN` են մինչև source requirement, owner, measurable acceptance և task go record-ը հաստատվեն։
+> **Rule classification:** native OpenMRS authentication/no-external-IdP սահմանը և server-side authorization սկզբունքը governing constraints են։ At-rest encryption, malware scanning, rate limits, centralized alerts, incident runbook և այլ checklist կետերը `PROPOSED_DESIGN` են մինչև owner-authorized slice-ը դրանց կարիքն ունի և measurable acceptance-ը սահմանված է։ TASK-GO prerequisite չկա։
 
 ## Scope
 
-Սա Phase I-ի նպատակային security/privacy architecture baseline-ն է, ոչ as-built նկարագիր, implementation հրահանգ կամ իրավաբանական համապատասխանության հավաստագիր։ Retention-ը, իրավական հիմքերը և regulatory controls-ը հաստատում են պատվիրատուի համապատասխան պատասխանատուները։ Պաշտպանվող տվյալներն են patient/clinical/financial data-ն, credentials/sessions/secrets-ը, audit-ը, reports/exports-ը և backups-ը։
+Սա Phase I-ի target security/privacy checklist-ն է՝ ստորև առանձնացված current as-built վիճակով, ոչ իրավաբանական համապատասխանության հավաստագիր։ Retention-ը, իրավական հիմքերը և regulatory controls-ը հաստատում են պատվիրատուի համապատասխան պատասխանատուները։ Պաշտպանվող տվյալներն են patient/clinical/financial data-ն, credentials/sessions/secrets-ը, audit-ը, reports/exports-ը և backups-ը։
+
+> **Current as-built:** authentication-ը native OpenMRS է, external IdP/Keycloak չկա, իսկ `openmrs-module-saribekyan`-ը դեռ նոր privilege, custom security filter կամ custom audit persistence չի ավելացնում։ Requirement-specific permissions/audit controls-ը փաստագրվում և թեստավորվում են համապատասխան capability-ի հետ։
 
 ## Trust and identity
 
@@ -47,7 +49,7 @@ Audit-ում password/token/session secret կամ անհարկի ամբողջ cl
 
 ## Candidate application and operational controls — approval required
 
-Այս ցուցակը security review prompts է, ոչ միանգամից իրականացվող Phase I checklist։ Յուրաքանչյուր կետ կիրառվում է միայն traceable requirement, threat/risk rationale, owner, configuration values, acceptance test և task go record ունենալու դեպքում։ Agent-ը այս ցանկից dependency, proxy, scanner, rate limiter, encryption կամ incident platform չի ավելացնում։
+Այս ցուցակը security review prompts է, ոչ միանգամից իրականացվող Phase I checklist։ Յուրաքանչյուր կետ կիրառվում է այն owner-authorized capability-ի համար, որն ունի threat/risk rationale, owner, configuration values և acceptance test։ TASK-GO prerequisite չկա։ Agent-ը միայն այս ցանկի գոյությունից dependency, proxy, scanner, rate limiter, encryption կամ incident platform չի ավելացնում։
 
 - server-side schema/semantic validation և parameterized persistence,
 - CSRF protection session cookie-ի դեպքում, strict CORS/trusted proxy,

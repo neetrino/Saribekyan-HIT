@@ -1,6 +1,6 @@
 # OpenMRS fit-gap analysis — Phase I
 
-> **Lifecycle: ASSESSMENT / non-authorizing։** Յուրաքանչյուր implementation mapping պետք է գրանցի exact distribution SHA/release, module/package version, evidence URL կամ local snapshot, evidence date, license/maintenance review և executable PoC/test result։ Այդ դաշտերից որևէ մեկի բացակայության դեպքում assessment-ը մնում է `UNVALIDATED`։
+> **Lifecycle: ASSESSMENT / non-authorizing։** Այս ֆայլը նոր dependency կամ custom artifact չի պատվիրում և չի կարող չեղարկել repository-ում արդեն առկա owner-authorized/as-built configuration-ը։ Implementation evidence-ը կարող է գրանցվել repository path-երով և runtime/test արդյունքով։ TASK-GO-ն կամ signature verification-ը դրա prerequisite չեն։
 
 ## Assessment rule
 
@@ -12,15 +12,17 @@
 | UNVALIDATED_PARTIAL_FIT | Canonical model կամ candidate module հիշատակված է, բայց exact workflow/version proof չկա |
 | UNVALIDATED_GAP | Historical assessment anticipates missing capability; սա custom artifact ստեղծելու որոշում չէ |
 | UNKNOWN | Առանց exact version/PoC-ի վստահ եզրակացություն հնարավոր չէ |
-| OUT_OF_PHASE_I | Փուլ I-ից դուրս է, եթե չկա signed change request. architecture-ready արտահայտությունը connector չի ստեղծում |
+| AS_BUILT_PARTIAL | Capability-ի մի մասը առկա է committed configuration/code-ում, բայց requirement-ը դեռ ամբողջությամբ ընդունված կամ ստուգված չէ |
+| OUT_OF_PHASE_I | Փուլ I-ից դուրս է, եթե owner-authorized scope change չկա. architecture-ready արտահայտությունը connector չի ստեղծում |
 
-Ոչ մի assessment implementation-ready չի համարվում մինչև exact-version evidence, approved fit decision և task go record-ը։ Ստորև product/module անունները discovery candidates են, ոչ ընտրված stack կամ installation list։ Այս ֆայլի ոչ մի տող module տեղադրելու, configure անելու կամ custom artifact ստեղծելու հրահանգ չէ։
+`UNVALIDATED_*` assessment-ը ինքնուրույն implementation instruction չէ։ Այնուամենայնիվ, committed as-built configuration-ը չի հեռացվում կամ հետ բերվում միայն այն պատճառով, որ այս assessment-ում ամբողջ requirement-ի acceptance evidence-ը դեռ բաց է։ Ընտրված stack-ը և գործող configuration-ը գրանցվում են `TECH_CARD.md`-ում, decision records-ում և phase evidence-ում։
 
 ## REG — registration, identity and visits
 
 | IDs | Assessment | Evidence and gap |
 |---|---|---|
-| REG-01–02 | UNVALIDATED_CANDIDATE_FIT | O3 Patient Registration և Patient Search անունները discovery candidates են։ Չտեղադրել/չconfigure անել մինչև exact version fit proof-ը։ |
+| REG-01 | UNVALIDATED_PARTIAL_FIT | OpenMRS Patient Registration-ը առկա distribution capability է, բայց այս documentation update-ը patient-card creation-ի completion/evidence չի հաստատում։ |
+| REG-02 | AS_BUILT_PARTIAL | Ընդունված O3 patient-search UI-ն կարգավորված է `frontend/config-core_demo.json`-ում՝ date-of-birth filter field-ով և telephone person-attribute UUID-ով, իսկ `frontend/startup.sh`-ը person-attribute արժեքը փոխանցում է գործող patient-search query-ին։ Այս configuration-ը չհեռացնել։ Առանձին date-of-birth որոնման runtime/Playwright evidence-ը և նոր database-ում telephone attribute type-ի `searchable=true` bootstrap/migration-ը բաց են։ |
 | REG-03 | UNVALIDATED_PARTIAL_FIT | OpenMRS patient merge capability-ն թեկնածու հիմք է։ Duplicate/survivor semantics-ը BLOCKED են։ |
 | REG-04–05 | UNVALIDATED_PARTIAL_FIT | Appointments անունը discovery candidate է։ Exact package/version և local workflow proof չկան։ |
 | REG-06 | UNVALIDATED_CANDIDATE_FIT | Service Queues անունը discovery candidate է։ Status/priority/numbering semantics-ը որոշված չեն։ |
@@ -98,7 +100,7 @@ External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS 
 
 | Requirement | Assessment | Decision needed |
 |---|---|---|
-| Form builder | UNVALIDATED_CANDIDATE_FIT | ՏԱ-ն պահանջում է վերջնական user capability, բայց տեխնիկական իրականացումը BLOCKED է։ O3 Form Builder/React Form Engine reuse-ը պետք է requirement-by-requirement ապացուցի field types, requiredness, version history, specialty binding և Armenian rendering-ը։ Առանձին custom designer չի կառուցվում և candidate dependency չի ընտրվում մինչև accepted fit/artifact decision ու task `GO`։ Սա requirement-ը չի չեղարկում և custom implementation-ի default թույլտվություն չի ստեղծում։ |
+| Form builder | UNVALIDATED_CANDIDATE_FIT | ՏԱ-ն պահանջում է վերջնական user capability։ O3 Form Builder/React Form Engine reuse-ը requirement-by-requirement ստուգում է field types, requiredness, version history, specialty binding և Armenian rendering-ը։ TASK-GO prerequisite չկա։ Առանձին custom designer կամ dependency ընտրվում է միայն կոնկրետ owner-authorized capability-ի տեխնիկական կարիքից, ոչ այս candidate տողից։ |
 | REST API | UNVALIDATED_CANDIDATE_FIT | Native surface-ի առկայությունը custom/public endpoint authorization չէ |
 | FHIR R4 | UNVALIDATED_PARTIAL_FIT | Resource/profile validation-ը proof չունի. FHIR surface այս տողով չի հրապարակվում։ |
 | PDF/print | UNVALIDATED_GAP | Renderer, fonts, versioning և archival rules-ը ընտրված չեն. library այս տողով չի ավելացվում։ |

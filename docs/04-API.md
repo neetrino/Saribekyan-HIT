@@ -4,6 +4,8 @@
 
 > **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի canonical requirement կամ approved design-ը դրանց չի հղվում։ Դրանք ընդհանուր API ստեղծելու հրահանգ չեն։
 
+> **Current as-built:** O3 frontend-ը օգտագործում է OpenMRS-ի native supported API surface-ը։ `openmrs-module-saribekyan`-ը ներկայում custom REST/FHIR/public endpoint չի հայտարարում։ Ստորև target checklist-ը կիրառվում է միայն այն ժամանակ, երբ կոնկրետ Phase I slice-ը նոր endpoint է ավելացնում։
+
 Այս փաստաթուղթը copy-ready `/api/v1`, error envelope, HTTP status կամ pagination contract չի սահմանում։ D-008-ի native OpenMRS probe contract-ը կարգավորվում է միայն իր spec-ով, իսկ «API foundation» ընդհանուր ձևակերպումը custom facade կառուցելու թույլտվություն չի տալիս։
 
 ## API surfaces

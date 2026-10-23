@@ -20,18 +20,26 @@ Search result-ից բացված ֆայլը չի կիրառվում, մինչև a
 | `SIGNED_CONTRACT` | Ստորագրված contract/TA artifact, որի hash-ը գրանցված է signature manifest-ում | Իրավական evidence է, ոչ repository coding gate |
 | `APPROVED_CLIENT_CLARIFICATION` | Լիազորված client approval evidence-ով պարզաբանում | Կարող է հստակեցնել scope-ը, բայց task-go չի պահանջում |
 | `ACCEPTED_DECISION` | Ստորագրված պահանջի իրականացման հաստատված տեխնիկական որոշում | Ինքնուրույն՝ ոչ |
+| `ACCEPTED_AS_BUILT` | Repository/runtime evidence-ով գործող և ընդունված տեխնիկական ընտրություն | Կիրառվում է owner-authorized scope-ի իրականացման մեջ |
+| `ACCEPTED_AS_BUILT_PARTIAL` | Գործող capability-ի ընդունված մասնակի վիճակ | Կիրառվում է նկարագրված մասի համար, առանց ամբողջ requirement-ը complete համարելու |
+| `AS_BUILT_FOUNDATION` | Repository/runtime-ում փաստացի առկա տեխնիկական հիմք | Կարող է օգտագործվել owner-authorized development-ում, բայց ինքնին business requirement-ի ավարտ չի նշանակում |
+| `ACTIVE_DELIVERY_BASELINE` | Գործող testing, operations կամ release գործընթացի baseline, որի evidence-ը լրացվում է փուլային | Կիրառվում է owner-authorized delivery-ում և development blocker չէ |
+| `OWNER_AUTHORIZED_BASELINE` | Repository owner-ի կողմից development-ի համար ընտրված canonical business baseline | Այո՝ AGENTS.md-ի սահմաններում |
+| `APPROVED_CONSTRAINT` | Ընդունված տեխնիկական constraint, որը նոր business scope չի ստեղծում | Կիրառվում է owner-authorized development-ի ընթացքում |
 | `DRAFT_CONTRACT` | Ստորագրման համար պատրաստված, բայց չստորագրված baseline | Ոչ |
 | `PROPOSED_DESIGN` | Առաջարկ կամ target design | Ոչ |
 | `GOVERNING_GUARDRAIL` | Պարտադիր արգելք կամ ownership սահման, ոչ artifact հրահանգ | Կիրառվում է authorized development-ի ընթացքում |
+| `GOVERNING_GUARDRAIL_NO_GO` | Legacy alias of `GOVERNING_GUARDRAIL`; `NO_GO` suffix-ը global coding stop չի նշանակում | Կիրառվում է որպես guardrail, առաջարկվում է migration դեպի canonical literal |
 | `GOVERNING_CANONICAL_MODEL_NO_SKELETON` | Canonical model-ի սահման՝ առանց module/repository skeleton-ի թույլտվության | Ոչ |
 | `BLOCKED` | Պահանջվող որոշումը կամ evidence-ը բացակայում է | Ոչ |
+| `BLOCKED_FOR_DEPENDENT_INFRASTRUCTURE_ONLY` | Infrastructure որոշումը բաց է | Կանգնեցնում է միայն դրանից կախված infrastructure slice-ը |
 | `D008_POC_ONLY` | D-008 disposable compatibility PoC-ի սահմանափակ profile | Միայն D-008 scope-ի համար, ոչ business implementation |
 | `ASSESSMENT` | Fit-gap կամ այլ գնահատում | Ոչ |
 | `HISTORICAL` | Audit/history/archive նյութ | Ոչ |
 | `TEMPLATE` | Դատարկ կառավարման կամ design template | Ոչ |
 | `AS_BUILT` | Իրական ներդրված վիճակի փաստագրում | Միայն source requirement/go record-ի հետ, ոչ ինքնուրույն |
 
-`Approved`, `Accepted`, `Approved scope`, `Approved Phase I boundary`, `Baseline`, `Closed`, `Target`, `Created`, `Expected` և այլ ազատ բառերը canonical lifecycle չեն։ Դրանք machine status-ի փոխարեն չեն կիրառվում և երբեք artifact/module count կամ task `GO` չեն սահմանում։ Եթե manifest-ում կամ governing decision register-ում վերևի canonical value չկա, agent-ը ֆայլը համարում է `NON_AUTHORIZING` և կանգ է առնում implementation-ից առաջ։
+`Approved`, `Accepted`, `Approved scope`, `Approved Phase I boundary`, `Baseline`, `Closed`, `Target`, `Created`, `Expected` և այլ ազատ բառերը canonical lifecycle չեն։ Դրանք machine status-ի փոխարեն չեն կիրառվում և artifact/module count չեն սահմանում։ Անհայտ status-ից agent-ը նոր scope կամ business semantics չի հորինում, բայց այն unrelated owner-authorized implementation-ը չի կանգնեցնում։ Անհայտ status-ը documentation finding է և պետք է canonical mapping ստանա։
 
 ## Approval authority
 
