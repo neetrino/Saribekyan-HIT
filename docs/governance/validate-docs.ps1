@@ -596,7 +596,7 @@ if ($configuredAgentFiles.Count -ne 5) {
     Add-Failure "The configured orchestration must contain exactly five agent files; found $($configuredAgentFiles.Count)."
 }
 $lockedAgentModels = @{
-    'orchestrator.md' = 'model: "Sonnet 5.5"'
+    'orchestrator.md' = 'model: "Opus 5.5"'
     'developer.md' = 'model: "Sonnet 5.5"'
     'reviewer.md' = 'model: "GPT-5.4"'
     'qa-playwright.md' = 'model: "Grok 4.7"'

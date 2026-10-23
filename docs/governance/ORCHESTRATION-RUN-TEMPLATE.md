@@ -51,7 +51,7 @@ background_execution:
   user_notified_at: "<ISO-8601 or N/A>"
 model_routing:
   - role: orchestrator
-    model: "Sonnet 5.5"
+    model: "Opus 5.5"
     reasoning: "platform default"
     substitution: "PROHIBITED_WITHOUT_OWNER_APPROVAL"
   - role: developer

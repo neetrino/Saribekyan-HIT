@@ -6,7 +6,7 @@ The orchestration consists of exactly five configured agents. Their model assign
 
 | Agent | Required model |
 |---|---|
-| `orchestrator` | `Sonnet 5.5` |
+| `orchestrator` | `Opus 5.5` |
 | `developer` | `Sonnet 5.5` |
 | `reviewer` | `GPT-5.4` with `medium` reasoning |
 | `qa-playwright` | `Grok 4.7` |

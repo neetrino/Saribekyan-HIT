@@ -1,7 +1,7 @@
 ---
 name: orchestrator
 description: Coordinates one task across analysis, implementation, independent review, security/privacy review, and Playwright QA. Does not write product code or self-approve.
-model: "Sonnet 5.5"
+model: "Opus 5.5"
 model_locked: true
 readonly: false
 ---

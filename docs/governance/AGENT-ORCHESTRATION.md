@@ -223,7 +223,7 @@ Model assignment-ը repository owner-ի կողմից lock է արված և task-
 
 | Agent | Locked model | Reasoning |
 |---|---|---|
-| `orchestrator` | `Sonnet 5.5` | platform default |
+| `orchestrator` | `Opus 5.5` | platform default |
 | `developer` | `Sonnet 5.5` | platform default |
 | `reviewer` | `GPT-5.4` | `medium` |
 | `qa-playwright` | `Grok 4.7` | platform default |
