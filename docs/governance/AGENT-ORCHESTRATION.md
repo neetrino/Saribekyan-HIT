@@ -194,3 +194,5 @@ Orchestrator-ը task-ը `COMPLETE` է նշում միայն երբ՝
 ## 13. Run record
 
 Երկար, multi-agent կամ high-risk task-ի համար օգտագործվում է [run record template](./ORCHESTRATION-RUN-TEMPLATE.md)։ Փոքր task-ի դեպքում նույն դաշտերը կարող են պահպանվել task description/handoff-ում՝ առանց նոր ֆայլ ստեղծելու։
+
+Phase I-ի յոթ functional group-երի իրականացման հերթականությունը և phase-level exit criteria-ները սահմանված են [phased implementation plan](./PHASED-IMPLEMENTATION-PLAN.md)-ում, իսկ ընթացիկ process state-ը՝ [phase status register](./PHASE-STATUS.yaml)-ում։

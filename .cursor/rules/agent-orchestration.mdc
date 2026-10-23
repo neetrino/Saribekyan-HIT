@@ -6,6 +6,7 @@ alwaysApply: true
 # Agent orchestration
 
 For work delegated across agents, read and follow `docs/governance/AGENT-ORCHESTRATION.md`.
+For Phase I feature work, also follow `docs/governance/PHASED-IMPLEMENTATION-PLAN.md` and the current state in `docs/governance/PHASE-STATUS.yaml`.
 
 - `orchestrator` coordinates and aggregates evidence; it does not write product code or self-approve.
 - `developer` designs the bounded technical slice.

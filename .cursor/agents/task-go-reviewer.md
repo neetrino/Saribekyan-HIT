@@ -29,7 +29,7 @@ Do not trust the parent summary, a pre-filled `GO`, or a previous task's record.
 
 1. Read the whole draft record.
 2. Read each cited section of `docs/techHistory/phase-1/Phase_1_Technical_Specification_HY.md`, plus the neighboring section when the slice could cross it. Also read §16, §17, and §20.2.
-3. Read `docs/techHistory/phase-1/SIGNATURE-STATUS.yaml` when the task class requires a signed source.
+3. Read `docs/techHistory/phase-1/SIGNATURE-STATUS.yaml` to verify the owner-authorized canonical baseline. Treat contract-signature fields as informational only.
 4. Read each decision, ADR, or clarification the record cites. `Approved` or `Accepted` elsewhere is not this task's `GO`.
 5. Read `docs/requirements/PHASE-1-TRACEABILITY.md` for every requirement id. Independently identify and read every active blocker register named by that row; do not rely on the record's citation list.
 6. Read `docs/governance/DOCUMENT-MANIFEST.yaml` before using any non-contract source. A historical, vision-only, assessment, proposed, candidate, or `NON_AUTHORIZING` artifact cannot supply business scope or close a blocker.
@@ -73,8 +73,8 @@ Then set `decision` to `GO` only if every applicable line is `PASS`. Otherwise l
 
 Apply B to `BUSINESS_IMPLEMENTATION` and `PRODUCTION_PILOT_RELEASE`. Do not apply the D-008 exemptions to production pilot.
 
-- B1. `SIGNATURE-STATUS.yaml` has `signed_source.status: SIGNED_VERIFIED`, `parity_with_canonical: MATCH`, and `business_source_authorized: true`.
-- B2. The record's signed hash is character-for-character the `signed_source.sha256` in that file. The Markdown, DOCX, PDF, or photograph hash does not substitute.
+- B1. `SIGNATURE-STATUS.yaml` has `repository_development.status: AUTHORIZED_BY_OWNER`, `requires_signed_source: false`, and `requires_task_go: false`.
+- B2. The record's canonical baseline hash is character-for-character the `canonical_content.sha256` in that file. Contract signature status is reported but does not fail this review.
 - B3. Every requirement id is present in the technical specification, and the written outcome is supported by that section. Vision documents, fit-gap notes, proposed ADRs, and the parent paraphrase are not a source.
 - B4. The slice does not include §16 or §17 exclusions, and non-goals name the adjacent exclusions the slice could be mistaken for.
 - B5. Permission, workflow transition, audit, uniqueness or idempotency, money rounding, attachment storage, and concurrency are each either a concrete written decision in `dependencies.resolved`, or an honest `N/A_NOT_A_DEPENDENCY`. For a patient-create slice, permission, card-number uniqueness, and create-action audit are dependencies.
