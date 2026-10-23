@@ -6,4 +6,4 @@ The former integration table was removed because it could be mistaken for an app
 
 This path remains only so historical links resolve. It defines no integration, endpoint, dependency, responsibility, phase scope, acceptance criterion, or coding authorization. Do not reconstruct its former body for implementation.
 
-Use the signed contract and manifest-designated accepted decisions.
+Use the owner-authorized canonical Phase I baseline and manifest-designated accepted decisions.

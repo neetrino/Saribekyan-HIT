@@ -1,6 +1,6 @@
 # Database and Persistence Design
 
-> **Status:** target persistence guidance, ոչ schema/migration coding authorization։ Pilot-ի ավարտը ինքնուրույն թույլտվություն չէ։ Business schema կամ migration ստեղծվում է միայն ստորագրված traceable պահանջից, pilot evidence review/go-ից, stack/artifact որոշումից և տվյալ schema-ի Approved semantics-ից հետո։
+> **Status:** target persistence guidance է, ոչ ինքնուրույն business scope։ Business schema կամ migration ստեղծվում է owner-authorized canonical պահանջից և տվյալ schema-ին իրականում անհրաժեշտ semantics/stack/artifact որոշումներից։ Signature verification-ը և TASK-GO-ն prerequisites չեն։ Pilot evidence-ը պահանջվում է միայն այն տեխնիկական ընտրության համար, որն իսկապես դրանից կախված է։
 
 > **Rule classification:** canonical OpenMRS ownership/no-direct-SQL արգելքները governing constraints են։ Մնացած migration, locking, backup, JSON, indexing և reporting կանոնները `PROPOSED_DESIGN` են մինչև համապատասխան schema/task go record-ը։ Հրամայական լեզուն ինքնուրույն approval չէ։
 

@@ -6,4 +6,4 @@ The former commercial and scope detail was removed because it could be mistaken 
 
 This path remains only so historical links resolve. It defines no migration scope, data rule, commercial term, acceptance criterion, or coding authorization. Do not reconstruct its former body for implementation or pricing.
 
-Use the signed contract and manifest-designated accepted decisions.
+Use the owner-authorized canonical Phase I baseline and manifest-designated accepted decisions.

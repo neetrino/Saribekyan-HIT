@@ -1,8 +1,8 @@
 # API Design
 
-> **Status:** target design guidance, ոչ ներկայիս coding authorization (`API_CHECKLIST_NOT_FACADE_CONTRACT`)։ Մինչ ստորագրված ՏԱ-ն և համապատասխան requirement/go որոշումը թույլատրված է միայն D-008 probe-ը, որի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև բերվածը candidate interface-ի review checklist է, ոչ custom facade-ի կամ endpoint-ի պատրաստ կանոնների հավաքածու։
+> **Status:** target design guidance է, ոչ նոր business scope (`API_CHECKLIST_NOT_FACADE_CONTRACT`)։ Owner-authorized canonical Phase I API requirements-ը կարող են իրականացվել առանց signature/TASK-GO prerequisite-ի։ D-008 probe-ի contract-ը սահմանված է `pilot/COMPATIBILITY-POC.md`-ում։ Ստորև բերվածը candidate interface-ի review checklist է, ոչ custom facade-ի կամ endpoint-ի պատրաստ կանոնների հավաքածու։
 
-> **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի approved design/go record-ը դրանց չի հղվում։ Դրանք signed contract requirement կամ ընդհանուր API ստեղծելու հրահանգ չեն։
+> **Rule classification:** այս ֆայլի `պետք է`, `պարտադիր`, status-code, envelope և pagination ձևակերպումները `PROPOSED_DESIGN` են, եթե կոնկրետ endpoint-ի canonical requirement կամ approved design-ը դրանց չի հղվում։ Դրանք ընդհանուր API ստեղծելու հրահանգ չեն։
 
 Այս փաստաթուղթը copy-ready `/api/v1`, error envelope, HTTP status կամ pagination contract չի սահմանում։ D-008-ի native OpenMRS probe contract-ը կարգավորվում է միայն իր spec-ով, իսկ «API foundation» ընդհանուր ձևակերպումը custom facade կառուցելու թույլտվություն չի տալիս։
 

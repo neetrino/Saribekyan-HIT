@@ -2,9 +2,9 @@
 
 ## Purpose and status
 
-Այս փաստաթուղթը սահմանում է Phase I-ի նպատակային ճարտարապետությունը, ոչ թե դեռ չգրված համակարգի as-built վիճակը։ Հաստատված ուղղություններն են՝ **Size C**, **OpenMRS clinical foundation** և **Java**-ն՝ որպես custom backend-ի լեզու։ OMOD/O3 փաթեթավորումը `Proposed` է [ADR-0002](./architecture/ADR-0002-extension-strategy.md)-ում և այս նախադասությամբ հաստատված չէ։ Պայմանագրային Phase I scope-ը կիրառվում է միայն ստորագրումից և task go-ից հետո։ `Proposed` ու `PoC required` ընտրությունները վերջնական չեն մինչև համապատասխան ապացույցն ու ADR-ը։
+Այս փաստաթուղթը սահմանում է Phase I-ի նպատակային ճարտարապետությունը, ոչ թե դեռ չգրված համակարգի as-built վիճակը։ Հաստատված ուղղություններն են՝ **Size C**, **OpenMRS clinical foundation** և **Java**-ն՝ որպես custom backend-ի լեզու։ OMOD/O3 փաթեթավորումը `Proposed` է [ADR-0002](./architecture/ADR-0002-extension-strategy.md)-ում և այս նախադասությամբ հաստատված չէ։ Owner-authorized Phase I scope-ը կիրառվում է առանց signature կամ TASK-GO prerequisite-ի։ `Proposed` ու `PoC required` տեխնիկական ընտրությունները վերջնական չեն մինչև համապատասխան ապացույցն ու ADR-ը, երբ տվյալ implementation-ը դրանցից կախված է։
 
-Չնշված աղյուսակային status-ը կամ հրամայական architecture լեզուն coding authorization չէ։ Canonical foundation/no-fork/no-direct-SQL սահմանները governing են, իսկ component/topology/product/pattern ընտրությունները `PROPOSED_DESIGN` են մինչև manifest-ում գրանցված Accepted decision և task go record։
+Չնշված աղյուսակային status-ը կամ հրամայական architecture լեզուն նոր business scope չի ստեղծում։ Canonical foundation/no-fork/no-direct-SQL սահմանները governing են, իսկ component/topology/product/pattern ընտրությունները `PROPOSED_DESIGN` են մինչև կիրառելի Accepted decision։ TASK-GO record-ը optional review artifact է։
 
 ## Architectural drivers
 

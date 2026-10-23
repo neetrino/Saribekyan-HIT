@@ -6,4 +6,4 @@ The former API, signature, code, and deliverables detail was removed because it 
 
 This path remains only so historical links resolve. It defines no API, integration, signature, source-code delivery, responsibility, acceptance criterion, or coding authorization. Do not reconstruct its former body for implementation.
 
-Use the signed contract and manifest-designated accepted decisions.
+Use the owner-authorized canonical Phase I baseline and manifest-designated accepted decisions.

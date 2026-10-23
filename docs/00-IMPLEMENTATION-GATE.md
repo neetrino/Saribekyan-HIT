@@ -1,28 +1,28 @@
 # Phase I Implementation Gate
 
-Այս ֆայլը պարտադիր pre-code ստուգում է մարդկանց և coding agent-ների համար։ Այն չի ընդլայնում պայմանագիրը և ստորագրված business scope-ը չի փոխում։
+Այս ֆայլը readiness և ambiguity guidance է մարդկանց ու coding agent-ների համար։ Այն չի ընդլայնում canonical Phase I scope-ը և repository owner-ի development authorization-ը չի փոխարինում։
 
-**Current authorization state.** Business coding-ը ամբողջ Phase I-ի համար միացված կամ անջատված չէ։ Յուրաքանչյուր task ստուգվում է իր dependency-ներով։ `SIGNATURE-STATUS.yaml`-ի `signed_source` բլոկը business source-ի verification-ն է։ Generated DOCX/PDF-ի `STALE_REGENERATE_REQUIRED` վիճակը և իրավական review-ը development չեն կանգնեցնում։ Մեկ այլ requirement-ի չլուծված semantics-ը նույնպես չի կանգնեցնում։ D-008 compatibility PoC-ը մնում է առանձին coding բացառություն, քանի դեռ business source-ը verified չէ։
+**Current authorization state.** Repository owner-ը թույլատրել է Phase I development-ը canonical Markdown baseline-ի հիման վրա։ `SIGNATURE-STATUS.yaml`-ի `signed_source` բլոկը միայն contract/signature readiness metadata է և coding prerequisite չէ։ Generated DOCX/PDF-ի վիճակը, legal review-ը կամ TASK-GO record-ի բացակայությունը development չեն կանգնեցնում։ Յուրաքանչյուր genuine unresolved business dependency կանգնեցնում է միայն իրենից կախված slice-ը։ D-008 compatibility PoC-ը պահպանում է իր սահմանափակ scope-ը, բայց այլևս միակ թույլատրելի coding task-ը չէ։
 
 ## 1. Stop rule
 
-Feature կամ business rule կարելի է իրականացնել միայն եթե **այդ task-ի** համար միաժամանակ առկա են՝
+Feature կամ business rule կարելի է իրականացնել, երբ այն canonical Phase I scope-ում է և տվյալ slice-ի իրական business dependency-ները լուծված են։ Ստուգվում են՝
 
-1. business source՝ ստորագրված ՏԱ-ի Phase I բաժիններ 5–16 կամ նույն ստորագրված scope-ի ներսում Պատվիրատուի հաստատված Phase I պարզաբանում,
+1. business source՝ canonical Phase I ՏԱ-ի բաժիններ 5–16 կամ scope-ը բացահայտ փոփոխող հաստատված պարզաբանում,
 2. միայն այն technical decision-ները, որոնցից այս task-ը կախված է. `Approved`/`Accepted` որոշումը business scope չի ստեղծում կամ ընդլայնում,
-3. [signature manifest](./techHistory/phase-1/SIGNATURE-STATUS.yaml)-ում `signed_source.status: SIGNED_VERIFIED`, `parity_with_canonical: MATCH` և `business_source_authorized: true`,
-4. [task go record](./governance/TASK-GO-TEMPLATE.md)-ի լրացված պատճեն՝ անկախ reviewer-ի `GO` որոշմամբ։
+3. [signature manifest](./techHistory/phase-1/SIGNATURE-STATUS.yaml)-ում `repository_development.status: AUTHORIZED_BY_OWNER` և canonical baseline-ի նույնականացումը,
+4. տվյալ slice-ի համար չլուծված medical, financial, legal, security կամ irreversible workflow semantics-ի բացակայությունը։ TASK-GO review-ը optional անկախ quality verdict է, ոչ pre-code թույլտվություն։
 
 Չլուծված decision-ը կանգնեցնում է միայն իրենից կախված task-ը։
 
 ```text
-SIGNED BUSINESS SPEC
+OWNER-AUTHORIZED CANONICAL BASELINE
         ↓
 Requirement
         ↓
 Does this task depend on an unresolved decision?
         ├── YES → block only this task
-        └── NO  → Task-Go review → GO → DEVELOPMENT
+        └── NO  → DEVELOPMENT → reviewer/QA completion checks
 ```
 
 Phase I-ի որևէ այլ պահանջի բաց semantics-ը business implementation-ի ընդհանուր արգելք չէ։
@@ -108,8 +108,8 @@ Phase I-ի պարտադիր նվազագույնը ADM-10-ն է՝ action, user, 
 
 Յուրաքանչյուր task-ը պետք է նշի ՏԱ/clarification ID-ն, owning module-ը, reuse/configure/custom որոշումը, canonical data model-ը և verification-ը։ Permissions, audit, workflow, money, concurrency և storage դաշտերը պարտադիր են միայն երբ task-ը այդ վարքն իրականացնում է։ Կախվածություն չհանդիսացող դաշտը լրացվում է `N/A_NOT_A_DEPENDENCY`։ Այդ արժեքը `NO_GO` չէ։ Եթե task-ի իրական scope/source-ը կամ իրական dependency-ն բացակայում է, այդ task-ը չի սկսվում։
 
-Այս տվյալները գրանցվում են [TASK-GO-TEMPLATE.md](./governance/TASK-GO-TEMPLATE.md)-ի համաձայն։ Coding agent-ը կարող է պատրաստել record-ը, բայց չի կարող հաստատել սեփական `GO`-ն, ստորագրության evidence-ը կամ ADR status transition-ը։
+Այս տվյալները կարելի է գրանցել [TASK-GO-TEMPLATE.md](./governance/TASK-GO-TEMPLATE.md)-ով, երբ անկախ task review է պահանջվել։ Record-ի բացակայությունը coding blocker չէ։ Coding agent-ը չի կարող հաստատել սեփական `GO`-ն, ստորագրության evidence-ը կամ ADR status transition-ը։
 
-**D-008 compatibility PoC exception.** Թույլատրող աղբյուրը հենց D-008-ն է։ Canonical `task_class`-ը պարտադիր `D008_COMPATIBILITY_POC` է, իսկ ownership classification-ը՝ `TECHNICAL_POC`։ Ազատ `pilot` task class չի օգտագործվում։ Սա business requirement կամ REG–ADM module չէ, ուստի TASK-GO record-ը լրացվում է `TASK-GO-TEMPLATE.md`-ի ամբողջական `N/A_D008` profile-ով։ D-008 pre-code `GO`-ի համար ստորագրված contract և Accepted ADR չեն պահանջվում. source evidence-ը D-008-ն ու compatibility spec-ն են, իսկ PoC-ը հենց ADR-0002-ի հետագա որոշման evidence-ն է։ Pre-code պարտադիր են exact-SHA approval-ը, existing privilege-ի inspection/ընտրությունը կամ spec-ով թույլատրելի pre-code failure-ը, concrete affected paths-ը, planned automated check IDs-ը և ստեղծված run-record path-ը՝ լրացված kickoff fields-ով։ HTTP արդյունքները, build/load արդյունքը, resolved runtime versions-ը, teardown-ը և clean rerun-ը **pre-code GO prerequisites չեն**. kickoff պահին դրանց արժեքը բառացի `PENDING_D008_EXECUTION` է և փոխարինվում է փաստացի evidence-ով post-run completion review-ում։ Այդ արդյունքային դաշտերում `TBD` չի օգտագործվում։ Workspace-ը, backend module ID-ն, Java package-ը, frontend extension-ը և probe URL-ը պարտադիր վերցվում են [compatibility spec](./pilot/COMPATIBILITY-POC.md)-ի Temporary identifiers բաժնից։ Փորձը չպետք է պարունակի patient/clinical/finance business logic կամ production schema և ապացուցում է միայն OMOD build/install/lifecycle/API ու minimal O3 extension wiring-ը։ PoC-ից business code չի շարունակվում, մինչև completion evidence-ը չի վերանայվել և ADR-0002-ը չի ընդունվել կամ մերժվել։
+**D-008 compatibility PoC profile.** D-008-ի technical scope-ի աղբյուրը D-008-ն ու [compatibility spec](./pilot/COMPATIBILITY-POC.md)-ն են։ Canonical `task_class`-ը `D008_COMPATIBILITY_POC` է, ownership-ը՝ `TECHNICAL_POC`, իսկ ազատ `pilot` class-ը անվավեր է։ TASK-GO review-ը optional է, սակայն PoC run record-ը, exact-SHA-ն, planned checks-ը և spec-ի disposable identifiers-ը պարտադիր execution evidence են։ Runtime արդյունքները kickoff-ին կարող են լինել `PENDING_D008_EXECUTION` և completion-ին փոխարինվում են փաստացի evidence-ով։ Փորձը չի պարունակում patient/clinical/finance business logic կամ production schema և ապացուցում է միայն OMOD build/install/lifecycle/API ու minimal O3 extension wiring-ը։ PoC artifact-ը business implementation չի դառնում առանց առանձին տեխնիկական adoption decision-ի, սակայն դա unrelated owner-authorized Phase I development-ը չի կանգնեցնում։
 
 D-008 compatibility PoC-ի միակ կառուցվածքային հրահանգը [compatibility spec](./pilot/COMPATIBILITY-POC.md)-ն է, ոչ `03-STRUCTURE.md`-ի business module skeleton-ը։ Պայմանագրային արտադրական փորձնական թողարկման (`PRODUCTION_PILOT_RELEASE`) համար այս spec-ը source չէ։

@@ -6,4 +6,4 @@ The former inclusion lists were removed because they could be mistaken for curre
 
 This path remains only so historical links resolve. It defines no in-scope function, field, state, transition, module, acceptance criterion, or coding authorization. Do not reconstruct its former body for implementation.
 
-Use the signed contract, current traceability, and active blocker registers.
+Use the owner-authorized canonical Phase I baseline, current traceability, and applicable dependency registers.

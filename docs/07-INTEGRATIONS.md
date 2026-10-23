@@ -1,8 +1,8 @@
 # Integrations Architecture
 
-> **Կարգավիճակ:** target integration design և future connector checklist է, ոչ coding authorization։ Phase I-ում կառուցվում են միայն ստորագրված ՏԱ-ի traceable interface/report/export ID-ները։ «API/integration foundation» արտահայտությունը չի թույլատրում ընդհանուր `/api/v1` facade, connector, queue կամ adapter ստեղծել առանց հաստատված use case-ի։ D-008 compatibility PoC-ի probe-ը կարգավորվում է միայն PoC spec-ով և այս architecture-ի implementation-ը չէ։
+> **Կարգավիճակ:** target integration design և future connector checklist է, ոչ նոր scope։ Phase I-ում կառուցվում են owner-authorized canonical ՏԱ-ի traceable interface/report/export ID-ները։ Signature verification-ը և TASK-GO-ն prerequisites չեն։ «API/integration foundation» արտահայտությունը չի թույլատրում ընդհանուր `/api/v1` facade, connector, queue կամ adapter ստեղծել առանց հաստատված use case-ի։ D-008 compatibility PoC-ի probe-ը կարգավորվում է միայն PoC spec-ով։
 
-> **Rule classification:** Phase I connector exclusions-ը governing scope boundary են։ Adapter/retry/idempotency/gateway/FHIR և operational checklist կետերը `PROPOSED_DESIGN` են մինչև կոնկրետ connector change request-ը և task go record-ը հաստատված չեն։
+> **Rule classification:** Phase I connector exclusions-ը governing scope boundary են։ Adapter/retry/idempotency/gateway/FHIR և operational checklist կետերը `PROPOSED_DESIGN` են մինչև կոնկրետ connector use case/change request-ը և կիրառելի design-ը հաստատված չեն։ TASK-GO-ն optional review է։
 
 ## Phase I boundary
 
@@ -15,7 +15,7 @@ Phase I-ի նպատակային սահմանում կա integration-ready archit
 | OpenMRS Java service API | Server-side module collaboration |
 | OpenMRS REST | O3/internal web use cases, երբ semantic fit կա |
 | FHIR R4/FHIR2 | Հաստատված interoperability resources/use cases |
-| Custom endpoint/facade | Միայն առանձին ստորագրված use case-ի և accepted design-ի դեպքում. shared layer չէ |
+| Custom endpoint/facade | Միայն canonical/approved use case-ի և կիրառելի accepted design-ի դեպքում. shared layer չէ |
 | Controlled files | Contract reports, finance exports և approved initial import |
 
 FHIR endpoint-ի առկայությունը դեռ չի ապացուցում workflow interoperability. mapping, terminology, lifecycle և profile-ը հաստատվում են use case առ use case։
@@ -33,7 +33,7 @@ FHIR endpoint-ի առկայությունը դեռ չի ապացուցում wor
 
 ```mermaid
 flowchart LR
-  Need[Signed connector use case] --> Decision{Accepted per-use-case design?}
+  Need[Canonical or approved connector use case] --> Decision{Accepted per-use-case design?}
   Decision -->|No| Stop[NO_GO]
   Decision -->|Yes| Native{Native OpenMRS interface fits?}
   Native -->|Yes| Reuse[Use and document native contract]

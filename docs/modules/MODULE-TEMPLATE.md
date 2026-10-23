@@ -10,12 +10,13 @@
 - Requirement IDs:
 - OpenMRS/module version:
 - Decision/ADR:
-- Signed artifact hash (`SIGNATURE-STATUS.yaml`):
+- Canonical baseline hash (`SIGNATURE-STATUS.yaml` → `canonical_content.sha256`):
+- Contract signature status (informational only):
 - Task go record ID/path:
 - Independent approver/date/evidence:
 - Open blockers (`NONE` required before implementation):
 
-Եթե signed artifact hash-ը, requirement-level traceability-ն, applicable blocker closure-ը կամ approved task go record-ը բացակայում են, այս module record-ը միայն proposed design է և code/schema/dependency ստեղծելու թույլտվություն չէ։
+Եթե canonical baseline reference-ը կամ տվյալ module slice-ի իրական requirement/blocker resolution-ը բացակայում է, այս record-ից նոր business semantics չի կարելի հորինել։ Contract signature-ը և TASK-GO-ն code/schema/dependency ստեղծելու prerequisites չեն։
 
 ## Purpose and non-goals
 

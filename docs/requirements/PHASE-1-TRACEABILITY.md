@@ -1,6 +1,6 @@
 # Phase I requirements traceability
 
-> **Lifecycle՝ requirement-scoped gate.** Requirement ID-ն scope կամ coding authorization չէ։ Մեկ տողի blocker-ը մյուս տողերը չի կանգնեցնում։ Business source-ը ՏԱ v1.3-ի տեքստն է. այն `SIGNED` է միայն երբ `SIGNATURE-STATUS.yaml`-ի `signed_source.business_source_authorized` արժեքը `true` է։ Code-ը սկսվում է տվյալ slice-ի task go record-ից հետո։ IDs/ownership groups-ը deployable artifact count չեն սահմանում։
+> **Lifecycle՝ requirement-scoped readiness register.** Requirement ID-ն scope-ից դուրս վարք ստեղծելու թույլտվություն չէ։ Մեկ տողի blocker-ը մյուս տողերը չի կանգնեցնում։ Business baseline-ը ՏԱ v1.3-ի canonical Markdown-ն է, որի repository development-ը owner-authorized է։ Signature status-ը contract-readiness metadata է, իսկ task-go record-ը՝ optional review artifact. դրանցից ոչ մեկը pre-code blocker չէ։ IDs/ownership groups-ը deployable artifact count չեն սահմանում։
 
 ## Requirement-level register
 

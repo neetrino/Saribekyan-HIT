@@ -4,7 +4,7 @@
 
 **Փաստաթղթի տարբերակ՝** 1.3
 **Կարգավիճակ՝** ստորագրման համար
-**Repository authorization status՝** տես `SIGNATURE-STATUS.yaml`. մինչև այնտեղ `SIGNED_VERIFIED` վիճակը և signed artifact hash-ը չգրանցվեն, այս ֆայլը business implementation authorization չէ։
+**Repository authorization status՝** owner-authorized development baseline. տես `SIGNATURE-STATUS.yaml`-ի `repository_development` բլոկը։ Contract signature status-ը մնում է առանձին իրավական metadata և repository coding prerequisite չէ։
 **Պատվիրատու՝** ______________________________________________
 **Կատարող՝** _________________________________________________
 **Պայմանագրի ամսաթիվ՝** «___» __________ 20___ թ.

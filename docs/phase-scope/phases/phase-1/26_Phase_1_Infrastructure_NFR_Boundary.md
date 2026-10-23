@@ -6,4 +6,4 @@ The former commercial and infrastructure detail was removed because it could be 
 
 This path remains only so historical links resolve. It defines no infrastructure scope, responsibility, service level, commercial term, acceptance criterion, or coding authorization. Do not reconstruct its former body for implementation or pricing.
 
-Use the signed contract and manifest-designated accepted decisions.
+Use the owner-authorized canonical Phase I baseline and manifest-designated accepted decisions.

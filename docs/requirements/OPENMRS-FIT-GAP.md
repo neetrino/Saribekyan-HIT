@@ -108,7 +108,7 @@ External IdP/Keycloak-ը Phase I-ում չի իրականացվում։ OpenMRS 
 
 ## Fit-gap validation candidates — not an authorized backlog
 
-Այս ցանկը future validation inventory է, ոչ coding authorization, sprint backlog կամ D-008 pilot-ի scope։ Մինչ ստորագրումը թույլատրված է միայն [D-008 compatibility PoC](../pilot/COMPATIBILITY-POC.md)-ն, որը ստորև նշված business workflow-ները չի իրականացնում։ Կետեր 2–10-ը կարող են պլանավորվել միայն ստորագրված scope-ից, համապատասխան requirement traceability-ից և առանձին go որոշումից հետո։ `Audit read` հիշատակումը fit-gap հարց է և Phase I-ի պարտադիր every-view audit չի սահմանում։
+Այս ցանկը future validation inventory է, ոչ ինքնուրույն sprint backlog կամ D-008 pilot-ի scope։ Phase I development-ը թույլատրված է owner-authorized canonical baseline-ով, իսկ [D-008 compatibility PoC](../pilot/COMPATIBILITY-POC.md)-ն միայն իր նեղ technical profile-ն է իրականացնում։ Կետեր 2–10-ը կարող են պլանավորվել canonical scope-ից և համապատասխան requirement traceability-ից. signature verification կամ առանձին task-go prerequisite չկա։ `Audit read` հիշատակումը fit-gap հարց է և Phase I-ի պարտադիր every-view audit չի սահմանում։
 
 1. Pin candidate Reference Application release և ամբողջ compatibility matrix-ը։
 2. Armenian patient registration/search/merge։

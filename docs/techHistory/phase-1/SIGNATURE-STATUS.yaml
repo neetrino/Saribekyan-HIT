@@ -19,7 +19,7 @@ signed_source:
 
 canonical_content:
   path: Phase_1_Technical_Specification_HY.md
-  sha256: 9FE316BAC5F571EB28668239C95C5E51638CCA338AC5E57116824847E73B9593
+  sha256: 3871E284B3864843216C453AA9DF09825183D2991B9287735CEF4278E26154A3
   role: EDITABLE_CONTENT_BASELINE
   version: "1.3"
 
@@ -39,10 +39,21 @@ legal_review:
   required: true
   blocks_development: false
 
+# Repository development authority is independent from contract-signature
+# verification. This authorizes implementation against the canonical baseline;
+# it does not claim that the contract or TA has been signed.
+repository_development:
+  status: AUTHORIZED_BY_OWNER
+  baseline: Phase_1_Technical_Specification_HY.md
+  baseline_sha256: 3871E284B3864843216C453AA9DF09825183D2991B9287735CEF4278E26154A3
+  requires_signed_source: false
+  requires_task_go: false
+
 rules:
   - Editing this file does not itself create signature evidence.
   - Coding agents must not set signed_source.status to SIGNED_VERIFIED or business_source_authorized to true.
   - SIGNED_VERIFIED requires parity_with_canonical MATCH against the canonical Markdown hash. NOT_ASSESSED is not verification.
   - Stale generated DOCX/PDF do not block development and are not an implementation source. Deleting them is not a parity correction.
-  - A verified signed TA is necessary for a business task and does not close that task's own blockers or replace its TASK-GO record.
+  - Contract-signature verification is legal/readiness metadata and is not a repository development prerequisite.
+  - Development is authorized by repository_development.status against the named canonical baseline; TASK-GO is an optional independent review verdict.
   - An unresolved decision blocks only tasks that depend on it.

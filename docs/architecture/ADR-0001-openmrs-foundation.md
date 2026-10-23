@@ -5,7 +5,7 @@
 - Decision ID: D-002/D-003
 - Decision owner: Project architecture owner
 - Approval evidence: legacy internal decision index only; independent approver record is not attached and `DECISIONS.md` is not evidence
-- Implementation authority: None without signed requirement and task go record
+- Implementation authority: Owner-authorized canonical Phase I requirements; TASK-GO is optional review
 
 ## Context
 

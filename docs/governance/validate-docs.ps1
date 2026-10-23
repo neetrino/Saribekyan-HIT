@@ -93,6 +93,15 @@ if (-not (Test-Path -LiteralPath $signatureManifest)) {
     Add-Failure 'Missing SIGNATURE-STATUS.yaml'
 } else {
     $signatureText = Get-Content -Raw -Encoding utf8 -LiteralPath $signatureManifest
+    foreach ($ownerAuthorizationRule in @(
+        'status: AUTHORIZED_BY_OWNER',
+        'requires_signed_source: false',
+        'requires_task_go: false'
+    )) {
+        if ($signatureText -notmatch [regex]::Escape($ownerAuthorizationRule)) {
+            Add-Failure "SIGNATURE-STATUS.yaml is missing Option A repository authorization rule: $ownerAuthorizationRule"
+        }
+    }
     $signedVerified = $signatureText -match 'status:\s*SIGNED_VERIFIED'
     $sourceAuthorized = $signatureText -match 'business_source_authorized:\s*true'
     $parityMatch = $signatureText -match 'parity_with_canonical:\s*MATCH'
@@ -104,7 +113,7 @@ if (-not (Test-Path -LiteralPath $signatureManifest)) {
     }
 
     if (-not $sourceAuthorized) {
-        $readinessIssues.Add('TA signed source is not verified. This blocks business tasks and does not block unrelated derivative regeneration.')
+        $readinessIssues.Add('TA signed source is not verified. This affects legal/signing readiness only; repository development remains owner-authorized.')
     }
 
     $canonicalMatch = [regex]::Match($signatureText, 'canonical_content:\s*\r?\n\s*path:\s*([^\r\n]+)\r?\n\s*sha256:\s*([A-Fa-f0-9]{64})')
@@ -307,8 +316,9 @@ foreach ($requiredD008Token in @(
         Add-Failure "TASK-GO-TEMPLATE is missing D-008 profile token: $requiredD008Token"
     }
 }
-if ($taskTemplateText -notmatch 'D008_COMPATIBILITY_POC[^\r\n]*Accepted ADR' -and $taskTemplateText -notmatch 'signed contract or Accepted ADR') {
-    Add-Failure 'TASK-GO-TEMPLATE must explicitly exempt D-008 from signed-contract/Accepted-ADR prerequisites.'
+if ($taskTemplateText -notmatch 'optional independent-review record' -or
+    $taskTemplateText -notmatch 'Contract signature verification') {
+    Add-Failure 'TASK-GO-TEMPLATE must define TASK-GO as optional and signature-independent.'
 }
 foreach ($requiredIdentifierExemption in @('pilot/openmrs-compatibility/', 'saribekyanpilot', 'org.openmrs.module.saribekyanpilot', 'saribekyan-pilot-extension')) {
     if ($gateText -notmatch [regex]::Escape($requiredIdentifierExemption)) {
@@ -344,8 +354,8 @@ foreach ($requiredCheckpointRule in @(
         Add-Failure "Compatibility spec is missing D-008 checkpoint rule: $requiredCheckpointRule"
     }
 }
-if ($taskTemplateText -notmatch 'pre-code `GO`' -or $taskTemplateText -notmatch 'Post-run completion review') {
-    Add-Failure 'TASK-GO-TEMPLATE must separate D-008 kickoff authorization from completion evidence.'
+if ($taskTemplateText -notmatch 'KICKOFF_REVIEW' -or $taskTemplateText -notmatch 'Post-run completion review') {
+    Add-Failure 'TASK-GO-TEMPLATE must separate optional D-008 kickoff review from completion evidence.'
 }
 
 # Interpretation guards stay in governance. They are not inserted into the contractual TA.
@@ -494,9 +504,9 @@ if ($failures.Count -gt 0) {
 
 Write-Output 'Structural documentation governance checks passed.'
 if ($readinessIssues.Count -gt 0) {
-    Write-Output 'Signing/implementation readiness: NOT_READY'
+    Write-Output 'Contract signing readiness: NOT_READY'
     $readinessIssues | ForEach-Object { Write-Output "- $_" }
     if ($RequireSigningReady) { exit 2 }
 } else {
-    Write-Output 'Signing/implementation readiness: READY_FOR_REVIEW'
+    Write-Output 'Contract signing readiness: READY_FOR_REVIEW'
 }

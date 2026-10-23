@@ -6,4 +6,4 @@ The former acceptance, pilot-release, training, warranty, and service-level deta
 
 This path remains only so historical links resolve. It defines no module-completion condition, UAT rule, training obligation, warranty, SLA, maintenance term, or coding authorization. Do not reconstruct its former body from the vision document or repository history for implementation or contracting.
 
-Use the signed contract and manifest-designated accepted evidence.
+Use the owner-authorized canonical Phase I baseline and manifest-designated accepted evidence.

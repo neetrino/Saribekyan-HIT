@@ -1,6 +1,6 @@
 # Security and Privacy
 
-> **Կարգավիճակ:** target security/privacy design և review checklist է, ոչ business coding authorization։ Կիրառելի implementation-ը սկսվում է միայն ստորագրված ՏԱ-ի traceable requirement-ից և implementation gate-ից հետո։ Այս ֆայլը չի թույլատրում հորինել session/password timeout, joiner/mover/leaver workflow, break-glass duration/scope, retention, encryption կամ այլ բաց security/privacy արժեք։ D-008 compatibility PoC-ի security սահմանը կարգավորվում է միայն PoC spec-ով։
+> **Կարգավիճակ:** target security/privacy design և review checklist է, ոչ նոր business scope։ Կիրառելի implementation-ը վերցվում է owner-authorized canonical ՏԱ-ից։ Signature verification-ը, implementation-gate verdict-ը և TASK-GO-ն pre-code prerequisites չեն։ Այս ֆայլը չի թույլատրում հորինել session/password timeout, joiner/mover/leaver workflow, break-glass duration/scope, retention, encryption կամ այլ բաց security/privacy արժեք։ D-008 compatibility PoC-ի security սահմանը կարգավորվում է միայն PoC spec-ով։
 
 > **Rule classification:** native OpenMRS authentication/no-external-IdP սահմանը և server-side authorization սկզբունքը governing constraints են։ At-rest encryption, malware scanning, rate limits, centralized alerts, incident runbook և այլ checklist կետերը `PROPOSED_DESIGN` են մինչև source requirement, owner, measurable acceptance և task go record-ը հաստատվեն։
 
@@ -21,7 +21,7 @@ Browser, proxy, O3/OpenMRS runtime, database, file storage և external integrati
 
 Որոշումը ներառում է principal-ը, role/privilege-ը, action/resource-ը, location/department/service scope-ը, care relationship-ը և record state-ը։ Default-ը deny է, կանոնը կիրառվում է backend-ում։ Admin լինելը ինքնաբերաբար clinical superuser լինել չէ։
 
-Break-glass-ը target control է՝ պատճառի, սահմանափակ time/scope-ի, առանձին audit event-ի և հետագա review/alert-ի գաղափարով։ Exact duration-ը, scope-ը, eligibility-ն և review/alert workflow-ը blockers են մինչև ստորագրված պահանջ կամ Approved որոշում։
+Break-glass-ը target control է՝ պատճառի, սահմանափակ time/scope-ի, առանձին audit event-ի և հետագա review/alert-ի գաղափարով։ Exact duration-ը, scope-ը, eligibility-ն և review/alert workflow-ը տվյալ behavior-ի blockers են մինչև canonical պահանջ կամ Approved որոշում, բայց unrelated development-ը չեն կանգնեցնում։
 
 ## Audit baseline
 
@@ -40,7 +40,7 @@ Audit-ում password/token/session secret կամ անհարկի ամբողջ cl
 
 - Approved medical record-ը ուղղվում է amendment/correction-ով՝ պահելով նախկին տարբերակը և պատճառը։
 - Financial correction-ը traceable reversal/refund է։
-- Internal confirmation + audit-ը `DRAFT_CONTRACT_REQUIREMENT_NO_GO` է մինչև ստորագրությունն ու permission/workflow task gate-ը. qualified e-signature connector-ը դուրս է scope-ից առանց change request-ի։
+- Internal confirmation + audit-ը canonical Phase I requirement է, որի permission/workflow semantics-ը պետք է լուծված լինի տվյալ slice-ի համար. contract signature-ը կամ TASK-GO-ն prerequisite չեն։ Qualified e-signature connector-ը դուրս է scope-ից առանց change request-ի։
 - TLS-ը network boundaries-ի governing requirement է, secrets-ը repository/log-ից դուրս են։ DB/files/backups at-rest encryption-ը `PROPOSED_DESIGN` է և չի իրականացվում մինչև provider/scope, key ownership/custody, rotation/recovery և acceptance evidence-ը գրավոր հաստատված չեն։
 - Production data-ը non-production-ում միայն approved masking/anonymization-ով։
 - Patient search, logs, exports և prints-ը հետևում են data minimization-ին։

@@ -4,7 +4,7 @@
 - Date: 2026-10-19
 - Decision owner: Project architecture owner
 - Acceptance approver/date/evidence: TBD — coding agent may not fill or self-approve
-- Implementation authority: D-008 PoC only until independent acceptance and task go record
+- Implementation authority: owner-authorized Phase I development; this ADR governs only slices dependent on its extension-strategy decision
 
 ## Context
 

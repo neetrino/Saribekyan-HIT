@@ -8,19 +8,19 @@
 
 | TECH_CARD status | Canonical interpretation | Agent action |
 |---|---|---|
-| Approved | `APPROVED_CONSTRAINT_NO_GO` | Սահմանը կամ ուղղությունը պահել. business code չսկսել |
-| APPROVED_CONSTRAINT_NO_GO / GOVERNING_CANONICAL_MODEL_NO_SKELETON | նույն canonical literal-ը | Constraint/ownership guardrail է. dependency, Maven/OMOD tree, skeleton կամ business code չստեղծել |
-| GOVERNING_GUARDRAIL_NO_GO | canonical literal | Պարտադիր արգելք/սահման է, ոչ implementation permission |
-| PROPOSED_DESIGN | canonical literal | Չիրականացնել մինչև accepted decision և task GO |
+| Approved | `APPROVED_CONSTRAINT` | Սահմանը կամ ուղղությունը պահել. նոր business scope չստեղծել |
+| APPROVED_CONSTRAINT / GOVERNING_CANONICAL_MODEL_NO_SKELETON | նույն canonical literal-ը | Constraint/ownership guardrail է. ինքնուրույն dependency, Maven/OMOD tree կամ skeleton չի սահմանում |
+| GOVERNING_GUARDRAIL | canonical literal | Պարտադիր արգելք/սահման է authorized implementation-ի ընթացքում |
+| PROPOSED_DESIGN | canonical literal | Չդարձնել վերջնական architecture առանց accepted decision-ի, երբ task-ը դրանից կախված է |
 | BLOCKED | canonical literal | Կանգնեցնել միայն այս decision-ից կախված task-ը և պահանջել փակող evidence |
 | D008_POC_ONLY | canonical literal | Միայն `D008_COMPATIBILITY_POC` profile, ոչ business code |
-| Accepted | `ACCEPTED_DIRECTION_NO_GO` | `Accepted` բառը task go չէ. business code չսկսել |
-| Draft contract baseline | `BASELINE_V1_3` | Տեքստը business source է. business task-ը սպասում է signed-source verification-ին և իր task GO-ին |
+| Accepted | `ACCEPTED_DIRECTION` | Կիրառելի տեխնիկական ուղղություն է իր սահմաններում, ոչ նոր business scope |
+| Draft contract baseline | `BASELINE_V1_3_OWNER_AUTHORIZED` | Owner-authorized business baseline է. signature status-ը իրավական metadata է |
 | Approved baseline | `GOVERNING_GUARDRAIL` | Ownership map է. module tree կամ code չսկսել |
 | Approved gate / D-008 PoC gate only | `D008_POC_ONLY` | Միայն D-008 compatibility PoC-ն. business implementation չսկսել |
 | Approved Phase I boundary / Approved scope / Approved constraint | `GOVERNING_GUARDRAIL` | Պահպանել արգելքը/սահմանը, բայց code չսկսել |
-| Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION_NO_GO` | Design constraint է միայն signed requirement + task go-ով. բաց մասը blocker է միայն իրենից կախված task-ի համար |
-| Contract baseline / Conditional contract requirement | `BASELINE_V1_3` մինչև signed-source verification | Business task-ը սպասում է verification-ին և իր սեփական dependency-ներին |
+| Approved direction / Approved principle / Approved / partially open | `APPROVED_DIRECTION` | Design constraint է canonical requirement-ի համար. բաց մասը blocker է միայն իրենից կախված task-ի համար |
+| Contract baseline / Conditional contract requirement | `BASELINE_V1_3_OWNER_AUTHORIZED` | Development baseline է. signature verification-ը իրավական metadata է |
 | Proposed / Proposed baseline / Required design / Custom design required | `PROPOSED_DESIGN` | Code/dependency/schema չստեղծել |
 | PoC required / Proposed + PoC required | `VALIDATION_REQUIRED` | Install կամ version pin չանել. միայն առանձին թույլատրված PoC scope |
 | Proposed / blocked | `BLOCKED` | Կանգնեցնել միայն կախված task-ը |
@@ -32,8 +32,8 @@
 | Status | Meaning |
 |---|---|
 | Draft contract baseline | Ստորագրման համար պատրաստված, բայց դեռ coding authorization չտվող contractual baseline |
-| Approved | Ուղղություն կամ սահման իր նկարագրության մեջ. implementation go չէ, քանի դեռ task go record չկա |
-| Accepted | Առանց անկախ approver/date/evidence-ի task go չէ. business code չի թույլատրում |
+| Approved | Ուղղություն կամ սահման իր նկարագրության մեջ. չի ստեղծում նոր business scope |
+| Accepted | Հաստատված տեխնիկական ուղղություն է իր evidence-ի սահմաններում. TASK-GO prerequisite չէ |
 | Approved Phase I boundary / Approved scope / Approved constraint | Փուլ I-ի պարտադիր սահման կամ արգելք, ոչ ամբողջ տեխնոլոգիական ռազմավարության ընդունում |
 | Approved direction | Հաստատված ուղղություն, որի exact product/version/layout-ը կարող է դեռ բաց լինել |
 | Proposed | Ուժեղ թեկնածու, որը պահանջում է տեխնիկական հաստատում |
@@ -44,15 +44,15 @@
 | Deferred | Այս documentation փուլում չի որոշվում |
 | Out of Phase I | Փուլ I-ի պայմանագրային ծավալից դուրս է |
 
-Այլ փաստաթղթերի «ավարտված», «created», «expected» կամ «target only» բառերը նկարագրում են documentation artifact-ի վիճակը, ոչ որոշման approval-ը և ոչ coding authorization-ը։ Coding authorization-ը որոշվում է միայն [implementation gate](./00-IMPLEMENTATION-GATE.md)-ով։
+Այլ փաստաթղթերի «ավարտված», «created», «expected» կամ «target only» բառերը նկարագրում են documentation artifact-ի վիճակը և նոր scope չեն ստեղծում։ Coding authorization-ը տրված է repository-level `AGENTS.md`-ով, իսկ [implementation gate](./00-IMPLEMENTATION-GATE.md)-ը readiness/ambiguity guidance է։
 
 ## 1. Foundation
 
 | Decision | Value | Status | Notes |
 |---|---|---|---|
-| Project size | Size C | APPROVED_CONSTRAINT_NO_GO | Դասակարգում է governance/quality կարիքները. module tree կամ code չի ստեղծում |
+| Project size | Size C | APPROVED_CONSTRAINT | Դասակարգում է governance/quality կարիքները. module tree չի սահմանում |
 | Clinical platform | OpenMRS | GOVERNING_CANONICAL_MODEL_NO_SKELETON | Պացիենտ, visit, encounter, obs, order և clinical terminology ownership guardrail է. distribution/OMOD tree չի թույլատրում |
-| Backend language | Java | APPROVED_CONSTRAINT_NO_GO | Միայն արդեն թույլատրված custom backend-ի լեզվի constraint է. ինքնուրույն backend/module ստեղծելու պատճառ չէ |
+| Backend language | Java | APPROVED_CONSTRAINT | Թույլատրված custom backend-ի լեզվի constraint է. ինքնուրույն module count չի սահմանում |
 | Delivery scope | Phase I contract specification v1.3 | Business source text | Signed-source verification-ը պարտադիր է business task-ի համար. այլ requirement-ի բաց decision-ը այս task-ը չի կանգնեցնում. D-008 PoC-ն մնում է բացառություն, քանի դեռ signed source-ը verified չէ |
 | Architecture approach | OpenMRS distribution + modules | Proposed | Core fork-ից խուսափելու և upgrade path-ը պահպանելու սկզբունք |
 
@@ -73,7 +73,7 @@
 |---|---|---|
 | Runtime | OpenMRS Java backend/module runtime | GOVERNING_CANONICAL_MODEL_NO_SKELETON |
 | Custom server capabilities | Java OMOD modules | Proposed |
-| Business boundaries | REG registration, AMB ambulatory, INP inpatient, DIA diagnostics/treatment, FIN finance, REP reporting, ADM administration | GOVERNING_GUARDRAIL_NO_GO — ownership only; no OMOD/package/directory count |
+| Business boundaries | REG registration, AMB ambulatory, INP inpatient, DIA diagnostics/treatment, FIN finance, REP reporting, ADM administration | GOVERNING_GUARDRAIL — ownership only; no OMOD/package/directory count |
 | Database access | OpenMRS service/API layer, custom module DAOs միայն module-owned data-ի համար | Proposed |
 | Schema migrations | OpenMRS/Liquibase module migrations | Proposed |
 | Background work | Exact mechanism TBD | Deferred |

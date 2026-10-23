@@ -8,7 +8,7 @@
 
 Դատարկ directories-ը Git-ում պահվում են միայն README-ով, երբ դրանց purpose-ը հաստատված է։ Անհաստատ technology-ի placeholder code չի ավելացվում։
 
-> D-008-ը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC։ Այն թույլ չի տալիս որևէ business module կամ ամբողջ tree գեներացնել։ Business artifacts-ը ստեղծվում են միայն evidence review/go-ից, ADR-0002-ի որոշումից, stack pin-ից, ստորագրված scope-ից և [implementation gate](./00-IMPLEMENTATION-GATE.md)-ը task-ի համար անցնելուց հետո։
+> D-008-ը թույլ է տալիս միայն մեկ pilot OMOD/O3 compatibility PoC և չի սահմանում business module tree։ Owner-authorized Phase I business artifacts-ը ստեղծվում են canonical scope-ից՝ կիրառելի technical evidence/ADR/stack որոշումների հիման վրա։ Signature verification-ը և TASK-GO-ն pre-code prerequisites չեն։
 
 ## Post-go artifact layout
 

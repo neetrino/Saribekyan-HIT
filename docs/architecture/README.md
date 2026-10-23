@@ -7,7 +7,7 @@ ADR status transition-ը կարգավորվում է `../governance/README.md`-�
 | ADR | Decision | Status |
 |---|---|---|
 | [ADR-0001](./ADR-0001-openmrs-foundation.md) | OpenMRS clinical foundation | `GOVERNING_CANONICAL_MODEL_NO_SKELETON` |
-| [ADR-0002](./ADR-0002-extension-strategy.md) | Distribution/modules over core fork | strategy `PROPOSED_DESIGN`; no-fork `GOVERNING_GUARDRAIL_NO_GO`; D-008 only `D008_POC_ONLY` |
-| [ADR-0003](./ADR-0003-identity-boundary.md) | Native OpenMRS identity boundary for Phase I | `GOVERNING_GUARDRAIL_NO_GO`; not an Accepted ADR |
+| [ADR-0002](./ADR-0002-extension-strategy.md) | Distribution/modules over core fork | strategy `PROPOSED_DESIGN`; no-fork `GOVERNING_GUARDRAIL`; D-008 profile `D008_POC_ONLY` |
+| [ADR-0003](./ADR-0003-identity-boundary.md) | Native OpenMRS identity boundary for Phase I | `GOVERNING_GUARDRAIL`; not an Accepted ADR |
 
 Նոր ADR է պետք, երբ որոշումը փոխում է data ownership-ը, deployment/security boundary-ն, integration contract-ը, availability/scaling model-ը կամ OpenMRS upgrade path-ը։
