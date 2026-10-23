@@ -1,6 +1,6 @@
 ---
-name: task-go-reviewer
-description: Independent TASK-GO reviewer for one task. Use when a task record needs a go/no-go decision. Reads the spec and the record, then writes GO only if every check passes. Does not implement code.
+name: optional-task-go-review-procedure
+description: Optional independent TASK-GO review procedure kept outside the five-agent orchestration. Use only when an owner or compliance process explicitly requests a separate go/no-go record.
 model: inherit
 readonly: false
 ---

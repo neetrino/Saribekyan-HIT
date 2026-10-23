@@ -1,5 +1,21 @@
 # Agent Instructions
 
+## Locked orchestration agents and models
+
+The orchestration consists of exactly five configured agents. Their model assignments are owner-locked:
+
+| Agent | Required model |
+|---|---|
+| `orchestrator` | `Sonnet 5.5` |
+| `developer` | `Sonnet 5.5` |
+| `reviewer` | `GPT-5.4` with `medium` reasoning |
+| `qa-playwright` | `Grok 4.7` |
+| `security-privacy-reviewer` | `Opus 5.5` |
+
+Agents must not change, inherit, alias, automatically upgrade, downgrade, or substitute these model assignments. If an exact model is unavailable, stop only the affected delegation and ask the repository owner to choose the model. Do not silently select a fallback.
+
+Creating, registering, or spawning any additional subagent or role requires the repository owner's explicit prior approval. Before creation, report the proposed role, bounded task, reason an existing agent cannot perform it, files it may access or change, and available model choices. Use only the model explicitly selected by the owner. Approval of a task does not imply approval of a new subagent.
+
 ## Development authority
 
 Development is authorized for the Phase I scope defined in:
@@ -37,10 +53,11 @@ manifest clearance, or an implementation-gate `GO`.
 The always-applied rule `.cursor/rules/no-documentary-blockers.mdc` states
 the same override.
 
-A coding agent never writes `decision: GO`. That mark is written only by
-the `task-go-reviewer` subagent in `.cursor/agents/task-go-reviewer.md`,
-and only after its own review passes. Asking that subagent is not a
-pre-code stop.
+A coding agent never writes `decision: GO`. When an owner or compliance
+process explicitly requests that optional verdict, follow
+`docs/governance/OPTIONAL-TASK-GO-REVIEW-PROCEDURE.md` independently and
+write it only after that review passes. This optional procedure is outside
+the five-agent orchestration and is not a pre-code stop.
 
 ---
 
@@ -99,6 +116,36 @@ If such a rule is genuinely required but absent from the specification,
 isolate that specific behavior and continue implementing unrelated work.
 
 An unresolved decision in one requirement must not block unrelated requirements.
+
+### Owner decision required for undocumented critical choices
+
+An agent must not decide an undocumented critical choice on its own. A choice is critical when it:
+
+- changes user-visible business behavior;
+- defines a medical or clinical rule;
+- defines money calculation, rounding, payment, debt, payer, or reversal policy;
+- changes roles, privileges, authorization, or patient-data visibility;
+- defines audit, retention, privacy, or security policy;
+- introduces an irreversible or data-loss-risk migration;
+- selects production database, storage, authentication, or integration architecture;
+- adds a large framework, external service, or paid dependency;
+- changes ownership of an OpenMRS canonical model;
+- creates a workflow state or irreversible transition;
+- changes a public API or data contract incompatibly;
+- or expands the owner-authorized Phase I scope.
+
+For such a choice, the agent must:
+
+1. stop only the affected slice and mark it `BLOCKED_OWNER_DECISION_REQUIRED`;
+2. continue unrelated work that does not depend on the choice;
+3. ask the repository owner before implementation, providing the missing decision, why canonical documentation is insufficient, affected requirements/tasks/files, two or three viable options, trade-offs, and a clearly labeled recommendation;
+4. wait for the owner's explicit selection;
+5. record the decision and approval evidence in the task/orchestration run record and, for a significant architectural decision, an ADR;
+6. resume the affected slice only after that record exists.
+
+Owner silence, an agent preference, a framework default, historical documentation, or an industry best practice is not approval.
+
+Do not escalate ordinary reversible implementation details that do not create business, clinical, financial, legal, privacy, security, or architectural semantics. Examples include local names, test organization, package organization, internal logging, and small refactoring.
 
 ---
 

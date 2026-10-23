@@ -398,9 +398,9 @@ if ($pocSpecText -notmatch 'D008_SUCCESS_OR_TERMINAL_EVIDENCE') {
     Add-Failure 'D-008 proof section must explicitly accept terminal incompatibility evidence without workaround.'
 }
 
-$taskGoReviewerPath = Join-Path $RepositoryRoot '.cursor/agents/task-go-reviewer.md'
+$taskGoReviewerPath = Join-Path $RepositoryRoot 'docs/governance/OPTIONAL-TASK-GO-REVIEW-PROCEDURE.md'
 if (-not (Test-Path -LiteralPath $taskGoReviewerPath)) {
-    Add-Failure 'Missing independent task-go-reviewer agent definition.'
+    Add-Failure 'Missing optional independent TASK-GO review procedure.'
 } else {
     $taskGoReviewerText = Get-Content -Raw -Encoding utf8 -LiteralPath $taskGoReviewerPath
     foreach ($requiredReviewerRule in @(
@@ -415,7 +415,7 @@ if (-not (Test-Path -LiteralPath $taskGoReviewerPath)) {
         'D008_SUCCESS_OR_TERMINAL_EVIDENCE'
     )) {
         if ($taskGoReviewerText -notmatch [regex]::Escape($requiredReviewerRule)) {
-            Add-Failure "Task-go reviewer is missing hardened review rule: $requiredReviewerRule"
+            Add-Failure "Optional TASK-GO review procedure is missing hardened review rule: $requiredReviewerRule"
         }
     }
 }
@@ -563,6 +563,89 @@ $gitignoreText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $Reposi
 if ($gitignoreText -notmatch '(?m)^/docs/\.env$' -or
     -not (Test-Path -LiteralPath (Join-Path $RepositoryRoot 'docs/.env.example'))) {
     Add-Failure 'Local docs/.env must be ignored and docs/.env.example must remain as the committed template.'
+}
+
+$orchestrationText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/governance/AGENT-ORCHESTRATION.md')
+foreach ($orchestrationRule in @(
+    '## 14. Async',
+    '## 15. Token',
+    '## 16. Model routing',
+    '## 17. Commit policy',
+    '## 18. Final integration control'
+)) {
+    if ($orchestrationText -notmatch [regex]::Escape($orchestrationRule)) {
+        Add-Failure "Agent orchestration guidance is missing a required execution-control section: $orchestrationRule"
+    }
+}
+foreach ($coreAgentRole in @(
+    '| `orchestrator` |',
+    '| `developer` |',
+    '| `reviewer` |',
+    '| `qa-playwright` |',
+    '| `security-privacy-reviewer` |'
+)) {
+    if ($orchestrationText -notmatch [regex]::Escape($coreAgentRole)) {
+        Add-Failure "Agent orchestration is missing one of its five roles: $coreAgentRole"
+    }
+}
+if ($orchestrationText -match '\| `task-go-reviewer` \|') {
+    Add-Failure 'task-go-reviewer must remain outside the five-agent orchestration roster.'
+}
+$configuredAgentFiles = @(Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot '.cursor/agents') -File -Filter '*.md')
+if ($configuredAgentFiles.Count -ne 5) {
+    Add-Failure "The configured orchestration must contain exactly five agent files; found $($configuredAgentFiles.Count)."
+}
+$lockedAgentModels = @{
+    'orchestrator.md' = 'model: "Sonnet 5.5"'
+    'developer.md' = 'model: "Sonnet 5.5"'
+    'reviewer.md' = 'model: "GPT-5.4"'
+    'qa-playwright.md' = 'model: "Grok 4.7"'
+    'security-privacy-reviewer.md' = 'model: "Opus 5.5"'
+}
+foreach ($agentFileName in $lockedAgentModels.Keys) {
+    $agentFileText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot ".cursor/agents/$agentFileName")
+    if ($agentFileText -notmatch [regex]::Escape($lockedAgentModels[$agentFileName]) -or
+        $agentFileText -notmatch 'model_locked:\s*true' -or
+        $agentFileText -match 'model:\s*inherit') {
+        Add-Failure "Configured agent model is not owner-locked as required: $agentFileName"
+    }
+}
+$reviewerAgentText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot '.cursor/agents/reviewer.md')
+if ($reviewerAgentText -notmatch 'reasoning_effort:\s*medium') {
+    Add-Failure 'The reviewer agent must use GPT-5.4 with medium reasoning effort.'
+}
+if ($orchestrationText -notmatch 'MODEL_ASSIGNMENTS_OWNER_LOCKED' -or
+    $orchestrationText -notmatch 'NEW_SUBAGENT_REQUIRES_OWNER_APPROVAL') {
+    Add-Failure 'Orchestration must lock model assignments and require owner approval for every new subagent.'
+}
+$rootAgentInstructionsText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'AGENTS.md')
+if ($rootAgentInstructionsText -notmatch 'Creating, registering, or spawning any additional subagent or role requires the repository owner''s explicit prior approval') {
+    Add-Failure 'Repository instructions must require owner approval before any new subagent is created or spawned.'
+}
+if ($rootAgentInstructionsText -notmatch 'BLOCKED_OWNER_DECISION_REQUIRED' -or
+    $rootAgentInstructionsText -notmatch 'Owner silence.*is not approval') {
+    Add-Failure 'Repository instructions must block undocumented critical decisions pending explicit owner selection.'
+}
+if ($orchestrationText -notmatch '## 20. Critical owner-decision escalation' -or
+    $orchestrationText -notmatch 'BLOCKED_OWNER_DECISION_REQUIRED') {
+    Add-Failure 'Orchestration guidance must define the critical owner-decision escalation flow.'
+}
+
+$orchestrationRunTemplateText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/governance/ORCHESTRATION-RUN-TEMPLATE.md')
+foreach ($runRecordField in @(
+    'background_execution:',
+    'model_routing:',
+    'owner_decisions:',
+    'BLOCKED_OWNER_DECISION_REQUIRED',
+    'approval_evidence:',
+    'targeted_checks:',
+    'final_integration_checks:',
+    'commits:',
+    'pushed: false'
+)) {
+    if ($orchestrationRunTemplateText -notmatch [regex]::Escape($runRecordField)) {
+        Add-Failure "Orchestration run template is missing a required audit field: $runRecordField"
+    }
 }
 
 $architectureText = Get-Content -Raw -Encoding utf8 -LiteralPath (Join-Path $RepositoryRoot 'docs/01-ARCHITECTURE.md')

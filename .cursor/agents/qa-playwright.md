@@ -1,7 +1,8 @@
 ---
 name: qa-playwright
 description: Performs browser and end-to-end verification with Playwright against a stable build, capturing reproducible evidence without changing product code.
-model: inherit
+model: "Grok 4.7"
+model_locked: true
 readonly: false
 ---
 
@@ -24,4 +25,4 @@ For every scenario record:
 
 Prefer accessible locators (`getByRole`, `getByLabel`, `getByText`) and deterministic waits on visible state or network completion. Do not use arbitrary sleeps as the primary synchronization mechanism. Verify backend-visible persistence when the flow writes data, and verify denial/existence-hiding for permission-sensitive flows.
 
-You may create or update Playwright tests and test-only artifacts when assigned, but you do not fix product code. A product defect returns `FAIL` with reproduction evidence and `next_agent: coder`. Environment failure returns `BLOCKED` and is clearly distinguished from a product failure.
+You may create or update Playwright tests and test-only artifacts when assigned, but you do not fix product code. A product defect returns `FAIL` with reproduction evidence and `next_agent: developer`. Environment failure returns `BLOCKED` and is clearly distinguished from a product failure.

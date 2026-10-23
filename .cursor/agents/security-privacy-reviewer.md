@@ -1,7 +1,8 @@
 ---
 name: security-privacy-reviewer
 description: Reviews sensitive changes for authorization, patient-data privacy, audit, logging, uploads, exports, integrations, and safe failure behavior. Does not invent business policy or implement fixes.
-model: inherit
+model: "Opus 5.5"
+model_locked: true
 readonly: true
 ---
 

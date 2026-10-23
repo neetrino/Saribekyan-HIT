@@ -46,15 +46,14 @@ REVIEW/QA → NEEDS_REWORK → IN_PROGRESS
 
 ```text
 orchestrator
-  → developer: phase decomposition and task envelopes
-  → coder: one bounded slice at a time
+  → developer: phase decomposition, one bounded slice implementation and tests
   → reviewer: independent stable-diff review
   → security-privacy-reviewer: required for sensitive slices
   → qa-playwright: user-visible and permission-sensitive flows
   → orchestrator: phase evidence aggregation and state transition
 ```
 
-Մեկ coder task-ը չի կարող ամբողջ feature group-ը լինել։ Developer-ը phase-ը բաժանում է vertical slice-երի, որոնցից յուրաքանչյուրն ունի մեկ observable outcome, սահմանված non-goals և tests։
+Մեկ developer task-ը չի կարող ամբողջ feature group-ը լինել։ Developer-ը phase-ը բաժանում է vertical slice-երի և իրականացնում է դրանք մեկ առ մեկ. յուրաքանչյուրն ունի մեկ observable outcome, սահմանված non-goals և tests։
 
 ## 4. Common Definition of Done
 
@@ -301,7 +300,7 @@ orchestrator
 2. հաստատում է predecessor phase state-ը,
 3. developer-ին տալիս է միայն տվյալ phase-ի մեկ work package,
 4. ստանում է task envelopes և dependency inventory,
-5. READY slice-երը հերթով փոխանցում է coder-ին,
+5. READY slice-երը հերթով փոխանցում է developer-ին՝ design և implementation-ի համար,
 6. յուրաքանչյուր stable diff ուղարկում է reviewer/security/QA համապատասխան routing-ով,
 7. failure-ը վերադարձնում է `NEEDS_REWORK`, ոչ թե թաքցնում phase summary-ում,
 8. work-package evidence-ը կցում է phase status-ին,

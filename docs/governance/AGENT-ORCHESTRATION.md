@@ -19,14 +19,14 @@ Orchestration-ը պետք է ապահովի՝
 | Դեր | Պատասխանատվություն | Չի անում |
 |---|---|---|
 | `orchestrator` | classify, route, sequence, dependency control, evidence aggregation, final status | product code չի գրում և իր ղեկավարած task-ը չի review անում |
-| `developer` | requirement-ից կազմում է իրագործելի technical slice, plan, acceptance criteria և affected-area map | production code չի գրում, task-ը չի հաստատում |
-| `coder` | իրականացնում է հաստատված slice-ը և գրում համապատասխան automated tests | scope չի ընդլայնում, self-approval չի անում |
+| `developer` | requirement-ից կազմում և իրականացնում է bounded technical slice-ը, գրում automated tests և տալիս stable diff identity | scope չի ընդլայնում, self-review կամ completion չի անում |
 | `reviewer` | անկախ diff/code review՝ correctness, scope, architecture և tests | reviewed code-ը չի հեղինակել, review-ի ընթացքում feature չի ավելացնում |
 | `qa-playwright` | running system-ի Playwright browser/E2E verification և evidence | product code չի ուղղում՝ failing test-ը թաքցնելու համար |
 | `security-privacy-reviewer` | threat/privacy review զգայուն փոփոխությունների համար | business policy չի հորինում և ընդհանուր reviewer-ին չի փոխարինում |
-| `task-go-reviewer` | առանձին TASK-GO record-ի governance verdict | implementation/code review/QA չի անում |
 
-`developer` և `coder` դիտավորյալ տարբեր դերեր են։ Developer-ը պատասխանում է «ինչ և ինչ սահմանով կառուցել» հարցին, coder-ը՝ «ինչպես իրականացնել այդ հաստատված slice-ը» հարցին։ Փոքր մեխանիկական task-ի դեպքում orchestrator-ը կարող է developer փուլը կրճատել, բայց չի կարող coder-ին թույլ տալ ինքնուրույն ընդլայնել scope-ը։
+Orchestration-ի կազմը հենց այս հինգ agent role-ն է։ `developer`-ը մեկ bounded task-ի ներսում կատարում է և՛ technical slice design-ը, և՛ implementation-ը։ Մինչև code edit-ը նա run record-ում ամրագրում է outcome-ը, non-goals-ը, affected paths-ը, dependencies-ը և acceptance checks-ը։ Design և implementation միավորելը չի թույլատրում scope ընդլայնել կամ սեփական diff-ը review անել։
+
+Repository-ում պահպանվող `task-go-reviewer`-ը orchestration agent չէ։ Այն միայն ըստ առանձին owner/compliance պահանջի կանչվող optional governance utility է և չի մտնում routing matrix-ի, lifecycle-ի, required agent count-ի կամ completion rule-ի մեջ։
 
 ## 3. Orchestration lifecycle
 
@@ -35,7 +35,7 @@ REQUEST
   → INTAKE_AND_CLASSIFICATION
   → CONTEXT_AND_DEPENDENCY_CHECK
   → TECHNICAL_SLICE_READY             (developer)
-  → IMPLEMENTATION_IN_PROGRESS         (coder)
+  → IMPLEMENTATION_IN_PROGRESS         (developer)
   → CODE_REVIEW                        (reviewer)
   → SECURITY_PRIVACY_REVIEW_IF_NEEDED  (security-privacy-reviewer)
   → QA_READY
@@ -50,13 +50,13 @@ REQUEST
 
 | Փոփոխության տեսակ | Պարտադիր դերեր | Պայմանական դերեր |
 |---|---|---|
-| Documentation-only | orchestrator, developer կամ coder, reviewer | task-go-reviewer՝ միայն եթե առանձին record է պահանջվում |
-| Backend business behavior | orchestrator, developer, coder, reviewer | security/privacy, QA՝ եթե UI կամ end-to-end flow կա |
-| Frontend/UI behavior | orchestrator, developer, coder, reviewer, qa-playwright | security/privacy՝ sensitive data/access դեպքում |
-| Schema/migration | orchestrator, developer, coder, reviewer | security/privacy; QA՝ user-visible flow դեպքում |
-| Authentication/authorization/session | բոլոր հիմնական դերերը | task-go-reviewer՝ որպես առանձին governance verdict |
+| Documentation-only | orchestrator, developer, reviewer | none |
+| Backend business behavior | orchestrator, developer, reviewer | security/privacy, QA՝ եթե UI կամ end-to-end flow կա |
+| Frontend/UI behavior | orchestrator, developer, reviewer, qa-playwright | security/privacy՝ sensitive data/access դեպքում |
+| Schema/migration | orchestrator, developer, reviewer | security/privacy; QA՝ user-visible flow դեպքում |
+| Authentication/authorization/session | բոլոր հինգ դերերը | լրացուցիչ domain review, եթե business semantics-ը բաց է |
 | PHI/patient data, audit, export, upload, attachment, integration | բոլոր հիմնական դերերը + security/privacy | լրացուցիչ domain review, եթե business semantics-ը բաց է |
-| Build/CI/dependency-only | orchestrator, developer, coder, reviewer | security/privacy՝ dependency/security surface-ի դեպքում |
+| Build/CI/dependency-only | orchestrator, developer, reviewer | security/privacy՝ dependency/security surface-ի դեպքում |
 
 ## 5. Task envelope
 
@@ -81,7 +81,6 @@ acceptance_checks:
   - "<observable check>"
 required_agents:
   - developer
-  - coder
   - reviewer
 risk_flags:
   security: false
@@ -95,7 +94,7 @@ risk_flags:
 review_identity: "<commit SHA or diff identity; pending before implementation>"
 ```
 
-Չլրացված business dependency-ն coder-ին չի փոխանցվում որպես ենթադրություն։ Orchestrator-ը կամ փոքրացնում է slice-ը, կամ նշում է task-ը `BLOCKED`/clarification-required՝ repository-ի գործող authority կանոններին համապատասխան։
+Չլրացված business dependency-ն developer-ը չի վերածում ենթադրության։ Orchestrator-ը կամ փոքրացնում է slice-ը, կամ նշում է task-ը `BLOCKED`/clarification-required՝ repository-ի գործող authority կանոններին համապատասխան։
 
 ## 6. Handoff contract
 
@@ -120,7 +119,7 @@ Summary-only handoff-ը բավարար evidence չէ։ Եթե agent-ը փոփո�
 
 ## 7. Review independence
 
-- `coder`-ը չի կարող լինել իր փոփոխության վերջնական `reviewer` կամ `qa-playwright`։
+- `developer`-ը չի կարող լինել իր փոփոխության վերջնական `reviewer` կամ `qa-playwright`։
 - `developer`-ը կարող է պատասխանել clarification-ին, բայց չի վերագրում reviewer-ի finding-ը։
 - Reviewer-ը ստուգում է իրական diff-ը և cited source-երը, ոչ միայն orchestrator-ի summary-ն։
 - QA-ն ստուգում է running build-ը և գրանցում exact URL/scenario/result-ը։ Screenshot-ը միայնակ PASS չէ առանց քայլերի և expected result-ի։
@@ -160,11 +159,11 @@ Reviewer-ը ստուգում է least privilege, backend enforcement, data minim
 
 Թույլատրվում է զուգահեռացնել միայն անկախ read-only analysis կամ չհամընկնող file ownership ունեցող subtasks։ Չի թույլատրվում՝
 
-- երկու coder նույն ֆայլերի կամ նույն schema migration chain-ի վրա,
+- երկու developer նույն ֆայլերի կամ նույն schema migration chain-ի վրա,
 - reviewer-ը սկսել մինչև review identity-ն կայուն է,
 - QA-ն PASS տալ այլ build-ի վրա,
 - երկու agent միաժամանակ փոխեն նույն task/run record-ը,
-- անվտանգության finding-ը փակել միայն coder-ի հայտարարությամբ։
+- անվտանգության finding-ը փակել միայն developer-ի հայտարարությամբ։
 
 Orchestrator-ը նախապես նշանակում է file ownership-ը և merge order-ը։ Conflict կամ scope overlap-ի դեպքում parallel branch-ը կանգ է առնում։
 
@@ -189,10 +188,101 @@ Orchestrator-ը task-ը `COMPLETE` է նշում միայն երբ՝
 - behavior-changing documentation-ը թարմացված է,
 - evidence-ը բավարար է արդյունքը կրկնելու համար։
 
-`task-go-reviewer`-ի verdict-ը պահվում է իր task record-ում և չի փոխարինում վերևի code review/QA completion evidence-ին։ Repository-level կանոնով եթե TASK-GO-ն development prerequisite չէ, orchestration-ը այն չի վերածում թաքնված pre-code blocker-ի։
+Optional governance utility-ի TASK-GO verdict-ը, եթե owner-ը այն առանձին պահանջել է, պահվում է իր task record-ում և չի փոխարինում code review/QA completion evidence-ին։ Այն orchestration lifecycle-ի մաս կամ development prerequisite չէ։
 
 ## 13. Run record
 
 Երկար, multi-agent կամ high-risk task-ի համար օգտագործվում է [run record template](./ORCHESTRATION-RUN-TEMPLATE.md)։ Փոքր task-ի դեպքում նույն դաշտերը կարող են պահպանվել task description/handoff-ում՝ առանց նոր ֆայլ ստեղծելու։
 
 Phase I-ի յոթ functional group-երի իրականացման հերթականությունը և phase-level exit criteria-ները սահմանված են [phased implementation plan](./PHASED-IMPLEMENTATION-PLAN.md)-ում, իսկ ընթացիկ process state-ը՝ [phase status register](./PHASE-STATUS.yaml)-ում։
+
+## 14. Async աշխատանք և հաղորդակցություն
+
+Եթե agent platform-ը երաշխավորում է background execution-ը parent turn-ի ավարտից հետո, orchestrator-ը երկարատև task-ը գործարկելուց հետո չպետք է փակ պահի օգտատիրոջ երկխոսությունը։ Գործարկումից անմիջապես հետո նա կարճ հայտնում է՝
+
+- ինչ task է գործարկվել,
+- որ agent/model-ին է այն նշանակվել,
+- ինչու է ընտրվել այդ agent/model-ը,
+- որ run record-ում է գրանցվելու արդյունքը։
+
+Այնուհետև orchestrator-ը կարող է ավարտել ընթացիկ turn-ը, որպեսզի օգտատերը շարունակի քննարկումը։ Յուրաքանչյուր background աշխատանք պետք է ունենա կայուն `task_id`, run record և հետագա արդյունքը ստանալու supported մեխանիզմ։ Եթե platform-ը չի երաշխավորում background execution-ը parent turn-ի ավարտից հետո, orchestrator-ը չի հայտարարում, որ task-ը շարունակում է աշխատել, և օգտագործում է տվյալ միջավայրի supported wait/resume ընթացքը։
+
+## 15. Token և context արդյունավետություն
+
+- Փոքր ուղղման համար չվերագործարկել ծանր կամ լայն context ունեցող agent։
+- Փոքր, հստակ փոփոխությունները փոխանցել համապատասխան գործող հինգ agent-ից մեկին՝ նեղ սահմանված առաջադրանքով և նրա owner-locked model-ով։
+- Agent-ին չհանձնարարել «ուսումնասիրել ամբողջ project/workspace-ը», երբ բավարար են կոնկրետ ֆայլերը, package-ները կամ module-ները։
+- Յուրաքանչյուր agent ստուգում է իր task-ից ազդված package-ները, module-ները և անմիջական dependency-ները։
+- Նույն աշխատանքը մի քանի agent-ի չհանձնարարել առանց անկախ review-ի կամ համեմատական հետազոտության հստակ պատճառի։
+- Handoff-ում փոխանցել միայն անհրաժեշտ context-ը, source paths-ը, acceptance criteria-ն և առկա evidence-ը։
+- Յուրաքանչյուր implementation task-ի ընթացքում կատարել targeted checks։ Ամբողջական lint, test և build կատարել final integration փուլում մեկ անգամ, իսկ բարձր ռիսկային փոփոխության դեպքում՝ նաև այնքան շուտ, որքան անհրաժեշտ է արագ failure հայտնաբերելու համար։
+
+## 16. Model routing
+
+Model assignment-ը repository owner-ի կողմից lock է արված և task-ի ընթացքում չի ընտրվում կամ փոխարինվում։ Պարտադիր mapping-ն է՝
+
+| Agent | Locked model | Reasoning |
+|---|---|---|
+| `orchestrator` | `Sonnet 5.5` | platform default |
+| `developer` | `Sonnet 5.5` | platform default |
+| `reviewer` | `GPT-5.4` | `medium` |
+| `qa-playwright` | `Grok 4.7` | platform default |
+| `security-privacy-reviewer` | `Opus 5.5` | platform default |
+
+`MODEL_ASSIGNMENTS_OWNER_LOCKED`: agent-ը չի կարող օգտագործել `inherit`, alias, auto-upgrade, downgrade կամ fallback substitution։ Exact model-ի բացակայության դեպքում կանգնում է միայն affected delegation-ը, և orchestrator-ը repository owner-ից խնդրում է նոր model-ի բացահայտ ընտրություն։ Մինչև պատասխանը ուրիշ model չի գործարկվում։
+
+`NEW_SUBAGENT_REQUIRES_OWNER_APPROVAL`: ցանկացած լրացուցիչ subagent/role ստեղծելու, գրանցելու կամ spawn անելուց առաջ orchestrator-ը repository owner-ին ներկայացնում է առաջարկվող role-ը, bounded task-ը, գոյություն ունեցող հինգ agent-ից որևէ մեկով այն չկատարելու պատճառը, թույլատրելի paths-ը և հասանելի model ընտրությունները։ Նոր subagent-ը ստեղծվում է միայն owner-ի հստակ համաձայնությունից հետո և միայն owner-ի ընտրած model-ով։ Task-ի ընդհանուր approval-ը նոր subagent-ի approval չէ։
+
+## 17. Commit policy
+
+Մեկ ավարտված տրամաբանական փուլը համապատասխանում է մեկ conventional commit-ի։ Shared workspace-ում սովորական executor agent-ը ինքնուրույն commit չի ստեղծում, եթե orchestrator-ը նրան բացահայտ չի նշանակել commit owner։ Commit-ը ստեղծում է orchestrator-ը կամ նշանակված integration agent-ը միայն երբ՝
+
+- task-ի targeted checks-ը անցել են,
+- պարտադիր reviewer findings-ը փակված են,
+- staged diff-ում միայն տվյալ task-ի owned paths-ն են,
+- commit message-ը նկարագրում է մեկ տրամաբանական փոփոխություն։
+
+Արգելվում է չկապված փոփոխություն ներառել, push անել առանց օգտատիրոջ բացահայտ հանձնարարության, վերագրել ուրիշի commit-ը, օգտագործել force push/destructive reset/history rewrite կամ required failing checks-ով commit ստեղծել։ Commit SHA-ն և ներառված paths-ը գրանցվում են run record-ում։
+
+## 18. Final integration control
+
+Բոլոր implementation փուլերից հետո orchestrator-ը կամ integration reviewer-ը՝
+
+1. ստուգում է ամբողջ diff-ը և staged/unstaged վիճակը,
+2. գտնում է unfinished, placeholder կամ dead հատվածները,
+3. ստուգում է conflict-ները և կրկնվող implementation-ը,
+4. ստուգում է architecture և module boundaries-ը,
+5. ստուգում է imports-ը, types-ը և dependency consistency-ն,
+6. կատարում է ամբողջական lint, tests և build,
+7. UI փոփոխությունների դեպքում ստուգում է Playwright evidence-ը,
+8. հաստատում է, որ ավելորդ ֆայլեր չեն փոփոխվել,
+9. արդյունքը համեմատում է սկզբնական requirements-ի և acceptance criteria-ի հետ,
+10. գրանցում է residual risks-ը և follow-up task-երը։
+
+Փոքր տեղային rework-ը փոխանցվում է համապատասխան գործող հինգ agent-ից մեկին՝ նրա locked model-ով։ Այլ model կամ նոր subagent օգտագործելու համար նախապես պահանջվում է repository owner-ի բացահայտ համաձայնությունը։ Final status-ը միայն `COMPLETE`, `NEEDS_REWORK` կամ `BLOCKED` է։ `COMPLETE` չի տրվում agent-ի summary-ի հիման վրա՝ առանց վերարտադրելի evidence-ի։
+
+## 19. Առաջնահերթություններ
+
+1. Correctness
+2. Reliability
+3. Scope preservation
+4. Owner-locked agent/model mapping-ի պահպանում
+5. Quality
+6. Վճարովի token-ների խնայողություն
+7. Speed
+
+## 20. Critical owner-decision escalation
+
+`BLOCKED_OWNER_DECISION_REQUIRED` կիրառվում է, երբ canonical documentation-ը չի սահմանում implementation-ին անհրաժեշտ critical ընտրությունը, և ընտրությունը փոխում է user-visible business behavior, medical/clinical կանոն, money/rounding/payment policy, authorization/data visibility, audit/retention/privacy/security policy, irreversible migration, production database/storage/authentication/integration architecture, խոշոր framework/external կամ paid dependency, OpenMRS canonical ownership, workflow state/irreversible transition, incompatible public contract կամ Phase I scope։
+
+Agent-ը չի ընտրում այդ արժեքը framework default-ից, historical source-ից, industry practice-ից կամ սեփական նախընտրությունից։ Նա՝
+
+1. կանգնեցնում է միայն affected slice-ը,
+2. շարունակում է անկախ task-երը,
+3. run record-ում գրանցում է missing decision-ը և affected requirement/task/files-ը,
+4. repository owner-ին ներկայացնում է 2–3 viable option, trade-off-ները և հստակ «recommendation only» առաջարկը,
+5. սպասում է owner-ի բացահայտ ընտրությանը,
+6. գրանցում է approval evidence-ը և նշանակալի architecture որոշման դեպքում ADR-ը,
+7. միայն դրանից հետո վերադարձնում է slice-ը implementation flow։
+
+Owner-ի լռությունը approval չէ։ Սովորական reversible technical detail-ը escalation չէ, եթե այն նոր business, clinical, financial, legal, privacy, security կամ architecture semantics չի ստեղծում։

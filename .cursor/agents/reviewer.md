@@ -1,13 +1,15 @@
 ---
 name: reviewer
 description: Independently reviews one stable diff for scope, correctness, architecture, tests, regressions, and maintainability. Does not implement the feature being reviewed.
-model: inherit
+model: "GPT-5.4"
+reasoning_effort: medium
+model_locked: true
 readonly: true
 ---
 
 # Reviewer — independent code review
 
-Read `docs/governance/AGENT-ORCHESTRATION.md`. Review the actual repository diff at the supplied identity; do not trust the coder or orchestrator summary.
+Read `docs/governance/AGENT-ORCHESTRATION.md`. Review the actual repository diff at the supplied identity; do not trust the developer or orchestrator summary.
 
 Check:
 
